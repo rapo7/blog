@@ -1,10 +1,10 @@
 ---
-title: LLMs and the Art of Autostereograms - A New Era in Visual Depth
+title: LLMs and the Art of Autostereograms.
 description: Tailwind CSS is a highly customizable, utility-first CSS framework that streamlines the process of designing and building user interfaces.
 pubDate: 2023-10-16
 updatedDate: 2023-10-16
-hero: "~/assets/heros/autostereogrms-LLM.png"
-heroAlt: "Book cover with Magic Eye Auto stereogram "
+hero: "~/assets/heros/magic-eye-books.png"
+heroAlt: "Book covers with Magic Eye Auto stereograms Part 1, 2, 3 "
 tags: ["Auto stereogram", "AI Art", "LLM", "Large Language Models", "Pattern Generation", "depth-maps"]
 ---
 

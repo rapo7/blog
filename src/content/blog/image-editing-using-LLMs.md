@@ -4,8 +4,8 @@ description: This guide will walk you through adding a seamless dark mode to you
 pubDate: 2024-09-09
 updatedDate: 2024-09-09
 hero: "~/assets/heros/gemini.png"
-heroAlt: "Astro logo with a dark background"
-tags: ["Image Editing", "LLMs", "Gemini", "Gemini","AI image generation","AI art","Image generation","Prompt engineering","AI models","Artificial intelligence","Machine learning"]
+heroAlt: "Gemini logo with a dark background"
+tags: ["Image Editing", "LLMs", "Gemini","AI image generation","AI art","Image generation","Prompt engineering","AI models","Artificial intelligence","Machine learning"]
 ---
 
 # My Experience with the Gemini Model: Creating Cats Playing with Yarn
