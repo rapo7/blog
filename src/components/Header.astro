@@ -1,0 +1,22 @@
+---
+import Link from "./Link.astro";
+---
+
+<nav
+  class="sticky top-0 z-10 lg:backdrop-blur-lg bg-zinc-900 bg-opacity-90 lg:bg-opacity-50 py-4 px-6 lg:px-0"
+>
+  <ul class="flex justify-center space-x-4 text-sm">
+    <li>
+      <Link
+        href={import.meta.env.BASE_URL + "/"}
+        text="My Thought Log"
+        addClass="pb-8 font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-400"
+      />
+    </li>
+    <li>
+      <Link href={import.meta.env.BASE_URL + "/blog/"}  />
+    </li>
+    <li>
+      <Link  />
+  </ul>
+</nav>
