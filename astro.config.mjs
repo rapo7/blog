@@ -11,6 +11,7 @@ export default defineConfig({
     service: sharpImageService()
   },
   site: 'https://rapo7.github.io',
+  base: '/blog/',
   vite: {
     plugins: [rawFonts([".ttf", ".woff"])],
     optimizeDeps: {
