@@ -1,17 +1,8 @@
 # cojocarudavid.me
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/cojocaru-david/cojocarudavid.me/ci.yml)
-![License](https://img.shields.io/github/license/cojocaru-david/cojocarudavid.me)
-![Version](https://img.shields.io/github/package-json/v/cojocaru-david/cojocarudavid.me)
-![Stars](https://img.shields.io/github/stars/cojocaru-david/cojocarudavid.me?style=social)
 
-👋 Hi, I'm David, a 16yo coder from Romania 🚀 Crafting web wonders with JavaScript, PHP, and React. Linux lover automating tasks with Bash.
+👋 Hi, I'm Ravi Teja Rapolu, a current masters student studying Computer Science at George Washington University.
 
-## 🚀 Project Overview
-
-cojocarudavid.me is a blazing fast personal website built with Astro.js and styled with Tailwind CSS. It showcases my projects, blog posts, and more.
-
-![Website Screenshot](.github/smartmockups_m1jn1m6x.jpg)
 
 ## 🌟 Features
 
@@ -69,23 +60,6 @@ cojocarudavid.me is a blazing fast personal website built with Astro.js and styl
   ```sh
   npm run deploy
   ```
-
-### Contributing
-
-Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 💬 Contact
-
-Feel free to reach out to me at [contact@cojocarudavid.me](mailto:contact@cojocarudavid.me).
-
-## 🚀 Connect with Me
-
-- [LinkedIn](https://www.linkedin.com/in/cojocaru-david)
-- [Blog](https://cojocarudavid.me/blog)
 
 ## 🌟 Show Your Support
 
