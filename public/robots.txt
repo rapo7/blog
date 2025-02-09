@@ -1,0 +1,4 @@
+Sitemap: https://rapo7.github.io/blog/sitemap-index.xml
+
+User-agent: *
+Allow: /
