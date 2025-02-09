@@ -52,8 +52,8 @@ jobs:
             --site "${{ steps.pages.outputs.origin }}"
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload static files as artifact
+        uses: actions/upload-pages-artifact@v3 
         with:
           name: github-pages
           path: ${{ env.BUILD_PATH }}/dist
