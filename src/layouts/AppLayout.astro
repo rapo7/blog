@@ -4,6 +4,7 @@ import { author } from "@data/socials";
 import "@fontsource-variable/inter";
 import "@styles/global.css";
 import Header from "@components/Header.astro";
+import GTMAstro from '@components/GTMAstro.astro';
 
 interface Props {
   title?: string;
@@ -55,6 +56,7 @@ const date = pubDate || lastmod || new Date();
     />
     <meta name="date" content={date.toISOString()} />
     <meta name="keywords" content={tags.join(", ")} />
+    <GTMAstro />
   </head>
   <body
     class="dark:bg-zinc-900 bg-zinc-100 antialiased selection:bg-blue-300 selection:text-zinc-900 dark:selection:bg-blue-600 dark:selection:text-white 2xl:text-lg"
