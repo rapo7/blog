@@ -1,4 +1,4 @@
-# cojocarudavid.me
+# My Thought Log
 
 
 👋 Hi, I'm Ravi Teja Rapolu, a current masters student studying Computer Science at George Washington University.
