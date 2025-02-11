@@ -31,13 +31,13 @@
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/cojocaru-david/cojocarudavid.me.git
+   git clone https://github.com/rapo7/blog/.git
    ```
 
 2. **Install dependencies:**
 
    ```sh
-   cd cojocarudavid.me
+   cd blog
    npm install
    ```
 
