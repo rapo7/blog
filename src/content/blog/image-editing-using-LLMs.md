@@ -1,5 +1,5 @@
 ---
-title: My Experience with the Gemini Model - Creating Cats Playing with Yarn
+title: My Experience with Gemini and its Image Generation
 description: This guide will walk you through adding a seamless dark mode to your Astro project using Tailwind CSS and the prefers-color-scheme media query.
 pubDate: 2024-09-09
 updatedDate: 2024-09-09

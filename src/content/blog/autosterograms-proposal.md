@@ -1,5 +1,5 @@
 ---
-title: Unlocking Hidden Depths - The Art and Science of Autostereograms
+title: Unlocking Hidden Depths, The Art and Science of Autostereograms
 description: Process to be used to generate a autostereogram using a unique AI generated pattern with image features.
 pubDate: 2024-11-11
 updatedDate: 2024-11-11

@@ -1,0 +1,155 @@
+---
+title: How I Created a Forms App using Google Cloud Functions and Google Sheets
+description: Creating a Forms Backend and frontend using Google Cloud Functions
+pubDate: 2025-02-11
+updatedDate: 2025-02-11
+hero: "~/assets/heros/functions-sheets.webp"
+heroAlt: "AI generated image with Google sheets and Cloud Run functions in it."
+tags:
+  [
+    "Forms",
+    "Event Management",
+    "Tips & Tricks",
+    "Google Cloud",
+    "Cloud Run Functions",
+    "Google Sheets",
+    "Optimization",
+    "Batching",
+    "Exponential Backoff",
+    "Best Practices"
+  ]
+---
+
+I recently had a chance to build a forms backend where Google Sheets was mandatory for storing form responses. The idea was simple: a single-input form that, when submitted, writes a response to a Google Sheet. However, due to strict privacy requirements (no cookies or extra data collection) for the event moderator, I had to architect a solution that met all these constraints. Cloud Run functions were a natural choice since they are free for up to 2 million requests a month.
+
+Below is the journey of building the codebase along with the challenges encountered, solved in a phase-wise manner.
+
+
+## Phase 1: Initial Setup and Basic Functions
+
+My first approach was to keep things simple. I wanted a minimalistic setup with only two functions handling the following:
+
+- **Forms Function**: GET, PUT, POST, DELETE
+    - Ensuring an OPTIONS request was supported when required (this was important for browsers doing fetch requests).
+    - Initially, I used the PUT method to write a new response row directly into the sheet.
+- **Renderer Function**: A function that receives a formID and fetches the form details from a dedicated FORM_SHEET_ID.
+
+### Authentication Setup
+
+Authentication was achieved using a service account with the minimal required permissions to access both Google Sheets and Drive. Here’s a snippet from my authentication logic:
+
+
+```javascript
+const auth = new GoogleAuth({
+  scopes: ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive'],
+  credentials: { /* service account credentials */ }
+});
+```
+This secured the API calls and ensured that my functions could read and write data to the required sheets.
+
+## Design Overview 
+![Architecture Diagram](../../assets/figures/architecture-forms-site.png)
+
+
+## Phase 2: Facing Heavy Traffic and Rate Limits
+Once the initial functions were in place, I performed stress testing using Playwright to simulate 100 simultaneous browser windows submitting responses concurrently. The test results revealed that:
+
+- Rate Limit Errors: Many requests were failing as the Google Sheets API quickly reached its request quota.
+- Preflight Requests: I discovered that the fetch API was triggering unnecessary preflight OPTIONS requests.
+### The Axios Switch
+To bypass the preflight issues, I switched from fetch to Axios. Axios not only streamlined my client-side code but also helped reduce overhead by avoiding the extra round-trip for preflight checks.
+
+## Phase 3: Optimizing with Batch Processing
+Heavy traffic made it clear that direct, per-request interactions with the Sheets API were unsustainable. I experimented with several strategies to better manage the load.
+
+#### Strategy 1: Queue Management
+In-Memory Request Queue: Every incoming request was added to an in-memory queue.
+Fixed Interval Processing: The queue was processed at regular intervals (set by BATCH_INTERVAL), where all queued requests were batched into a single API call.
+#### Strategy 2: Batch Processing
+In the final iteration, I opted for batch processing. This meant that responses for the same spreadsheet ID were grouped together and written in one API call. This approach drastically reduced the number of API calls and ensured that I stayed within the rate limits.
+
+Below is a simplified snippet:
+```js
+let responseBuffer = {};
+let timers = {};
+
+function handleNewResponse(spreadsheetId, response) {
+  if (!responseBuffer[spreadsheetId]) {
+    responseBuffer[spreadsheetId] = [];
+  }
+  responseBuffer[spreadsheetId].push(response);
+
+  if (!timers[spreadsheetId]) {
+    timers[spreadsheetId] = setTimeout(() => {
+      processBatch(spreadsheetId);
+      timers[spreadsheetId] = null;
+    }, 3000); // Batching interval
+  }
+}
+
+async function processBatch(spreadsheetId) {
+  const responses = responseBuffer[spreadsheetId];
+  try {
+    // Single API call to add multiple rows
+    await sheet.addRows(responses);
+    console.log(`Batch written for ${spreadsheetId}`);
+  } catch (error) {
+    console.error('Batch write error:', error);
+    // Optional: implement exponential backoff here
+  } finally {
+    responseBuffer[spreadsheetId] = [];
+  }
+}
+```
+
+#### Immediate Client Response
+I also ensured that clients received a 202 Accepted response immediately upon form submission. The actual write to the Google Sheet was done asynchronously, which improved the perceived performance and responsiveness of the system.
+
+## Phase 4: Final Refinements and Caching
+Despite the improvements in batch processing for response writes, I noticed that the renderer function (responsible for fetching form details) was causing too many read requests, hitting the Google Sheets read limits.
+
+### Caching Strategy
+To address this, I implemented a caching mechanism:
+```js
+// #codebase
+let formDetailsCache = {};
+
+async function getCachedFormDetails(formID) {
+  if (!formDetailsCache[formID]) {
+    // Delay or network request to fetch the form details.
+    const row = await getFormRow(formID);
+    formDetailsCache[formID] = {
+      title: row.get('Title'),
+      description: row.get('Description'),
+      thankYouNote: row.get('Thank You Note'),
+    };
+  }
+  return formDetailsCache[formID];
+}
+```
+
+Caching prevented repeated queries for the same form details, reducing the number of read requests and further optimizing performance.
+
+### Lessons Learned and the Benefits of Function Separation
+#### Authentication
+- Service Account Setup: Leveraging a properly scoped service account ensured secure and straightforward access to Google APIs.
+#### Handling Heavy Traffic
+- **Direct Writes vs. Batch Processing**: Direct API writes quickly hit rate limits. Batch processing allowed multiple entries to be written in one go, significantly reducing the API call count.
+- **Client Responsiveness**: Providing immediate responses (202 status) improved the user experience even when processing was deferred.
+#### Isolation of Functions
+Splitting the application into independent functions provided multiple benefits:
+
+- **Separation of Concerns:** Each function managed a distinct part of the workflow—form management, rendering, and response handling—which made the code easier to understand and maintain.
+- ***Scalability:*** Functions can be scaled separately based on load patterns. For instance, while response handling needed heavy optimization, the rendering function could continue operating under lighter loads.
+- **Easier Debugging:** With clear responsibilities, locating and fixing bugs became much simpler.
+
+#### Final Architecture Overview
+
+    forms/       - Manages CRUD operations for forms.
+    renderer/    - Renders and retrieves form details, now with caching.
+    responses/   - Handles form responses with batched writes and queue management.
+    adminsite/   - The frontend interface (HTML/CSS/JS) for form creation and management.
+
+Each part of the system is designed to perform a single task, adhering to best practices of modular design.
+## Conclusion
+Building this forms app was a journey of iterative improvements. From setting up authentication correctly, simplifying the initial architecture, handling heavy traffic with batch processing, to finally optimizing performance with caching—each phase presented its own lessons. By separating functions and responsibilities, I not only streamlined the codebase but also prepared the system for scalable performance under load. This experience taught me that sometimes, simpler strategies (like caching and batching) are more effective than complicated retry mechanisms in a serverless environment.

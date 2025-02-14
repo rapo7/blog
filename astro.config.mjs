@@ -6,9 +6,11 @@ import compressor from "astro-compressor";
 
 import partytown from "@astrojs/partytown";
 
+import preact from "@astrojs/preact";
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), compressor(), mdx(), partytown()],
+  integrations: [tailwind(), compressor(), mdx(), partytown(), preact()],
   image: {
     service: sharpImageService()
   },

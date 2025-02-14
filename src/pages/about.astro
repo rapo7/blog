@@ -1,0 +1,46 @@
+---
+import AppLayout from "@layouts/AppLayout.astro";
+import { Image } from "astro:assets";
+import logoWhite from "../assets/logo-white.svg"
+import { author } from "@data/socials";
+---
+
+<AppLayout title="Ravi Teja Rapolu - About Me">
+  <header class="sm:flex sm:items-center sm:justify-between">
+    <div class="rounded aspect-square w-40 overflow-hidden inline-flex drop-shadow-none lg:drop-shadow-[0px_0px_35px_rgba(83,70,250,0.90)]">
+      <Image
+        src={logoWhite}
+        alt="Image of the author"
+        loading="eager"
+        width={320}
+        height={320}
+      />
+    </div>
+    <div class="mt-8 max-w-lg 2xl:max-w-xl sm:my-0 sm:order-first">
+      <h1
+        class="mb-2 text-3xl font-bold tracking-tight dark:text-white text-zinc-900 sm:text-4xl"
+      >
+        {author}
+      </h1>
+      <p class="mb-4 dark:text-zinc-300 text-zinc-700 flex items-center">
+        Full Stack Developer from Romania 
+      </p>
+      <p
+        class="max-w-prose font-normal text-sm md:text-lg dark:text-zinc-400 text-zinc-600 sm:max-w-sm md:max-w-xl leading-relaxed"
+      >
+        I am a self-taught developer who loves to build things for the web. I
+        have been coding for 3 years now and I am always looking to learn new
+        things. I am currently working on a few projects, but I am always open
+        to new opportunities.
+      </p>
+    </div>
+  </header>
+  <section class="mt-10 sm:mt-28" aria-labelledby="section-title">
+    <h2
+      class="dark:text-zinc-300 text-zinc-700 mb-4 text-2xl font-bold tracking-tight"
+      id="section-title"
+    >
+      About Me
+    </h2>
+  </section>
+</AppLayout>
