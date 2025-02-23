@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 
 export default function Bio() {
-  const [bio, setBio] = useState("best");
+  const [bio, setBio] = useState("long");
 
   const handleBioChange = (value) => () => {
     setBio(value);
