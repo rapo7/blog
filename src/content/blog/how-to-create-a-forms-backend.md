@@ -48,6 +48,7 @@ const auth = new GoogleAuth({
 This secured the API calls and ensured that my functions could read and write data to the required sheets.
 
 ## Design Overview 
+
 ![Architecture Diagram](../../assets/figures/architecture-forms-site.png)
 
 
@@ -56,6 +57,8 @@ Once the initial functions were in place, I performed stress testing using Playw
 
 - Rate Limit Errors: Many requests were failing as the Google Sheets API quickly reached its request quota.
 - Preflight Requests: I discovered that the fetch API was triggering unnecessary preflight OPTIONS requests.
+
+- Increasing number of simul
 ### The Axios Switch
 To bypass the preflight issues, I switched from fetch to Axios. Axios not only streamlined my client-side code but also helped reduce overhead by avoiding the extra round-trip for preflight checks.
 
