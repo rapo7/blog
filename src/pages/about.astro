@@ -2,6 +2,7 @@
 import AppLayout from "@layouts/AppLayout.astro";
 import { author } from "@data/socials";
 import Bio from "@components/Bio.jsx";
+import Link from "@components/Link.astro";
 ---
 
 <AppLayout
@@ -27,6 +28,11 @@ import Bio from "@components/Bio.jsx";
     <Bio client:load />
 
   </section>
+  <Link
+        href={import.meta.env.BASE_URL}
+        text="Read My Thought Log &rarr;"
+        addClass="animate-text bg-gradient-to-r from-teal-500 via-blue-500 to-red-500 bg-clip-text text-transparent font-black"
+      />
 
   <section class="mt-5 sm:mt-10" aria-labelledby="section-title">
     <h2
