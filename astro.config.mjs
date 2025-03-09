@@ -2,7 +2,6 @@ import { defineConfig, sharpImageService } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import { readFileSync } from "node:fs";
 import mdx from '@astrojs/mdx';
-import compressor from "astro-compressor";
 import icon from "astro-icon";
 
 import partytown from "@astrojs/partytown";
@@ -11,7 +10,7 @@ import preact from "@astrojs/preact";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), compressor(), mdx(), partytown(), preact(), icon({
+  integrations: [tailwind(), mdx(), partytown(), preact(), icon({
     include: {
       mdi: ["*"],
       ri: ['*'],
