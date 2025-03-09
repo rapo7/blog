@@ -44,11 +44,14 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
-      - name: Install dependencies
+      - name : remove cache
+        run: npm cache clean --force
+        working-directory: ${{ env.BUILD_PATH }}
+      - name : remove node_modules
         run: rm -rf node_modules
-          rm package-lock.json
-          npm cache clean --force
-          npm install
+        working-directory: ${{ env.BUILD_PATH }}
+      - name: Install dependencies
+        run: npm ci
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         run: npx astro build \
