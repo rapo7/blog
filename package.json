@@ -42,6 +42,9 @@
     "satori-html": "^0.3.2",
     "astro": "^5.4.2"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.35.0"
+  },
   "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
