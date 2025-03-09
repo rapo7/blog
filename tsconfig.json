@@ -3,23 +3,17 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@layouts/*": [
-        "src/layouts/*"
-      ],
-      "@data/*": [
-        "src/data/*"
-      ],
-      "@styles/*": [
-        "src/styles/*"
-      ],
-      "~/assets/*": [
-        "src/assets/*"
-      ]
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@data/*": ["src/data/*"],
+      "@styles/*": ["src/styles/*"],
+      "~/assets/*": ["src/assets/*"],
+      "@lib/*": ["src/lib/*"],
+      "@cv": ["./cv.json"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
-  }
+  },
+  "include": ["global.d.ts", "src", "src/**/*.astro", "src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
