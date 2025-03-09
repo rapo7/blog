@@ -44,7 +44,8 @@
     "satori-html": "^0.3.2"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.35.0"
+    "@rollup/rollup-linux-x64-gnu": "4.35.0",
+    "@resvg/resvg-js-linux-x64-gnu": "2.6.2"
   },
   "license": "MIT",
   "engines": {
