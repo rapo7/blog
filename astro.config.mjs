@@ -26,7 +26,7 @@ export default defineConfig({
   vite: {
     plugins: [rawFonts([".ttf", ".woff"])],
     build: {
-      minify: "esbuild",
+      minify: "terser",
       brotliSize: false,
       sourcemap: true,
       chunkSizeWarningLimit: 1024,
