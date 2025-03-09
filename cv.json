@@ -1,0 +1,562 @@
+{
+  "analyticsCode": "",
+  "basics": {
+    "name": "Ravi Teja Rapolu",
+    "label": "Software Developer",
+    "animated_main_label": "developer",
+    "animated_secondary_initial_label": "software",
+    "animated_secondary_final_label": "Full Stack",
+    "email": "ravi.t.rapolu@gmail.com",
+    "url": "https://www.linkedin.com/in/ravi-teja-rapolu/",
+    "summary": "Graduate Student, at GW. I work on Backend and Frontend with AWS / GCP . Currently learning about Software Development, Cloud Computing and AI.",
+    "theme": "red",
+    "location": {
+      "region": "USA",
+      "city": "Washington D.C",
+      "countryCode": "US"
+    },
+    "profiles": [
+      {
+        "network": "BlueSky Social",
+        "icon": "ri:bluesky-fill",
+        "color": "#1185fe",
+        "username": "@ravitejarapo",
+        "url": "https://bsky.app/profile/ravitejarapo.bsky.social"
+      },
+      {
+        "network": "LinkedIn",
+        "icon": "ri:linkedin-fill",
+        "color": "#0066C2",
+        "username": "Ravi Teja Rapolu",
+        "url": "https://linkedin.com/in/ravi-teja-rapolu"
+      },
+      {
+        "network": "GitHub",
+        "icon": "mdi:github",
+        "color": "#929AAB",
+        "username": "@rapo7",
+        "url": "https://github.com/rapo7"
+      },
+      {
+        "network": "Email",
+        "icon": "ri:mail-fill",
+        "color": "#D44638",
+        "username": "Ravi Teja Rapolu",
+        "url": "mailto:ravi.t.rapolu@gmail.com"
+      }
+    ]
+  },
+  "education": [
+    {
+      "institution": "The George Washington University - Washington D.C.",
+      "url": "https://cs.engineering.gwu.edu/",
+      "area": "Computer Science",
+      "studyType": "Master's student",
+      "startDate": "2023-09-24",
+      "endDate": "2024-05-18"
+    },
+    {
+      "institution": "Vardhaman College of Engineering - Hyderabad, India",
+      "url": "https://vardhaman.org/",
+      "area": "Electronics and Communication Engineering",
+      "studyType": "Full-time student",
+      "startDate": "2018-9-01",
+      "endDate": "2022-7-01"
+    }
+  ],
+  "certificates": [
+    {
+      "name": "AWS Certified Developer – Associate",
+      "date": "2025-05-01",
+      "url": "",
+      "issuer": "Amazon"
+    },
+    {
+      "name": "C1 Advanced English",
+      "date": "2025-01-03",
+      "url": "https://cert.efset.org/es/6jDrGH",
+      "issuer": "EF SET"
+    }
+  ],
+  "work": [
+    {
+      "name": "The George washington University",
+      "position": "Software Specialist (Technical Support)",
+      "location_type": "On-Site",
+      "location": "Washington, DC. USA",
+      "url": "https://www.linkedin.com/school/george-washington-university/",
+      "startDate": "2024-07-03",
+      "endDate": null,
+      "summary" : "Experienced in building highly interactive, cloud-native applications with a focus on performance, scalability, and seamless user experience. Skilled in JavaScript, Vue.js, and Google Cloud technologies, with a strong track record of delivering cost-efficient, high-performance solutions. Adept at integrating third-party APIs and automating business processes to improve workflow efficiency.",
+      "highlights": [
+        "Engineered a dynamic forms App using JavaScript, Vue.js, and Google Cloud Run, integrating Google Sheets/Drive APIs to auto-save responses, and implemented request queuing to batch requests and write once to Google Sheets, supporting 100+ concurrent users with zero downtime.",
+        "Cost-Optimized Cloud Architecture: Leveraged Google Cloud Functions’ on-demand compute and Secret Manager for secure credential storage, keeping infrastructure costs at $0.",
+        "Streamlined end-to-end testing using Playwright and monitored performance via Google Cloud Logging, identifying and resolving 30% of latency issues pre-launch, achieving 99.9% uptime.",
+        "Enhanced user experience by embedding Kaltura API for multimedia form attachments and automating Freshdesk ticket creation for support requests, slashing response times by 40%."
+      ],
+      "responsibilities": [
+        "Developed and maintained dynamic, highly interactive front-end applications using JavaScript, Vue.js, and Google Cloud technologies, ensuring scalability and performance.",
+        "Collaborated with backend developers to design and implement integrations with Google Sheets/Drive APIs, automating data storage and retrieval for efficient, real-time data processing.",
+        "Optimized cloud architecture by utilizing Google Cloud Functions for on-demand compute, leveraging Google Cloud Secret Management for secure and cost-effective credential storage.",
+        "Designed and implemented robust testing pipelines using Playwright to ensure reliable, cross-browser compatibility and performance optimization across all features of the app.",
+        "Integrated third-party APIs such as Kaltura for multimedia handling and Freshdesk for automated ticket management, significantly improving the support workflow and user experience."
+      ],
+      "achievements": [
+        "Engineered a highly efficient dynamic forms application capable of handling 100+ concurrent users with zero downtime, reducing user friction and increasing form submission success rates.",
+        "Achieved a 40% reduction in response times by embedding Kaltura API for multimedia form attachments and automating Freshdesk ticket creation for faster support.",
+        "Optimized cloud infrastructure, bringing infrastructure costs to zero while ensuring high performance and security by utilizing Google Cloud Functions and Google Cloud Secret Management.",
+        "Streamlined application testing and performance monitoring, identifying and resolving 30% of latency issues before launch, resulting in 99.9% uptime post-launch.",
+        "Successfully integrated Google Sheets and Drive APIs to enable seamless data-saving and retrieval, eliminating the need for manual updates and improving data accuracy and reliability."
+      ],
+      "skills": {
+        "JavaScript": "simple-icons:javascript",
+        "Vue3": "simple-icons:vuedotjs",
+        "Google Cloud Functions": "simple-icons:googlecloud",
+        "Google Cloud Secret Management": "simple-icons:googlecloud",
+        "Google Sheets API": "simple-icons:google",
+        "Google Drive API": "simple-icons:google",
+        "Google Cloud Run": "simple-icons:googlecloud",
+        "Playwright": "simple-icons:playwright",
+        "Google Cloud Logging": "simple-icons:googlecloud",
+        "Kaltura Developer API": "simple-icons:googledisplayandvideo360",
+        "Freshdesk": "simple-icons:googletasks",
+        "Git": "mdi:git",
+        "GitHub": "mdi:github"
+      }
+    },
+    {
+      "name": "Oracle",
+      "position": "Software Developer",
+      "location_type": "India",
+      "location": "Bengaluru",
+      "url": "https://www.oracle.com/",
+      "startDate": "2022-09-06",
+      "endDate": "2023-09-06",
+      "summary": "Experienced in developing high-complexity, scalable, data-driven front-end projects with a focus on performance, user experience, and system integration. Participated in development of a complex Micro-services Hexagonal DDD Spring Java project.",
+      "highlights": [
+        "Collaborated on a scalable Java/Spring Boot/Oracle JET application, reducing customer onboarding time by 25% through dynamic UI components and CDN deployments for account management automation.",
+        "Transitioned on-premise databases to HeatWave MySQL on OCI, enhancing transaction processing by 35% and enabling real-time analytics for over 50,000 daily transactions."
+      ],
+      "responsibilities": [
+        "Streamlined deployments using Oracle Load Balancer and Oracle Kubernetes Engine (OKE), reducing deployment error time by 50%, while designing event-driven workflows using Oracle Cloud Functions.",
+        "Engineered 30+ APIs with Oracle API Management for various systems, including payments, loans, core banking, and risk management, improving system throughput by 40% while ensuring ASIC compliance.",
+        "Increased test coverage by 90% using Selenium for test automation and OCI Logging Analytics for anomaly detection, which resolved 70% of issues before deployment."
+      ],
+      "achievements" : [
+        "Successfully transitioned databases to HeatWave MySQL, speeding up transaction processing and enabling real-time analytics for large-scale operations.",
+        "Optimized front-end applications by integrating Oracle JET with Spring Boot, creating a seamless and highly responsive user interface for better customer engagement.",
+        "Delivered scalable and resilient solutions by leveraging Oracle Kubernetes Engine (OKE) and Load Balancer to ensure minimal downtime and fast response times across deployments.",
+        "Developed and optimized a suite of critical APIs for core business functions, significantly enhancing the throughput and performance of the system.",
+        "Improved testing and issue resolution through automation, resulting in a significant reduction in pre-deployment errors."
+      ],
+      "skills": {
+        "Java": "ri:java-line",
+        "Spring Boot": "simple-icons:spring",
+        "React": "simple-icons:react",
+        "Oracle JET": "simple-icons:oracle",
+        "OCI HPC Compute": "simple-icons:oracle",
+        "Oracle Kubernetes Engine (OKE)": "simple-icons:kubernetes",
+        "HeatWave MySQL": "simple-icons:mysql",
+        "Oracle API Management": "simple-icons:oracle",
+        "Oracle Load Balancer": "simple-icons:oracle",
+        "Oracle Cloud Functions": "simple-icons:oracle",
+        "Selenium": "simple-icons:selenium",
+        "OCI Logging Analytics": "simple-icons:oracle",
+        "Git": "mdi:git",
+        "GitHub": "mdi:github",
+        "Jira": "simple-icons:jira",
+        "Postman": "simple-icons:postman",
+        "i18n": "simple-icons:i18next",
+        "Figma": "simple-icons:figma",
+        "Kubernetes": "simple-icons:kubernetes",
+        "Docker": "simple-icons:docker"
+      }
+    }
+    
+  ],
+  "skills": [
+    {
+      "name": "Java",
+      "icon": "ri:java-line",
+      "level": "Intermediate",
+      "keywords": ["Backend Development", "OOP", "Java"]
+    },
+    {
+      "name": "Spring Boot",
+      "icon": "simple-icons:spring",
+      "level": "Intermediate",
+      "keywords": ["Backend", "Java", "Spring"]
+    },
+    {
+      "name": "React",
+      "icon": "simple-icons:react",
+      "level": "Expert",
+      "keywords": ["Frontend", "JavaScript", "React"]
+    },
+    {
+      "name": "Oracle JET",
+      "icon": "simple-icons:oracle",
+      "level": "Intermediate",
+      "keywords": ["Oracle", "Frontend", "Web Development"]
+    },
+    {
+      "name": "OCI HPC Compute",
+      "icon": "simple-icons:oracle",
+      "level": "Intermediate",
+      "keywords": ["Cloud Computing", "Oracle"]
+    },
+    {
+      "name": "Oracle Kubernetes Engine (OKE)",
+      "icon": "simple-icons:kubernetes",
+      "level": "Intermediate",
+      "keywords": ["Cloud", "Kubernetes", "Oracle"]
+    },
+    {
+      "name": "HeatWave MySQL",
+      "icon": "simple-icons:mysql",
+      "level": "Intermediate",
+      "keywords": ["Database", "Oracle", "MySQL"]
+    },
+    {
+      "name": "Oracle API Management",
+      "icon": "simple-icons:oracle",
+      "level": "Intermediate",
+      "keywords": ["API", "Oracle", "Cloud"]
+    },
+    {
+      "name": "Oracle Load Balancer",
+      "icon": "simple-icons:oracle",
+      "level": "Intermediate",
+      "keywords": ["Cloud", "Networking", "Oracle"]
+    },
+    {
+      "name": "Oracle Cloud Functions",
+      "icon": "simple-icons:oracle",
+      "level": "Intermediate",
+      "keywords": ["Serverless", "Oracle", "Cloud"]
+    },
+    {
+      "name": "Selenium",
+      "icon": "simple-icons:selenium",
+      "level": "Intermediate",
+      "keywords": ["Testing", "Automation", "Selenium"]
+    },
+    {
+      "name": "OCI Logging Analytics",
+      "icon": "simple-icons:oracle",
+      "level": "Intermediate",
+      "keywords": ["Cloud", "Analytics", "Oracle"]
+    },
+    {
+      "name": "Git",
+      "icon": "mdi:git",
+      "level": "Expert",
+      "keywords": ["Version Control", "Git"]
+    },
+    {
+      "name": "GitHub",
+      "icon": "mdi:github",
+      "level": "Expert",
+      "keywords": ["Version Control", "GitHub"]
+    },
+    {
+      "name": "Jira",
+      "icon": "simple-icons:jira",
+      "level": "Intermediate",
+      "keywords": ["Project Management", "Agile", "Jira"]
+    },
+    {
+      "name": "Postman",
+      "icon": "simple-icons:postman",
+      "level": "Intermediate",
+      "keywords": ["API Testing", "Postman"]
+    },
+    {
+      "name": "i18n",
+      "icon": "simple-icons:i18next",
+      "level": "Intermediate",
+      "keywords": ["Internationalization", "Localization", "Frontend"]
+    },
+    {
+      "name": "Figma",
+      "icon": "simple-icons:figma",
+      "level": "Intermediate",
+      "keywords": ["Design", "UI/UX", "Prototyping"]
+    },
+    {
+      "name": "Kubernetes",
+      "icon": "simple-icons:kubernetes",
+      "level": "Intermediate",
+      "keywords": ["Cloud", "DevOps", "Kubernetes"]
+    },
+    {
+      "name": "Docker",
+      "icon": "simple-icons:docker",
+      "level": "Intermediate",
+      "keywords": ["DevOps", "Containers", "Docker"]
+    },
+    {
+      "name": "JavaScript",
+      "icon": "simple-icons:javascript",
+      "level": "Expert",
+      "keywords": ["Frontend", "Web Development", "JavaScript"]
+    },
+    {
+      "name": "Vue3",
+      "icon": "simple-icons:vuedotjs",
+      "level": "Intermediate",
+      "keywords": ["Frontend", "Vue", "JavaScript"]
+    },
+    {
+      "name": "Google Cloud Functions",
+      "icon": "simple-icons:googlecloud",
+      "level": "Intermediate",
+      "keywords": ["Cloud", "Serverless", "Google Cloud"]
+    },
+    {
+      "name": "Google Cloud Secret Management",
+      "icon": "simple-icons:googlecloud",
+      "level": "Intermediate",
+      "keywords": ["Cloud", "Google Cloud", "Security"]
+    },
+    {
+      "name": "Google Sheets API",
+      "icon": "simple-icons:google",
+      "level": "Intermediate",
+      "keywords": ["API", "Google", "Sheets"]
+    },
+    {
+      "name": "Google Drive API",
+      "icon": "simple-icons:google",
+      "level": "Intermediate",
+      "keywords": ["API", "Google", "Drive"]
+    },
+    {
+      "name": "Google Cloud Run",
+      "icon": "simple-icons:googlecloud",
+      "level": "Intermediate",
+      "keywords": ["Cloud", "Serverless", "Google Cloud"]
+    },
+    {
+      "name": "Playwright",
+      "icon": "simple-icons:playwright",
+      "level": "Intermediate",
+      "keywords": ["Testing", "Automation", "Playwright"]
+    },
+    {
+      "name": "Google Cloud Logging",
+      "icon": "simple-icons:googlecloud",
+      "level": "Intermediate",
+      "keywords": ["Cloud", "Google Cloud", "Logging"]
+    },
+    {
+      "name": "Kaltura Developer API",
+      "icon": "simple-icons:googledisplayandvideo360",
+      "level": "Intermediate",
+      "keywords": ["API", "Kaltura", "Video"]
+    },
+    {
+      "name": "Freshdesk",
+      "icon": "simple-icons:googletasks",
+      "level": "Intermediate",
+      "keywords": ["Customer Support", "Freshdesk"]
+    },
+    {
+      "name": "Astro",
+      "icon": "simple-icons:astro",
+      "level": "Intermediate",
+      "keywords": ["Frontend", "Web Development", "Astro"]
+    },
+    {
+      "name": "CSS3",
+      "icon": "ri:css3-fill",
+      "level": "Expert",
+      "keywords": ["Frontend", "Web Development", "CSS"]
+    },
+    {
+      "name": "TypeScript",
+      "icon": "simple-icons:typescript",
+      "level": "Expert",
+      "keywords": ["Frontend", "Web Development", "TypeScript"]
+    },
+    {
+      "name": "Tailwind",
+      "icon": "mdi:tailwind",
+      "level": "Intermediate",
+      "keywords": ["Frontend", "CSS", "Tailwind"]
+    },
+    {
+      "name": "NodeJS",
+      "icon": "ri:nodejs-line",
+      "level": "Intermediate",
+      "keywords": ["Backend", "JavaScript", "NodeJS"]
+    },
+    {
+      "name": "NPM",
+      "icon": "simple-icons:npm",
+      "level": "Expert",
+      "keywords": ["Package Management", "NPM"]
+    },
+    {
+      "name": "GitHub",
+      "icon": "simple-icons:github",
+      "level": "Expert",
+      "keywords": ["Version Control", "GitHub"]
+    },
+    {
+      "name": "AWT",
+      "icon": "mdi:dock-window",
+      "level": "Intermediate",
+      "keywords": ["Java", "AWT", "GUI"]
+    },
+    {
+      "name": "Design Patterns",
+      "icon": "mdi:design",
+      "level": "Expert",
+      "keywords": ["Software Design", "Patterns"]
+    },
+    {
+      "name": "HTML5",
+      "icon": "simple-icons:html5",
+      "level": "Expert",
+      "keywords": ["Frontend", "Web Development", "HTML"]
+    },
+    {
+      "name": "Django",
+      "icon": "simple-icons:django",
+      "level": "Intermediate",
+      "keywords": ["Backend", "Python", "Django"]
+    },
+    {
+      "name": "Python",
+      "icon": "simple-icons:python",
+      "level": "Intermediate",
+      "keywords": ["Backend", "Python"]
+    },
+    {
+      "name": "Android",
+      "icon": "simple-icons:android",
+      "level": "Intermediate",
+      "keywords": ["Mobile", "Android", "Development"]
+    },
+    {
+      "name": "IOS",
+      "icon": "simple-icons:ios",
+      "level": "Intermediate",
+      "keywords": ["Mobile", "iOS", "Development"]
+    },
+    {
+      "name": "Dart",
+      "icon": "simple-icons:dart",
+      "level": "Intermediate",
+      "keywords": ["Mobile", "Flutter", "Dart"]
+    },
+    {
+      "name": "Firebase",
+      "icon": "simple-icons:firebase",
+      "level": "Intermediate",
+      "keywords": ["Mobile", "Firebase", "Backend"]
+    },
+    {
+      "name": "Flutter",
+      "icon": "simple-icons:flutter",
+      "level": "Intermediate",
+      "keywords": ["Mobile", "Flutter"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Blog",
+      "isActive": true,
+      "description": "A blog made with Astro. It's a project to showcase my skills in Astro and Tailwind.",
+      "highlights": [
+        "🚀 Fast, modern and SEO-friendly",
+        "💯 Lighthouse score 100"
+      ],
+      "github": "https://github.com/rapo7/blog/",
+      "stack": {
+        "Astro": "simple-icons:astro",
+        "CSS3": "ri:css3-fill",
+        "TypeScript": "simple-icons:typescript",
+        "Tailwind": "mdi:tailwind",
+        "NodeJS": "ri:nodejs-line",
+        "NPM": "simple-icons:npm",
+        "github": "simple-icons:github"
+      },
+      "url": "https://rapo7.github.io/blog/about"
+    },
+    {
+      "name": "64 Bit Computer",
+      "isActive": false,
+      "description": "A 64-bit computer made using java Design patterns and core Java concepts. It's a project to showcase my skills in Java and Design Patterns.",
+      "highlights": [
+        "🖥️ 64-bit computer",
+        "🔧 Java Design Patterns",
+        "🧠 Core Java concepts"
+      ],
+      "stack": {
+        "Java": "ri:java-line",
+        "AWT": "mdi:dock-window",
+        "Design Patterns": "mdi:design"
+      },
+      "github": "https://github.com/rapo7/CSAproject",
+      "url": "https://github.com/rapo7/CSAproject"
+    },
+    {
+      "name": "GWQR",
+      "isActive": true,
+      "description": "A simple QR code generator made with react. Used by members at GW to to generate GW QR codes.",
+      "highlights": [
+        "🚀 Fast, modern ",
+        "🔍 User Friendly",
+        "🌐  QR code styling",
+        "📱  Responsive"
+      ],
+      "url": "https://rapo7.github.io/GWQR/",
+      "stack": {
+        "HTML5": "simple-icons:html5",
+        "CSS3": "ri:css3-fill",
+        "Javascript": "simple-icons:javascript",
+        "Reacr": "simple-icons:react",
+        "react-testing-library": "simple-icons:react"
+      },
+      "github": "https://github.com/rapo7/GWQR"
+    },
+    {
+      "name": "KanbanKraft",
+      "isActive": false,
+      "description": "A simple Kanban board made with Django. Used by members at GW to to manage their tasks. and manage boards using a simple drag and drop interface.",
+      "highlights": [
+        "🐍 Pyhton based Full Stack application",
+        "🍳 Easy to use",
+        "🌐  Project Management"
+      ],
+      "stack": {
+        "HTML5": "simple-icons:html5",
+        "CSS3": "ri:css3-fill",
+        "Javascript": "simple-icons:javascript",
+        "Django": "simple-icons:django",
+        "Python": "simple-icons:python"
+      },
+      "github": "https://github.com/rapo7/kanbanKraft"
+    },
+    {
+      "name": "Newsly",
+      "isActive": false,
+      "description": "A tinder like news app which is built using flutter. single codebase for both android and ios.",
+      "highlights": [
+        "📰 News app",
+        "📱 Tinder like UI",
+        "📦 Single codebase for both android and ios"
+      ],
+      "stack": {
+        "Dart": "simple-icons:dart",
+        "Flutter": "simple-icons:flutter",
+        "Android": "simple-icons:android",
+        "IOS": "simple-icons:ios",
+        "Firebase": "simple-icons:firebase"
+      },
+      "github": "https://github.com/rapo7/CSC1_6221_DART"
+    }
+  ]
+}

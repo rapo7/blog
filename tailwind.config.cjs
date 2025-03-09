@@ -1,11 +1,65 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require("tailwindcss/defaultTheme");
+
+import daisyui from "daisyui";
+
+function withOpacity(variableName) {
+  return ({ opacityValue }) => {
+    if (opacityValue !== undefined) {
+      return `rgba(var(${variableName}), ${opacityValue})`;
+    }
+    return `rgb(var(${variableName}))`;
+  };
+}
+
+
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,astro}"],
   darkMode: "class",
 
   theme: {
     extend: {
+      colors: {
+        'blue': '#5fafd7',
+        'green': '#87d787',
+        skin: {
+          hue: withOpacity("--color"),
+          muted: withOpacity("--muted"),
+        }
+      },
+      textColor: {
+        skin: {
+          base: withOpacity("--color-text-base"),
+          muted: withOpacity("--color-text-muted"),
+          inverted: withOpacity("--color-text-inverted"),
+        },
+        nvim: {
+          green: withOpacity("--color-nvim-green"),
+          blue: withOpacity("--color-nvim-blue"),
+        }
+      },
+      backgroundColor: {
+        skin: {
+          fill: withOpacity("--color-fill"),
+          "button-accent": withOpacity("--color-button-accent"),
+          "button-accent-hover": withOpacity("--color-button-accent-hover"),
+          "button-muted": withOpacity("--color-button-muted"),
+        },
+      },
+      ringColor: {
+        skin: {
+          fill: withOpacity("--color-fill"),
+        },
+      },
+      gradientColorStops: {
+        skin: {
+          hue: withOpacity("--color-fill"),
+        },
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
+      },
       fontFamily: {
         sans: ["InterVariable", "Inter", ...defaultTheme.fontFamily.sans],
       },
@@ -54,5 +108,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/typography"), daisyui],
 };
+
+
+

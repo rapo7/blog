@@ -1,72 +1,153 @@
 ---
-import AppLayout from "@layouts/AppLayout.astro";
-import { author } from "@data/socials";
-import Bio from "@components/Bio.jsx";
-import Link from "@components/Link.astro";
+import Layout from "@layouts/Layout.astro";
+
+import AboutSection from "@components/sections/AboutSection.astro";
+import Experience from "@components/sections/Experience.astro";
+import Hero from "@components/sections/Hero.astro";
+import Projects from "@components/sections/Projects.astro";
+import Skills from "@components/sections/Skills.astro";
+
+import ThemeSwitch from "@components/ThemeSwitch.astro";
+
+import CV, { basics } from "@cv";
+import Education from "@components/sections/Education.astro";
+const { name} = basics;
 ---
 
-<AppLayout
-  title="About Me"
-  description="I am Ravi Teja Rapolu a Passionate Computer Science Graduate"
-  ogImage={{
-    src: "/image/about.png",
-    alt: "About Me",
-  }}
-  pubDate={new Date()}
-  tags={["about"]}
->
-  <section class="flex flex-col mb-8">
-    <h1
-      class="mb-2 text-3xl font-bold tracking-tight dark:text-white text-zinc-900 sm:text-4xl"
+<Layout title={`${name} - Portfolio`}>
+  <main
+    class="relative grid h-full max-w-7xl gap-12 p-8 max-sm:py-16 md:min-h-screen md:grid-cols-6 md:p-16 xl:gap-24 print:max-w-none print:grid-cols-1 print:gap-6 text-skin-base"
+  >
+    <div
+      class="slide-enter space-y-6 ease-in md:col-span-2 print:col-span-1 print:grid print:grid-cols-2 print:gap-5 print:space-y-0"
     >
-      {author}
-    </h1>
-    <p class="mb-4 dark:text-zinc-300 text-zinc-700 flex items-center">
-      I am Ravi Teja Rapolu a Passionate Computer Science Graduate
-    </p>
-
-    <Bio client:load />
-
-  </section>
-  <Link
-        href={import.meta.env.BASE_URL}
-        text="Read My Thought Log &rarr;"
-        addClass="animate-text bg-gradient-to-r from-teal-500 via-blue-500 to-red-500 bg-clip-text text-transparent font-black"
-      />
-
-  <section class="mt-5 sm:mt-10" aria-labelledby="section-title">
-    <h2
-      class="dark:text-zinc-300 text-zinc-700 mb-4 text-2xl font-bold tracking-tight"
-      id="section-title"
+      <Hero />
+      <AboutSection />
+      <ThemeSwitch />
+    </div>
+    <div
+      class="slide-enter-content space-y-12 md:col-span-4 print:col-span-1 print:grid print:grid-cols-4 print:gap-2 print:space-y-0"
     >
-      About Me
-    </h2>
-    <section>
-      <p
-        class="text-justify font-normal text-sm md:text-lg dark:text-zinc-400 text-zinc-600 leading-relaxed mt-4"
-      >
-        So, here's the thing about me: I started out thinking I'd be all about
-        circuits and wires, you know, electronics. But then I stumbled into
-        programming, and it was like, 'Whoa, this is way cooler!' I ended up
-        taking every computer science elective I could get my hands on.
-      </p>
-      <p
-        class="text-justify font-normal text-sm md:text-lg dark:text-zinc-400 text-zinc-600 leading-relaxed mt-4"
-      >
-        Fast forward a bit, and I landed at Oracle. That's where I really got a
-        taste of the big leagues. complex systems, huge teams, the whole
-        shebang. It hit me then: there's just so much to learn in computer
-        science. Tinkering with those massive systems sparked a real hunger to
-        dive deeper.
-      </p>
-      <p
-        class="text-justify font-normal text-sm md:text-lg dark:text-zinc-400 text-zinc-600 leading-relaxed mt-4"
-      >
-        That's why I decided to go back to school and get my master's. Now, I'm
-        at GW, knee-deep in computer science, and honestly, I'm loving every
-        minute of it. It's like I'm finally getting to explore all the things I
-        was always curious about. So, yeah, that's my story so far. Just a geek
-        who followed his curiosity, and ended up here.
-      </p>
-  </section>
-</AppLayout>
+      <Experience className="print:col-span-3" />
+      {
+          (
+          <>
+            <Projects className="print:hidden" />
+            {CV?.education && <Education className="order-first" />}
+            <Skills className="print:hidden" />
+          </>
+        )
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 8px;
+  }
+  .scrollbar-thumb-gray-400::-webkit-scrollbar-thumb {
+    background-color: #a0aec0;
+    border-radius: 4px;
+  }
+</style>
+
+<style is:global>
+  * {
+    scrollbar-color: var(--color-button-muted) var(--color-fill);
+  }
+  @page {
+    size: auto;
+    margin: 0;
+  }
+  main {
+    margin: auto;
+    width: 100%;
+  }
+
+  @keyframes slide-enter {
+    0% {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .slide-enter,
+    .slide-enter-content > *:not(:has(.table-of-contents)) {
+      --enter-stage: 0;
+      --enter-step: 150ms;
+      --enter-initial: 0ms;
+      animation: slide-enter 1s both 1;
+      animation-delay: calc(
+        var(--enter-initial) + var(--enter-stage) * var(--enter-step)
+      );
+    }
+
+    .slide-enter-content > *:nth-child(1) {
+      --enter-stage: 1 !important;
+    }
+    .slide-enter-content > *:nth-child(2) {
+      --enter-stage: 2 !important;
+    }
+    .slide-enter-content > *:nth-child(3) {
+      --enter-stage: 3 !important;
+    }
+    .slide-enter-content > *:nth-child(4) {
+      --enter-stage: 4 !important;
+    }
+    .slide-enter-content > *:nth-child(5) {
+      --enter-stage: 5 !important;
+    }
+    .slide-enter-content > *:nth-child(6) {
+      --enter-stage: 6 !important;
+    }
+    .slide-enter-content > *:nth-child(7) {
+      --enter-stage: 7 !important;
+    }
+    .slide-enter-content > *:nth-child(8) {
+      --enter-stage: 8 !important;
+    }
+    .slide-enter-content > *:nth-child(9) {
+      --enter-stage: 9 !important;
+    }
+    .slide-enter-content > *:nth-child(10) {
+      --enter-stage: 10 !important;
+    }
+    .slide-enter-content > *:nth-child(11) {
+      --enter-stage: 11 !important;
+    }
+    .slide-enter-content > *:nth-child(12) {
+      --enter-stage: 12 !important;
+    }
+    .slide-enter-content > *:nth-child(13) {
+      --enter-stage: 13 !important;
+    }
+    .slide-enter-content > *:nth-child(14) {
+      --enter-stage: 14 !important;
+    }
+    .slide-enter-content > *:nth-child(15) {
+      --enter-stage: 15 !important;
+    }
+    .slide-enter-content > *:nth-child(16) {
+      --enter-stage: 16 !important;
+    }
+    .slide-enter-content > *:nth-child(17) {
+      --enter-stage: 17 !important;
+    }
+    .slide-enter-content > *:nth-child(18) {
+      --enter-stage: 18 !important;
+    }
+    .slide-enter-content > *:nth-child(19) {
+      --enter-stage: 19 !important;
+    }
+    .slide-enter-content > *:nth-child(20) {
+      --enter-stage: 20 !important;
+    }
+  }
+</style>
