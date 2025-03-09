@@ -25,6 +25,12 @@ export default defineConfig({
   base: '/blog/',
   vite: {
     plugins: [rawFonts([".ttf", ".woff"])],
+    build: {
+      minify: "esbuild",
+      brotliSize: false,
+      sourcemap: true,
+      chunkSizeWarningLimit: 1024,
+    },
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"]
     }
