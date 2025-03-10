@@ -1,22 +1,19 @@
 ---
 import Layout from "@layouts/Layout.astro";
-
 import AboutSection from "@components/sections/AboutSection.astro";
 import Experience from "@components/sections/Experience.astro";
 import Hero from "@components/sections/Hero.astro";
 import Projects from "@components/sections/Projects.astro";
 import Skills from "@components/sections/Skills.astro";
-
 import ThemeSwitch from "@components/ThemeSwitch.astro";
-
 import CV, { basics } from "@cv";
 import Education from "@components/sections/Education.astro";
-const { name} = basics;
+const { name } = basics;
 ---
 
 <Layout title={`${name} - Portfolio`}>
   <main
-    class="relative grid h-full max-w-7xl gap-12 p-8 max-sm:py-16 md:min-h-screen md:grid-cols-6 md:p-16 xl:gap-24 print:max-w-none print:grid-cols-1 print:gap-6 text-skin-base"
+    class="relative bg-inherit w-fit grid h-full gap-12 p-8 max-sm:py-16 md:min-h-screen md:grid-cols-6 md:p-16 xl:gap-24 print:max-w-none print:grid-cols-1 print:gap-6 text-skin-base"
   >
     <div
       class="slide-enter space-y-6 ease-in md:col-span-2 print:col-span-1 print:grid print:grid-cols-2 print:gap-5 print:space-y-0"
@@ -30,7 +27,7 @@ const { name} = basics;
     >
       <Experience className="print:col-span-3" />
       {
-          (
+        (
           <>
             <Projects className="print:hidden" />
             {CV?.education && <Education className="order-first" />}

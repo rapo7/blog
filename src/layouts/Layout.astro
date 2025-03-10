@@ -34,8 +34,8 @@ const {  summary, url, theme } = CV.basics;
     <meta name="twitter:image" content="" />
     {CV?.analyticsCode && <script is:inline src={CV.analyticsCode} />}
   </head>
-  <body data-theme={theme} class="relative bg-skin-fill font-sans">
-    <div class="absolute top-0 -z-10 h-full w-full print:hidden">
+  <body data-theme={theme} class="relative bg-skin-fill font-sans w-auto">
+    <div class="absolute top-0 z-10 print:hidden">
       <div class="absolute bottom-auto left-[20%] right-auto top-0 h-[200px] w-[200px] -translate-x-[30%] translate-y-[20%] rounded-full bg-skin-hue/10 blur-[80px] invert-0 dark:bg-white/5"></div>
     </div>
     <slot />
