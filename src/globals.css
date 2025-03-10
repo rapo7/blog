@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --color-text-base: 0, 0, 0;
+    --color-text-base: 0, 0, 255;
     --color-text-muted: 120, 120, 120;
     --color-text-inverted: 255, 255, 255;
     --color-fill: 245, 245, 245;
@@ -188,10 +188,10 @@
             theme("colors.slate.950"),
             theme("colors.slate.950") 33%,
             theme("colors.red.500") 66%,
-            theme("colors.orange.400"),
-            theme("colors.yellow.500"),
-            theme("colors.blue"),
-            theme("colors.purple.500")
+            theme("colors.red.400"),
+            theme("colors.indigo.300"),
+            theme("colors.indigo.300"),
+            theme("colors.indigo.500")
     );
     background-size: 300% 100%;
     background-position: top left 100%;

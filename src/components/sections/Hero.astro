@@ -12,7 +12,7 @@ const { city, region } = location
     <section
       id="about"
       aria-label="About me"
-      class="group flex gap-2 sm:-rotate-2 flex-col rounded-3xl bg-skin-muted sm:bg-skin-button-muted p-4 transition-all sm:hover:rotate-0 sm:hover:bg-skin-muted"
+      class="group flex items-center gap-2 sm:-rotate-2 flex-col rounded-3xl bg-skin-muted sm:bg-skin-button-muted p-4 transition-all sm:hover:rotate-0 sm:hover:bg-skin-muted"
     >
       <div
         class="flex items-center text-center gap-4"
@@ -28,7 +28,7 @@ const { city, region } = location
                   </p>
                 </div>
                 <div class="absolute inset-x-0 top-0 w-max translate-y-16 transition-all duration-450 ease-in-out group-hover/subtitle:translate-y-0">
-                  <p class="font-roboto-condensed font-bold lowercase text-xl lg:text-[1rem] lg:leading-[1rem] bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                  <p class="font-roboto-condensed font-bold lowercase text-xl lg:text-[1rem] lg:leading-[1rem] bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-indigo-500">
                     {animated_secondary_final_label}
                   </p>
                 </div>
@@ -44,7 +44,7 @@ const { city, region } = location
       </div>
     </section>
   </div>
-  <div class='flex gap-6 print:hidden'>
+  <div class='flex flex-col sm:flex-row gap-6 print:hidden'>
         <div
           aria-label="Social media"
           class="flex group/social flex-wrap justify-evenly sm:h-40 sm:w-36 w-full h-min sm:flex-col rounded-3xl p-4 transition-all rotate-0 bg-skin-muted sm:bg-skin-button-muted sm:-rotate-2 sm:hover:rotate-0 sm:hover:bg-skin-muted"
@@ -70,7 +70,7 @@ const { city, region } = location
         </div>
         <a
         href={import.meta.env.BASE_URL}
-          class="footer-button flex h-40 w-36 flex-col place-items-center rounded-3xl sm:bg-skin-muted p-4 transition-all rotate-0 bg-skin-muted sm:rotate-2 sm:hover:rotate-0 sm:hover:bg-skin-button-accent text-skin-hue sm:hover:text-skin-inverted max-sm:hidden print:hidden" data-ccursor="parallax"
+          class="flex  w-full h-40 sm:w-36  flex-col place-items-center rounded-3xl sm:bg-skin-muted p-4 transition-all rotate-0 bg-skin-muted sm:rotate-2 sm:hover:rotate-0 sm:hover:bg-skin-button-accent text-skin-hue sm:hover:text-skin-inverted  print:hidden" data-ccursor="parallax"
         >
           <Icon name='ri:newspaper-fill' class='flex-1 w-1/2'/>
           <p class="font-mono font-bold text-center">Open Blog</p>
