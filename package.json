@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev:host" : "astro dev --host",
     "start": "astro dev",
     "build": "astro build --site \"https://rapo7.github.io\" --base \"/blog\"",
     "format": "prettier -w '**/*.{js,jsx,cjs,ts,tsx,astro}'",
