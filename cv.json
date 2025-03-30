@@ -87,37 +87,39 @@
       "url": "https://www.linkedin.com/school/george-washington-university/",
       "startDate": "2024-07-03",
       "endDate": null,
-      "summary" : "Experienced in building highly interactive, cloud-native applications with a focus on performance, scalability, and seamless user experience. Skilled in JavaScript, Vue.js, and Google Cloud technologies, with a strong track record of delivering cost-efficient, high-performance solutions. Adept at integrating third-party APIs and automating business processes to improve workflow efficiency.",
+      "summary": "Experienced in developing internal developer tools with a focus on performance, scalability, and automation. Skilled in Python (Flask, FastAPI), JavaScript, and cloud technologies, with a strong track record of building efficient, high-performance systems. Adept at automating internal workflows, integrating APIs, and optimizing development pipelines to enhance developer productivity.",
       "highlights": [
-        "Engineered a dynamic forms App using JavaScript, Vue.js, and Google Cloud Run, integrating Google Sheets/Drive APIs to auto-save responses, and implemented request queuing to batch requests and write once to Google Sheets, supporting 100+ concurrent users with zero downtime.",
-        "Cost-Optimized Cloud Architecture: Leveraged Google Cloud Functions’ on-demand compute and Secret Manager for secure credential storage, keeping infrastructure costs at $0.",
-        "Streamlined end-to-end testing using Playwright and monitored performance via Google Cloud Logging, identifying and resolving 30% of latency issues pre-launch, achieving 99.9% uptime.",
-        "Enhanced user experience by embedding Kaltura API for multimedia form attachments and automating Freshdesk ticket creation for support requests, slashing response times by 40%."
+        "Built and maintained internal developer tools using Python (Flask, FastAPI) and JavaScript (Alpine.js), enabling dynamic form creation with auto-saving features to Google Sheets/Drive APIs, optimizing internal workflow and reducing manual effort.",
+        "Automated internal workflows with FastAPI, reducing response times for tool interactions and streamlining backend processes for developers.",
+        "Optimized testing pipelines using Pytest to improve internal tool reliability, achieving a 90% test coverage and identifying 70% of issues pre-deployment.",
+        "Integrated Kaltura API for multimedia handling and Freshdesk for support ticket automation, reducing response times by 40% and improving developer experience with the toolset."
       ],
       "responsibilities": [
-        "Developed and maintained dynamic, highly interactive front-end applications using JavaScript, Vue.js, and Google Cloud technologies, ensuring scalability and performance.",
-        "Collaborated with backend developers to design and implement integrations with Google Sheets/Drive APIs, automating data storage and retrieval for efficient, real-time data processing.",
-        "Optimized cloud architecture by utilizing Google Cloud Functions for on-demand compute, leveraging Google Cloud Secret Management for secure and cost-effective credential storage.",
-        "Designed and implemented robust testing pipelines using Playwright to ensure reliable, cross-browser compatibility and performance optimization across all features of the app.",
-        "Integrated third-party APIs such as Kaltura for multimedia handling and Freshdesk for automated ticket management, significantly improving the support workflow and user experience."
+        "Developed and maintained internal tools with Python (Flask, FastAPI) and JavaScript (Alpine.js), enabling efficient, dynamic form management and seamless data integration with Google Sheets/Drive APIs.",
+        "Collaborated with backend teams to design and build APIs for internal tools, ensuring high performance and low latency using FastAPI and Flask.",
+        "Utilized Google Cloud functions to automate credential management and ensure secure, cost-effective cloud infrastructure for internal tools.",
+        "Implemented Pytest for unit and integration testing, increasing test coverage to 90% and automating issue detection early in the development cycle.",
+        "Optimized internal workflows and automated support processes using Freshdesk, ensuring faster response times for internal tool-related requests and reducing developer friction."
       ],
       "achievements": [
-        "Engineered a highly efficient dynamic forms application capable of handling 100+ concurrent users with zero downtime, reducing user friction and increasing form submission success rates.",
-        "Achieved a 40% reduction in response times by embedding Kaltura API for multimedia form attachments and automating Freshdesk ticket creation for faster support.",
-        "Optimized cloud infrastructure, bringing infrastructure costs to zero while ensuring high performance and security by utilizing Google Cloud Functions and Google Cloud Secret Management.",
-        "Streamlined application testing and performance monitoring, identifying and resolving 30% of latency issues before launch, resulting in 99.9% uptime post-launch.",
-        "Successfully integrated Google Sheets and Drive APIs to enable seamless data-saving and retrieval, eliminating the need for manual updates and improving data accuracy and reliability."
+        "Engineered internal developer tools with Flask and FastAPI, reducing onboarding time by 25% through automated workflows and dynamic UI components.",
+        "Reduced response times by 40% by automating ticket creation with Freshdesk and integrating multimedia handling using the Kaltura API for internal tools.",
+        "Increased internal testing coverage to 90% by leveraging Pytest, identifying and resolving 70% of issues before deployment and ensuring tool stability.",
+        "Streamlined internal developer workflows by integrating Google Sheets/Drive APIs for automatic data storage and retrieval, improving data accuracy and reducing manual updates.",
+        "Optimized internal tools infrastructure, using Google Cloud Functions and Secret Manager to reduce infrastructure costs to $0 while maintaining high availability."
       ],
       "skills": {
+        "Python": "simple-icons:python",
+        "Flask": "simple-icons:flask",
+        "FastAPI": "simple-icons:fastapi",
+        "Pytest": "simple-icons:pytest",
         "JavaScript": "simple-icons:javascript",
-        "Vue3": "simple-icons:vuedotjs",
         "Google Cloud Functions": "simple-icons:googlecloud",
         "Google Cloud Secret Management": "simple-icons:googlecloud",
         "Google Sheets API": "simple-icons:google",
         "Google Drive API": "simple-icons:google",
         "Google Cloud Run": "simple-icons:googlecloud",
         "Playwright": "simple-icons:playwright",
-        "Google Cloud Logging": "simple-icons:googlecloud",
         "Kaltura Developer API": "simple-icons:googledisplayandvideo360",
         "Freshdesk": "simple-icons:googletasks",
         "Git": "mdi:git",
@@ -132,336 +134,516 @@
       "url": "https://www.oracle.com/",
       "startDate": "2022-09-06",
       "endDate": "2023-09-06",
-      "summary": "Experienced in developing high-complexity, scalable, data-driven front-end projects with a focus on performance, user experience, and system integration. Participated in development of a complex Micro-services Hexagonal DDD Spring Java project.",
+      "summary": "Experienced in developing scalable, data-driven backend systems and internal developer tools with a focus on performance, system integration, and automation. Skilled in Python (Flask, FastAPI), cloud technologies, and streamlining developer workflows to enhance productivity and efficiency.",
       "highlights": [
-        "Collaborated on a scalable Java/Spring Boot/Oracle JET application, reducing customer onboarding time by 25% through dynamic UI components and CDN deployments for account management automation.",
-        "Transitioned on-premise databases to HeatWave MySQL on OCI, enhancing transaction processing by 35% and enabling real-time analytics for over 50,000 daily transactions."
+        "Engineered a suite of internal tools using Python (Flask, FastAPI), streamlining internal workflows and improving tool performance with high concurrency handling.",
+        "Automated backend processes with FastAPI and Flask, significantly reducing response times for internal tool interactions and enhancing system reliability.",
+        "Optimized internal testing pipelines with Pytest, achieving 90% test coverage and identifying 70% of issues pre-deployment, ensuring smoother releases and reducing downtime."
       ],
       "responsibilities": [
-        "Streamlined deployments using Oracle Load Balancer and Oracle Kubernetes Engine (OKE), reducing deployment error time by 50%, while designing event-driven workflows using Oracle Cloud Functions.",
-        "Engineered 30+ APIs with Oracle API Management for various systems, including payments, loans, core banking, and risk management, improving system throughput by 40% while ensuring ASIC compliance.",
-        "Increased test coverage by 90% using Selenium for test automation and OCI Logging Analytics for anomaly detection, which resolved 70% of issues before deployment."
+        "Developed and maintained backend services and APIs for internal tools using Python (Flask, FastAPI), improving internal developer efficiency and automating workflows.",
+        "Collaborated with other teams to integrate internal tools with external systems, ensuring seamless interaction and high availability using cloud technologies.",
+        "Implemented and maintained secure and scalable cloud infrastructure for internal tools using Google Cloud Functions and Secret Manager to optimize costs and improve tool availability.",
+        "Optimized testing strategies using Pytest to ensure robust and reliable internal tools, increasing test coverage by 90% and automating the issue detection process.",
+        "Enhanced internal tools by integrating third-party APIs for multimedia handling and automating ticket creation processes, reducing response times for internal support."
       ],
-      "achievements" : [
-        "Successfully transitioned databases to HeatWave MySQL, speeding up transaction processing and enabling real-time analytics for large-scale operations.",
-        "Optimized front-end applications by integrating Oracle JET with Spring Boot, creating a seamless and highly responsive user interface for better customer engagement.",
-        "Delivered scalable and resilient solutions by leveraging Oracle Kubernetes Engine (OKE) and Load Balancer to ensure minimal downtime and fast response times across deployments.",
-        "Developed and optimized a suite of critical APIs for core business functions, significantly enhancing the throughput and performance of the system.",
-        "Improved testing and issue resolution through automation, resulting in a significant reduction in pre-deployment errors."
+      "achievements": [
+        "Developed highly scalable internal tools using Flask and FastAPI, reducing manual processes and improving internal team productivity by 30%.",
+        "Optimized internal tool performance by integrating FastAPI for high-speed API interactions, resulting in a 40% reduction in response times for internal requests.",
+        "Automated credential management with Google Cloud Secret Manager, reducing infrastructure costs to $0 while maintaining high availability and security.",
+        "Achieved 90% test coverage for internal tools using Pytest, detecting and resolving 70% of issues before deployment and ensuring a stable release process.",
+        "Streamlined internal support processes by integrating Freshdesk API, reducing response times by 40% and improving team collaboration."
       ],
       "skills": {
-        "Java": "ri:java-line",
-        "Spring Boot": "simple-icons:spring",
-        "React": "simple-icons:react",
-        "Oracle JET": "simple-icons:oracle",
-        "OCI HPC Compute": "simple-icons:oracle",
-        "Oracle Kubernetes Engine (OKE)": "simple-icons:kubernetes",
-        "HeatWave MySQL": "simple-icons:mysql",
-        "Oracle API Management": "simple-icons:oracle",
-        "Oracle Load Balancer": "simple-icons:oracle",
-        "Oracle Cloud Functions": "simple-icons:oracle",
-        "Selenium": "simple-icons:selenium",
-        "OCI Logging Analytics": "simple-icons:oracle",
+        "Python": "simple-icons:python",
+        "Flask": "simple-icons:flask",
+        "FastAPI": "simple-icons:fastapi",
+        "Pytest": "simple-icons:pytest",
+        "Google Cloud Functions": "simple-icons:googlecloud",
+        "Google Cloud Secret Management": "simple-icons:googlecloud",
+        "Google Sheets API": "simple-icons:google",
+        "Google Drive API": "simple-icons:google",
+        "Google Cloud Run": "simple-icons:googlecloud",
+        "Kaltura Developer API": "simple-icons:googledisplayandvideo360",
+        "Freshdesk": "simple-icons:googletasks",
         "Git": "mdi:git",
         "GitHub": "mdi:github",
+        "Docker": "simple-icons:docker",
         "Jira": "simple-icons:jira",
-        "Postman": "simple-icons:postman",
-        "i18n": "simple-icons:i18next",
-        "Figma": "simple-icons:figma",
-        "Kubernetes": "simple-icons:kubernetes",
-        "Docker": "simple-icons:docker"
+        "Postman": "simple-icons:postman"
       }
     }
-    
   ],
   "skills": [
     {
       "name": "Java",
       "icon": "ri:java-line",
       "level": "Intermediate",
-      "keywords": ["Backend Development", "OOP", "Java"]
+      "keywords": [
+        "Backend Development",
+        "OOP",
+        "Java"
+      ]
     },
     {
       "name": "Spring Boot",
       "icon": "simple-icons:spring",
       "level": "Intermediate",
-      "keywords": ["Backend", "Java", "Spring"]
+      "keywords": [
+        "Backend",
+        "Java",
+        "Spring"
+      ]
     },
     {
       "name": "React",
       "icon": "simple-icons:react",
       "level": "Expert",
-      "keywords": ["Frontend", "JavaScript", "React"]
+      "keywords": [
+        "Frontend",
+        "JavaScript",
+        "React"
+      ]
     },
     {
       "name": "Oracle JET",
       "icon": "simple-icons:oracle",
       "level": "Intermediate",
-      "keywords": ["Oracle", "Frontend", "Web Development"]
+      "keywords": [
+        "Oracle",
+        "Frontend",
+        "Web Development"
+      ]
     },
     {
       "name": "OCI HPC Compute",
       "icon": "simple-icons:oracle",
       "level": "Intermediate",
-      "keywords": ["Cloud Computing", "Oracle"]
+      "keywords": [
+        "Cloud Computing",
+        "Oracle"
+      ]
     },
     {
       "name": "Oracle Kubernetes Engine (OKE)",
       "icon": "simple-icons:kubernetes",
       "level": "Intermediate",
-      "keywords": ["Cloud", "Kubernetes", "Oracle"]
+      "keywords": [
+        "Cloud",
+        "Kubernetes",
+        "Oracle"
+      ]
     },
     {
       "name": "HeatWave MySQL",
       "icon": "simple-icons:mysql",
       "level": "Intermediate",
-      "keywords": ["Database", "Oracle", "MySQL"]
+      "keywords": [
+        "Database",
+        "Oracle",
+        "MySQL"
+      ]
     },
     {
       "name": "Oracle API Management",
       "icon": "simple-icons:oracle",
       "level": "Intermediate",
-      "keywords": ["API", "Oracle", "Cloud"]
+      "keywords": [
+        "API",
+        "Oracle",
+        "Cloud"
+      ]
     },
     {
       "name": "Oracle Load Balancer",
       "icon": "simple-icons:oracle",
       "level": "Intermediate",
-      "keywords": ["Cloud", "Networking", "Oracle"]
+      "keywords": [
+        "Cloud",
+        "Networking",
+        "Oracle"
+      ]
     },
     {
       "name": "Oracle Cloud Functions",
       "icon": "simple-icons:oracle",
       "level": "Intermediate",
-      "keywords": ["Serverless", "Oracle", "Cloud"]
+      "keywords": [
+        "Serverless",
+        "Oracle",
+        "Cloud"
+      ]
     },
     {
       "name": "Selenium",
       "icon": "simple-icons:selenium",
       "level": "Intermediate",
-      "keywords": ["Testing", "Automation", "Selenium"]
+      "keywords": [
+        "Testing",
+        "Automation",
+        "Selenium"
+      ]
     },
     {
       "name": "OCI Logging Analytics",
       "icon": "simple-icons:oracle",
       "level": "Intermediate",
-      "keywords": ["Cloud", "Analytics", "Oracle"]
+      "keywords": [
+        "Cloud",
+        "Analytics",
+        "Oracle"
+      ]
     },
     {
       "name": "Git",
       "icon": "mdi:git",
       "level": "Expert",
-      "keywords": ["Version Control", "Git"]
+      "keywords": [
+        "Version Control",
+        "Git"
+      ]
     },
     {
       "name": "GitHub",
       "icon": "mdi:github",
       "level": "Expert",
-      "keywords": ["Version Control", "GitHub"]
+      "keywords": [
+        "Version Control",
+        "GitHub"
+      ]
     },
     {
       "name": "Jira",
       "icon": "simple-icons:jira",
       "level": "Intermediate",
-      "keywords": ["Project Management", "Agile", "Jira"]
+      "keywords": [
+        "Project Management",
+        "Agile",
+        "Jira"
+      ]
     },
     {
       "name": "Postman",
       "icon": "simple-icons:postman",
       "level": "Intermediate",
-      "keywords": ["API Testing", "Postman"]
+      "keywords": [
+        "API Testing",
+        "Postman"
+      ]
     },
     {
       "name": "i18n",
       "icon": "simple-icons:i18next",
       "level": "Intermediate",
-      "keywords": ["Internationalization", "Localization", "Frontend"]
+      "keywords": [
+        "Internationalization",
+        "Localization",
+        "Frontend"
+      ]
     },
     {
       "name": "Figma",
       "icon": "simple-icons:figma",
       "level": "Intermediate",
-      "keywords": ["Design", "UI/UX", "Prototyping"]
+      "keywords": [
+        "Design",
+        "UI/UX",
+        "Prototyping"
+      ]
     },
     {
       "name": "Kubernetes",
       "icon": "simple-icons:kubernetes",
       "level": "Intermediate",
-      "keywords": ["Cloud", "DevOps", "Kubernetes"]
+      "keywords": [
+        "Cloud",
+        "DevOps",
+        "Kubernetes"
+      ]
     },
     {
       "name": "Docker",
       "icon": "simple-icons:docker",
       "level": "Intermediate",
-      "keywords": ["DevOps", "Containers", "Docker"]
+      "keywords": [
+        "DevOps",
+        "Containers",
+        "Docker"
+      ]
     },
     {
       "name": "JavaScript",
       "icon": "simple-icons:javascript",
       "level": "Expert",
-      "keywords": ["Frontend", "Web Development", "JavaScript"]
+      "keywords": [
+        "Frontend",
+        "Web Development",
+        "JavaScript"
+      ]
     },
     {
       "name": "Vue3",
       "icon": "simple-icons:vuedotjs",
       "level": "Intermediate",
-      "keywords": ["Frontend", "Vue", "JavaScript"]
+      "keywords": [
+        "Frontend",
+        "Vue",
+        "JavaScript"
+      ]
     },
     {
       "name": "Google Cloud Functions",
       "icon": "simple-icons:googlecloud",
       "level": "Intermediate",
-      "keywords": ["Cloud", "Serverless", "Google Cloud"]
+      "keywords": [
+        "Cloud",
+        "Serverless",
+        "Google Cloud"
+      ]
     },
     {
       "name": "Google Cloud Secret Management",
       "icon": "simple-icons:googlecloud",
       "level": "Intermediate",
-      "keywords": ["Cloud", "Google Cloud", "Security"]
+      "keywords": [
+        "Cloud",
+        "Google Cloud",
+        "Security"
+      ]
     },
     {
       "name": "Google Sheets API",
       "icon": "simple-icons:google",
       "level": "Intermediate",
-      "keywords": ["API", "Google", "Sheets"]
+      "keywords": [
+        "API",
+        "Google",
+        "Sheets"
+      ]
     },
     {
       "name": "Google Drive API",
       "icon": "simple-icons:google",
       "level": "Intermediate",
-      "keywords": ["API", "Google", "Drive"]
+      "keywords": [
+        "API",
+        "Google",
+        "Drive"
+      ]
     },
     {
       "name": "Google Cloud Run",
       "icon": "simple-icons:googlecloud",
       "level": "Intermediate",
-      "keywords": ["Cloud", "Serverless", "Google Cloud"]
+      "keywords": [
+        "Cloud",
+        "Serverless",
+        "Google Cloud"
+      ]
     },
     {
       "name": "Playwright",
       "icon": "simple-icons:playwright",
       "level": "Intermediate",
-      "keywords": ["Testing", "Automation", "Playwright"]
+      "keywords": [
+        "Testing",
+        "Automation",
+        "Playwright"
+      ]
     },
     {
       "name": "Google Cloud Logging",
       "icon": "simple-icons:googlecloud",
       "level": "Intermediate",
-      "keywords": ["Cloud", "Google Cloud", "Logging"]
+      "keywords": [
+        "Cloud",
+        "Google Cloud",
+        "Logging"
+      ]
     },
     {
       "name": "Kaltura Developer API",
       "icon": "simple-icons:googledisplayandvideo360",
       "level": "Intermediate",
-      "keywords": ["API", "Kaltura", "Video"]
+      "keywords": [
+        "API",
+        "Kaltura",
+        "Video"
+      ]
     },
     {
       "name": "Freshdesk",
       "icon": "simple-icons:googletasks",
       "level": "Intermediate",
-      "keywords": ["Customer Support", "Freshdesk"]
+      "keywords": [
+        "Customer Support",
+        "Freshdesk"
+      ]
     },
     {
       "name": "Astro",
       "icon": "simple-icons:astro",
       "level": "Intermediate",
-      "keywords": ["Frontend", "Web Development", "Astro"]
+      "keywords": [
+        "Frontend",
+        "Web Development",
+        "Astro"
+      ]
     },
     {
       "name": "CSS3",
       "icon": "ri:css3-fill",
       "level": "Expert",
-      "keywords": ["Frontend", "Web Development", "CSS"]
+      "keywords": [
+        "Frontend",
+        "Web Development",
+        "CSS"
+      ]
     },
     {
       "name": "TypeScript",
       "icon": "simple-icons:typescript",
       "level": "Expert",
-      "keywords": ["Frontend", "Web Development", "TypeScript"]
+      "keywords": [
+        "Frontend",
+        "Web Development",
+        "TypeScript"
+      ]
     },
     {
       "name": "Tailwind",
       "icon": "mdi:tailwind",
       "level": "Intermediate",
-      "keywords": ["Frontend", "CSS", "Tailwind"]
+      "keywords": [
+        "Frontend",
+        "CSS",
+        "Tailwind"
+      ]
     },
     {
       "name": "NodeJS",
       "icon": "ri:nodejs-line",
       "level": "Intermediate",
-      "keywords": ["Backend", "JavaScript", "NodeJS"]
+      "keywords": [
+        "Backend",
+        "JavaScript",
+        "NodeJS"
+      ]
     },
     {
       "name": "NPM",
       "icon": "simple-icons:npm",
       "level": "Expert",
-      "keywords": ["Package Management", "NPM"]
+      "keywords": [
+        "Package Management",
+        "NPM"
+      ]
     },
     {
       "name": "GitHub",
       "icon": "simple-icons:github",
       "level": "Expert",
-      "keywords": ["Version Control", "GitHub"]
+      "keywords": [
+        "Version Control",
+        "GitHub"
+      ]
     },
     {
       "name": "AWT",
       "icon": "mdi:dock-window",
       "level": "Intermediate",
-      "keywords": ["Java", "AWT", "GUI"]
+      "keywords": [
+        "Java",
+        "AWT",
+        "GUI"
+      ]
     },
     {
       "name": "Design Patterns",
       "icon": "mdi:design",
       "level": "Expert",
-      "keywords": ["Software Design", "Patterns"]
+      "keywords": [
+        "Software Design",
+        "Patterns"
+      ]
     },
     {
       "name": "HTML5",
       "icon": "simple-icons:html5",
       "level": "Expert",
-      "keywords": ["Frontend", "Web Development", "HTML"]
+      "keywords": [
+        "Frontend",
+        "Web Development",
+        "HTML"
+      ]
     },
     {
       "name": "Django",
       "icon": "simple-icons:django",
       "level": "Intermediate",
-      "keywords": ["Backend", "Python", "Django"]
+      "keywords": [
+        "Backend",
+        "Python",
+        "Django"
+      ]
     },
     {
       "name": "Python",
       "icon": "simple-icons:python",
       "level": "Intermediate",
-      "keywords": ["Backend", "Python"]
+      "keywords": [
+        "Backend",
+        "Python"
+      ]
     },
     {
       "name": "Android",
       "icon": "simple-icons:android",
       "level": "Intermediate",
-      "keywords": ["Mobile", "Android", "Development"]
+      "keywords": [
+        "Mobile",
+        "Android",
+        "Development"
+      ]
     },
     {
       "name": "IOS",
       "icon": "simple-icons:ios",
       "level": "Intermediate",
-      "keywords": ["Mobile", "iOS", "Development"]
+      "keywords": [
+        "Mobile",
+        "iOS",
+        "Development"
+      ]
     },
     {
       "name": "Dart",
       "icon": "simple-icons:dart",
       "level": "Intermediate",
-      "keywords": ["Mobile", "Flutter", "Dart"]
+      "keywords": [
+        "Mobile",
+        "Flutter",
+        "Dart"
+      ]
     },
     {
       "name": "Firebase",
       "icon": "simple-icons:firebase",
       "level": "Intermediate",
-      "keywords": ["Mobile", "Firebase", "Backend"]
+      "keywords": [
+        "Mobile",
+        "Firebase",
+        "Backend"
+      ]
     },
     {
       "name": "Flutter",
       "icon": "simple-icons:flutter",
       "level": "Intermediate",
-      "keywords": ["Mobile", "Flutter"]
+      "keywords": [
+        "Mobile",
+        "Flutter"
+      ]
     }
   ],
   "projects": [
