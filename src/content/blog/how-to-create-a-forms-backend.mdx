@@ -19,7 +19,7 @@ tags:
     "Best Practices"
   ]
 ---
-import ImageList from "./ImageList.tsx";
+import ImageList from "./components/ImageList.tsx";
 import ArchDiagram from "./figures/architecture-forms-site.png"
 
 I recently had a chance to build a forms backend where Google Sheets was mandatory for storing form responses. The idea was simple: a single-input form that, when submitted, writes a response to a Google Sheet. However, due to strict privacy requirements (no cookies or extra data collection) for the event moderator, I had to architect a solution that met all these constraints. Cloud Run functions were a natural choice since they are free for up to 2 million requests a month.

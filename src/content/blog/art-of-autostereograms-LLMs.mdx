@@ -16,7 +16,8 @@ tags:
   ]
 ---
 
-import ImageList from "./ImageList.tsx";
+import ImageList from "./components/ImageList.tsx";
+import AnimatedLink from "./components/AnimatedLink.tsx";
 
 
 # Problem Domain and Brief Project Description
@@ -466,8 +467,14 @@ While the system showed promise, there are still several limitations that need t
 
 I am a web developer so I built two websites
 
-**For pattern generationn and Depth_map generation:**
+**For pattern generation and Depth_map generation:**
 
-[https://rapo7-stereogram-pattern-generator-app-eppbyy.streamlit.app/](https://rapo7-stereogram-pattern-generator-app-eppbyy.streamlit.app/)
-
-**For stereogram generation :** [https://rapo7.github.io/stereogram-generator/](https://rapo7.github.io/stereogram-generator/)
+<AnimatedLink client:load
+  href="https://rapo7-stereogram-pattern-generator-app-eppbyy.streamlit.app/"
+  text="Stereogram Pattern Generator"
+  target="_blank" />
+<br />
+<AnimatedLink client:load
+  href="https://rapo7-stereogram-depth-map-generator-app-2g3j4q.streamlit.app/"
+  text="Stereogram Depth Map Generator"
+  target="_blank" />
