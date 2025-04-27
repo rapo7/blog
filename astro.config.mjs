@@ -18,7 +18,8 @@ export default defineConfig({
     },
   })],
   image: {
-    service: sharpImageService()
+    service: sharpImageService(),
+    remotePatterns: [{ protocol: "https" }],
   },
   site: 'https://rapo7.github.io',
   base: '/blog/',
