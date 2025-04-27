@@ -1,56 +1,31 @@
 {
-  "name": "My Thought Log",
-  "version": "1.0.1",
+  "name": "my-thought-log",
+  "type": "module",
+  "version": "1.0.2",
   "scripts": {
     "dev": "astro dev",
-    "dev:host": "astro dev --host",
     "start": "astro dev",
-    "build": "astro build --site \"https://rapo7.github.io\" --base \"/blog\"",
-    "format": "prettier -w '**/*.{js,jsx,cjs,ts,tsx,astro}'",
+    "build": "astro check && astro build",
     "preview": "astro preview",
-    "lint": "eslint . --max-warnings 0 --report-unused-disable-directives",
-    "test": "astro test",
-    "test:watch": "astro test --watch"
-  },
-  "devDependencies": {
-    "@astrojs/mdx": "^4.2.5",
-    "@astrojs/partytown": "^2.1.4",
-    "@astrojs/preact": "^4.0.5",
-    "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^6.0.0",
-    "@fontsource-variable/inter": "^5.2.5",
-    "@fontsource/inter": "^5.2.5",
-    "@iconify-json/mdi": "^1.2.3",
-    "@iconify-json/ri": "^1.2.5",
-    "@iconify-json/simple-icons": "^1.2.27",
-    "@tailwindcss/typography": "^0.5.16",
-    "@typescript-eslint/eslint-plugin": "^8.26.0",
-    "@typescript-eslint/parser": "^8.26.0",
-    "astro-expressive-code": "^0.40.2",
-    "astro-icon": "^1.1.5",
-    "eslint": "^9.22.0",
-    "eslint-plugin-astro": "^1.3.1",
-    "prettier-plugin-astro": "^0.14.1",
-    "sharp": "^0.33.5",
-    "tailwindcss": "^3.3.3",
-    "terser": "^5.39.0"
+    "astro": "astro"
   },
   "dependencies": {
-    "@fancyapps/ui": "^5.0.36",
-    "@resvg/resvg-js": "^2.6.2",
-    "astro": "^5.4.2",
-    "daisyui": "^5.0.0",
-    "gsap": "^3.12.7",
-    "satori": "^0.12.1",
-    "satori-html": "^0.3.2"
+    "@astrojs/check": "0.9.4",
+    "@astrojs/mdx": "^4.2.5",
+    "@astrojs/partytown": "^2.1.4",
+    "@astrojs/preact": "^4.0.10",
+    "@astrojs/sitemap": "^3.3.1",
+    "@astrojs/tailwind": "^6.0.2",
+    "@iconify-json/mdi": "^1.2.3",
+    "astro": "^5.7.5",
+    "astro-icon": "^1.1.1",
+    "astro-pagefind": "^1.8.3",
+    "preact": "^10.26.5",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.5.4"
   },
-  "optionalDependencies": {
-    "@resvg/resvg-js-linux-x64-gnu": "2.6.2",
-    "@rollup/rollup-linux-x64-gnu": "4.35.0"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">=16.0.0"
-  },
-  "browserslist": "> 0.25%, not dead"
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
+    "terser": "^5.39.0"
+  }
 }

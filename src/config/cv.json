@@ -1,0 +1,105 @@
+{
+    "basic": {
+        "name": "Ravi Teja Rapolu",
+        "job": "Software Engineer",
+        "summary": "Graduate Student, at GW. I work on Backend and Frontend with AWS / GCP . Currently learning about Software Development, Cloud Computing and AI."
+    },
+    "menuItems": [
+        {
+            "name": "About",
+            "link": "/blog/"
+        },
+        {
+            "name": "Blog",
+            "link": "/blog/blogs"
+        }
+    ],
+    "experiences": [
+        {
+            "title": "Software Specialist (Technical Support)",
+            "sub_title": "The George washington University",
+            "years": "2024 - Present",
+            "details": "Experienced in developing internal developer tools with a focus on performance, scalability, and automation. Skilled in Python (Flask, FastAPI), JavaScript, and cloud technologies, with a strong track record of building efficient, high-performance systems. Adept at automating internal workflows, integrating APIs, and optimizing development pipelines to enhance developer productivity."
+        },
+        {
+            "title": "Software Developer",
+            "sub_title": "Oracle",
+            "years": "2022 - 2023",
+            "details": "Experienced in developing scalable, data-driven backend systems and internal developer tools with a focus on performance, system integration, and automation. Skilled in Python (Flask, FastAPI), cloud technologies, and streamlining developer workflows to enhance productivity and efficiency."
+        }
+    ],
+    "education": [
+        {
+            "title": "Master of Science in Computer Science",
+            "sub_title": "The George Washington University",
+            "years": "2023 - 2024",
+            "details": null
+        },
+        {
+            "title": "Bachelor of Science in Electronics and Communication Engineering",
+            "sub_title": "Vardhaman College of Engineering",
+            "years": "2018 - 2022",
+            "details": null
+        }
+    ],
+    "projects": [
+        {
+            "imageUrl": null,
+            "title": "Blog",
+            "type": "Website",
+            "link": "https://rapo7.github.io/blog/about",
+            "description": "Personal blog website to share technical insights and learnings",
+            "techStack": ["Astro", "Tailwind CSS", "Markdown", "GitHub Pages"]
+        },
+        {
+            "imageUrl": null,
+            "title": "64 Bit Computer",
+            "type": "System Architecture",
+            "link": "https://github.com/rapo7/CSAproject",
+            "description": "Designed and implemented a 64-bit computer architecture simulation",
+            "techStack": ["C++", "Assembly", "Computer Architecture"]
+        },
+        {
+            "imageUrl": null,
+            "title": "GWQR",
+            "type": "Web Application",
+            "link": "https://rapo7.github.io/GWQR/",
+            "description": "QR code generator customized for GW community events and resources",
+            "techStack": ["JavaScript", "HTML/CSS", "QR Code API", "GitHub Pages"]
+        },
+        {
+            "imageUrl": null,
+            "title": "KanbanKraft",
+            "type": "Project Management Tool",
+            "link": "https://github.com/rapo7/kanbanKraft",
+            "description": "A kanban board application for task and project management",
+            "techStack": ["React", "Node.js", "MongoDB", "Express"]
+        },
+        {
+            "imageUrl": null,
+            "title": "Newsly",
+            "type": "News Aggregator",
+            "link": "https://github.com/rapo7/CSC1_6221_DART",
+            "description": "News aggregation platform with personalized content recommendations",
+            "techStack": ["Dart", "Flutter", "News API", "Firebase"]
+        }
+    ],
+    "socialLinks": [
+        {
+            "iconName": "mdi:butterfly",
+            "link": "https://bsky.app/profile/ravitejarapo.bsky.social"
+        },
+        {
+            "iconName": "mdi:linkedin",
+            "link": "https://linkedin.com/in/ravi-teja-rapolu"
+        },
+        {
+            "iconName": "mdi:github",
+            "link": "https://github.com/rapo7"
+        },
+        {
+            "iconName": "mdi:gmail",
+            "link": "mailto:ravi.t.rapolu@gmail.com"
+        }
+    ]
+}

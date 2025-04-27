@@ -1,37 +1,14 @@
 ---
-import AppLayout from "@layouts/AppLayout.astro";
-import BlogCard from "@components/BlogCard.astro";
-import { getCollection } from "astro:content";
-
-
-const posts = (await getCollection("blog")).sort(
-  (a, b) =>
-    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-);
-
-const title = "My Thought Log";
-const description =
-  "This is a personal archive of lessons learned, coding experiments, successes, and missteps. It's a place where I document my journey, be it through snippets of code, how-to guides, or reflections on problem-solving. \n Whether you're here for inspiration, insight, or just curious, I hope you'll find something valuable to take away.";
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Resume from '../components/sections/Resume.astro';
+import Portfolio from '../components/sections/portfolio/Portfolio.astro';
+import GTMAstro from '../components/common/GTMAstro.astro';
 ---
 
-<AppLayout title={title} description={description}>
-
-  <p
-    class="max-w-full mb-10 font-normal dark:text-zinc-400 text-zinc-600 leading-relaxed"
-  >
-    {description}
-  </p>
-  <ul class="space-y-8">
-    {
-      posts.map((post) => (
-        <BlogCard
-          title={post.data.title}
-          pubDate={post.data.pubDate}
-          description={post.data.description}
-          url={`${post.slug}/`}
-          tags={post.data.tags}
-        />
-      ))
-    }
-  </ul>
-</AppLayout>
+<Layout title="Ravi teja Rapolu"  ;>
+	<Hero />
+	<Resume />
+	<Portfolio />
+	<GTMAstro />
+</Layout>

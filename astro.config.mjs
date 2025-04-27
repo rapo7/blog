@@ -1,16 +1,20 @@
+import { defineConfig } from 'astro/config';
+
+import sitemap from '@astrojs/sitemap';
+
 import { defineConfig, sharpImageService } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import { readFileSync } from "node:fs";
 import mdx from '@astrojs/mdx';
 import icon from "astro-icon";
-
-import partytown from "@astrojs/partytown";
-
 import preact from "@astrojs/preact";
+import partytown from "@astrojs/partytown";
+// TODO: add pagefind integration
+// import pagefind from "astro-pagefind";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx(), partytown(), preact(), icon({
+  integrations: [tailwind(), mdx(), preact(), partytown(), sitemap() , icon({
     include: {
       mdi: ["*"],
       ri: ['*'],

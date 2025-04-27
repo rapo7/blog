@@ -1,72 +1,74 @@
-# My Thought Log
+# Astro Resume Theme
 
+Astro Resume Theme is a fully customizable and responsive template, built to help you create a beautiful online resume or portfolio with ease. It is powered by Astro and styled using Tailwind CSS, making it fast, modern, and easy to work with.
 
-👋 Hi, I'm Ravi Teja Rapolu, a current masters student studying Computer Science at George Washington University.
+## Usage
 
+You can bootstrap a new Astro project using the following command:
 
-## 🌟 Features
+```bash
+# Bun
+bun create astro@latest --template wasutz/astro-resume-theme
 
-- 🚀 **Fast and optimized** - Built for speed and performance.
-- 🎨 **Beautiful and customizable UI** - Tailwind CSS for easy customization.
-- 🔒 **Secure and reliable** - Follows best security practices.
-- 🔄 **Continuous integration and deployment** - Automated workflows with GitHub Actions.
+# npm 7+
+npm create astro@latest -- --template wasutz/astro-resume-theme
 
-## 🛠️ Technologies Used
+# pnpm
+pnpm dlx create-astro --template wasutz/astro-resume-theme
 
-- **Astro.js** - Static site generator.
-- **Tailwind CSS** - Utility-first CSS framework.
-- **TypeScript** - Typed JavaScript at Any Scale.
-- **JavaScript** - High-level, often just-in-time compiled, and multi-paradigm.
-- **CSS** - Cascading Style Sheets.
+# yarn
+yarn create astro --template wasutz/astro-resume-theme
+```
 
-## 📚 Documentation
+## 🚀 Features
 
-### Prerequisites
+- Tailwind CSS: Utilizes utility-first styling for rapid UI development.
+- Dark Mode: Built-in dark mode toggle for better UX.
+- Theme Customization: Easily adjustable in src/styles/theme.css.
+- Responsive Design: Optimized for mobile, tablet, and desktop devices.
+- MDX Support: Allows blog posts written in Markdown with JSX components.
+- Excellent Lighthouse/PageSpeed scores
+- SEO-friendly
 
-- Node.js and npm installed.
-- Git installed.
+## 🧞 Commands
 
-### Setup
+All commands are run from the root of the project, from a terminal:
+(Could be use 'npm' instead of bun)
 
-1. **Clone the repository:**
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `bun install`             | Installs dependencies                            |
+| `bun run dev`             | Starts local dev server at `localhost:4321`      |
+| `bun run build`           | Build your production site to `./dist/`          |
+| `bun run preview`         | Preview your build locally, before deploying     |
+| `bun run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `bun run astro -- --help` | Get help using the Astro CLI                     |
 
-   ```sh
-   git clone https://github.com/rapo7/blog/.git
-   ```
+# Getting Started
 
-2. **Install dependencies:**
+1) Initialize the project
+Run one of the commands listed in the Quick Start section.
 
-   ```sh
-   cd blog
-   npm install
-   ```
+2) Customize your resume data
+Edit your resume data in `src/config/cv.json`
 
-3. **Run the development server:**
+3) Customize theme colors
+Modify the color scheme by editing `src/styles/theme.ts` to match your personal branding.
 
-   ```sh
-   npm run dev
-   ```
+4) Replace your CV file
+Put your cv file in `src/public/cv` and then replace the file name in `src/config/cv.json` (basic.cv_file_name)
 
-### Usage
+5) Run the project locally
+Once you’ve made your customizations, run the development server:
 
-- **Build for production:**
+```
+bun run dev
+```
 
-  ```sh
-  npm run build
-  ```
+Open http://localhost:4321 in your browser to view the result 🚀
 
-- **Deploy:**
+## License
 
-  ```sh
-  npm run deploy
-  ```
+Licensed under the MIT License, Copyright © Wasut Panyawiphat.
 
-## 🌟 Show Your Support
-
-Give a ⭐️ if you like this project!
-
-## 🙏 Acknowledgments
-
-- [Astro.js](https://astro.build/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [GitHub Actions](https://github.com/features/actions)
+See [LICENSE](/LICENSE) for more information.
