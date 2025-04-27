@@ -8,15 +8,17 @@ url: "blog/art-of-autostereograms-LLMs"
 
 import ImageList from "../../components/ImageList.tsx";
 import AnimatedLink from "../../components/AnimatedLink.tsx";
+import BlogTitle from "../../components/sections/blog/BlogTitle.tsx";
 
+<BlogTitle text={frontmatter.title} />
 
-# Problem Domain and Brief Project Description
+## Problem Domain and Brief Project Description
 
 Stereograms are two-dimensional images that, when viewed correctly, create the illusion of three-dimensional depth. This effect can be achieved using various techniques, including presenting slightly different images to each eye or employing patterns that manipulate depth perception through binocular disparity. Autostereograms, a specific type of stereogram, allow viewers to perceive 3D shapes from a single image without any special equipment.
 
 Incorporating AI and large language models (LLMs) into the generation of stereograms enhances this process by allowing for the extraction and integration of essential visual features, such as colors and shapes, from the original images. This not only improves the visual quality of the generated stereograms but also helps preserve the artistic elements that are often lost in traditional methods. By leveraging AI, I aim to create a more engaging and meaningful viewing experience that honors the original artwork while providing depth perception through autostereograms.
 
-# More Detailed Description of the Approach
+## More Detailed Description of the Approach
 
 The creation of autostereograms can be approached in two main ways: manual pattern generation and AI-driven pattern generation using Large Language Models (LLMs). While both methods utilize the features of a source image, they do so through different techniques, offering a wide array of creative possibilities. But here I have followed a manual approach to extract important features and fed the features to AI to get results that not only have features from original image but also the Creativity of AI image generators
 

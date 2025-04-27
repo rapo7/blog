@@ -19,6 +19,13 @@ import { basic } from '../../config/cv.json';
                 <p class="mt-5 text-base sm:text-xl">
                     {basic?.summary}
                 </p>
+
+                <a 
+                    href=`${import.meta.env.BASE_URL}/blogs` 
+                    class="inline-block mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition"
+                >
+                    View My thought Log &rarr;
+                </a>
             </div>
             <div class="relative flex justify-center">
                 <Image class="w-full md:max-w-md lg:max-w-md"

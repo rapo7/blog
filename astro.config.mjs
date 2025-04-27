@@ -16,9 +16,7 @@ import partytown from "@astrojs/partytown";
 export default defineConfig({
   integrations: [tailwind(), mdx(), preact(), partytown(), sitemap() , icon({
     include: {
-      mdi: ["*"],
-      ri: ['*'],
-      'simple-icons': ['*']
+      'logos': ['*']
     },
   })],
   image: {

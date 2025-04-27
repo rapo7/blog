@@ -4,16 +4,6 @@
         "job": "Software Engineer",
         "summary": "Graduate Student, at GW. I work on Backend and Frontend with AWS / GCP . Currently learning about Software Development, Cloud Computing and AI."
     },
-    "menuItems": [
-        {
-            "name": "About",
-            "link": "/blog/"
-        },
-        {
-            "name": "Blog",
-            "link": "/blog/blogs"
-        }
-    ],
     "experiences": [
         {
             "title": "Software Specialist (Technical Support)",
@@ -86,18 +76,22 @@
     ],
     "socialLinks": [
         {
+            "label": "BlueSky",
             "iconName": "mdi:butterfly",
             "link": "https://bsky.app/profile/ravitejarapo.bsky.social"
         },
         {
+            "label": "Linkedin",
             "iconName": "mdi:linkedin",
             "link": "https://linkedin.com/in/ravi-teja-rapolu"
         },
         {
+            "label": "GitHub",
             "iconName": "mdi:github",
             "link": "https://github.com/rapo7"
         },
         {
+            "label": "Mail",
             "iconName": "mdi:gmail",
             "link": "mailto:ravi.t.rapolu@gmail.com"
         }
