@@ -26,7 +26,7 @@ export default defineConfig({
     remotePatterns: [{ protocol: "https" }],
   },
   site: 'https://rapo7.github.io',
-  base: '/blog/',
+  base: '/blog',
   vite: {
     plugins: [rawFonts([".ttf", ".woff"])],
     build: {
