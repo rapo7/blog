@@ -16,6 +16,9 @@ tags:
   ]
 ---
 
+import ImageList from "./ImageList.tsx";
+
+
 # Problem Domain and Brief Project Description
 
 Stereograms are two-dimensional images that, when viewed correctly, create the illusion of three-dimensional depth. This effect can be achieved using various techniques, including presenting slightly different images to each eye or employing patterns that manipulate depth perception through binocular disparity. Autostereograms, a specific type of stereogram, allow viewers to perceive 3D shapes from a single image without any special equipment.
@@ -27,9 +30,11 @@ Incorporating AI and large language models (LLMs) into the generation of stereog
 The creation of autostereograms can be approached in two main ways: manual pattern generation and AI-driven pattern generation using Large Language Models (LLMs). While both methods utilize the features of a source image, they do so through different techniques, offering a wide array of creative possibilities. But here I have followed a manual approach to extract important features and fed the features to AI to get results that not only have features from original image but also the Creativity of AI image generators
 
 ## AI-Based Pattern Generation
-
-![Flow of the patern generation](https://miro.medium.com/v2/resize:fit:968/format:webp/0*eE4XwsUqTTmWOGKW)
-Flow of the patern generation
+  <ImageList client:load  images={[{
+    src: "https://miro.medium.com/v2/resize:fit:968/format:webp/0*eE4XwsUqTTmWOGKW",
+    alt: "Flow of the pattern generation process",
+    height: 500,
+  }]} />
 
 ### Step 1: Image Upload
 
@@ -317,70 +322,130 @@ As I have mentioned heavily about art.. lets start with mona lIsa by Leonardo Da
 3 colors detected were #a19557 (Olive drab) #251722 (Maroon) #625538 (Sea green). and shapes are Triangle: 3 Rectangle: 41 Square: 0 Circle: 42:
 The pattern is pretty accurate on this one and color names in brackets are detected by gemma LLM they are pretty accurate too. and we can find more circles and rectangles in the pattern. The revealed stereogram is good witout any extra noise .. I have divided the image into 6 vertical sections for repeating on this one.
 
-![Mona Lisa](https://miro.medium.com/v2/resize:fit:574/format:webp/1*T8PbjILkSx4uYiAeR9p_IQ.jpeg)
-*Mona Lisa*
-![pattern with dominant colors](https://miro.medium.com/v2/resize:fit:768/format:webp/1*1-TQjcaw_ndO3TjYoJUgHw.jpeg)
-*Pattern with dominant colors*
-![Depth Map of the Mona Lisa using DPT_Large](https://miro.medium.com/v2/resize:fit:574/format:webp/1*Ga-11-3ED1Nq8eDuoAxWGQ.jpeg)
-*Depth Map of the Mona Lisa using DPT_Large*
-![Generated stereogram](https://miro.medium.com/v2/resize:fit:978/format:webp/1*kVIPpQkiMpayBxTICBEbRg.png)
-*Generated stereogram*
-![Revealed stereogram from an online generator](https://miro.medium.com/v2/resize:fit:1024/format:webp/1*WOXP2VTKBZHUMAbFLv7Qyw.png)
-*Revealed stereogram from an online generator*
+<ImageList client:load  images={[{
+    src: "https://miro.medium.com/v2/resize:fit:574/format:webp/1*T8PbjILkSx4uYiAeR9p_IQ.jpeg",
+    alt: "Mona Lisa"
+}, 
+{
+    src: "https://miro.medium.com/v2/resize:fit:768/format:webp/1*1-TQjcaw_ndO3TjYoJUgHw.jpeg",
+    alt: "Pattern with dominant colors"
+},
+{
+ src: "https://miro.medium.com/v2/resize:fit:574/format:webp/1*Ga-11-3ED1Nq8eDuoAxWGQ.jpeg",
+    alt: "Depth Map of the Mona Lisa using DPT_Large"
+}
+]} />
+
+---
+
+<ImageList client:load  images={[{
+    src: "https://miro.medium.com/v2/resize:fit:574/format:webp/1*kVIPpQkiMpayBxTICBEbRg.png",
+    alt: "Generated stereogram"
+},
+{
+    src: "https://miro.medium.com/v2/resize:fit:1024/format:webp/1*WOXP2VTKBZHUMAbFLv7Qyw.png",
+    alt: "Revealed stereogram from an online generator"
+}
+]} />
+
 
 ## The Son of Man by René Magritte
 
 Now lets use the **_The Son of Man by_** René Magritte The image was detected to have #c6c4b6 (Light Gray) #393634 (Dark Gray) #8f9789 (Light Green)and shapes were Triangle: 1 Rectangle: 7 Square: 0 Circle: 11so resulting patern has these colros and recatngles and circles .. **in most of the artistic images the circle and recatngle count seemed very high**. so all patterns from here followed the same.
 
-![The Son of Man by René Magritte](https://miro.medium.com/v2/resize:fit:532/format:webp/1*d3k4DjWhz529JIY0twjilA.jpeg)
-*The Son of Man by René Magritte*
-![pattern with dominant colors](https://miro.medium.com/v2/resize:fit:768/format:webp/1*CETPA3btlcWAmeAGtb7Jeg.jpeg)
-*Pattern with dominant colors*
-![depthmap using DPT_Large](https://miro.medium.com/v2/resize:fit:532/format:webp/1*hJuCy6j9l1LJ7x1idtyWyw.jpeg)
-*Depthmap using DPT_Large*
-![stereogram](https://miro.medium.com/v2/resize:fit:636/format:webp/1*dO88jfXfrXI0xVv_C-5_6A.png)
-*Generated Stereogram*
-![revealed stereogram](https://miro.medium.com/v2/resize:fit:634/format:webp/1*yXFeCR0QVBMq8hZgosS3rQ.png)
-*Revealed stereogram*
-![Interesting finding](https://miro.medium.com/v2/resize:fit:734/format:webp/1*w9cPjY2d7JN8upjpE2krSA.png)
-*Interesting finding*
+<ImageList client:load  images={[{
+    src: "https://miro.medium.com/v2/resize:fit:532/format:webp/1*d3k4DjWhz529JIY0twjilA.jpeg",
+    alt: "The Son of Man by René Magritte"},
+{
+    src: "https://miro.medium.com/v2/resize:fit:768/format:webp/1*CETPA3btlcWAmeAGtb7Jeg.jpeg",
+    alt: "Pattern with dominant colors"
+},
+{
+    src: "https://miro.medium.com/v2/resize:fit:532/format:webp/1*hJuCy6j9l1LJ7x1idtyWyw.jpeg",
+    alt: "Depth Map of The Son of Man using DPT_Large"
+}
+    
+    
+    ]} />
+<ImageList client:load  images={[{
+    src: "https://miro.medium.com/v2/resize:fit:636/format:webp/1*dO88jfXfrXI0xVv_C-5_6A.png",
+    alt: "Generated stereogram"
+},
+{
+    src: "https://miro.medium.com/v2/resize:fit:634/format:webp/1*yXFeCR0QVBMq8hZgosS3rQ.png",
+    alt: "Revealed stereogram from an online generator"
+},
+{
+    src: "https://miro.medium.com/v2/resize:fit:734/format:webp/1*w9cPjY2d7JN8upjpE2krSA.png",
+    alt: "Interesting finding"
+}
+]} />
 
 
-In the above image on the right. As i used 8 vertical stripes for the image there are 8 shadows of the son of the man. I found this interesting and might be more interesting to people who can see autostereograms.
+In the above image. As i used 8 vertical stripes for the image there are 8 shadows of the son of the man. I found this interesting and might be more interesting to people who can see autostereograms.
 
 ## Girl with a Pearl Earring by Johannes Vermeer
 
-The third image has a depth map that is a little bit off when generated with DPT_large and somewhat acceptable aoutput is produces by DPT_Hybrid. The colors detected are #110d13 (deep gray) #c1ae9d (pastel pink) #665449 (dark brown). I assume the pink is from the face of the girl. but the interesting thing here is when I used 10 repititions on the image. I was able to find a perfect subject outline in one of the overlaps eventhough the depth map is a little cloudy behind the girl.
+The third image has a depth map that is a little bit off when generated with DPT_large and somewhat acceptable output is produces by DPT_Hybrid. The colors detected are #110d13 (deep gray) #c1ae9d (pastel pink) #665449 (dark brown). I assume the pink is from the face of the girl. but the interesting thing here is when I used 10 repititions on the image. I was able to find a perfect subject outline in one of the overlaps eventhough the depth map is a little cloudy behind the girl.
 
-![original image](https://miro.medium.com/v2/resize:fit:518/format:webp/1*yNEwMr2EhU7AFD-gnImt5A.jpeg)
-*Original image*
-![pattern with dominant colors](https://miro.medium.com/v2/resize:fit:546/format:webp/1*scsG27n_o9983xv2M0n4FA.jpeg)
-*Pattern with dominant colors*
-![depthmap using DPT_Hybrid](https://miro.medium.com/v2/resize:fit:518/format:webp/1*TsVswsROpemNdiYFrDNr4w.jpeg)
-*Depthmap using DPT_Hybrid*
-![stereogram](https://miro.medium.com/v2/resize:fit:678/format:webp/1*zAiI8OPIZNqhU1_hKhmQRw.png)
-*Generated Stereogram*
-![revealed stereogram](https://miro.medium.com/v2/resize:fit:642/format:webp/1*2z78g7hiFoB-bMsJ2Grm2g.png)
-*Revealed stereogram*
-![Interesting finding](https://miro.medium.com/v2/resize:fit:682/format:webp/1*2tmLL9Ppo5gGzKluKnHL2A.png)
-*Interesting finding*
-
+<ImageList client:load images={[
+  {
+    src: "https://miro.medium.com/v2/resize:fit:518/format:webp/1*yNEwMr2EhU7AFD-gnImt5A.jpeg",
+    alt: "Girl with a Pearl Earring by Johannes Vermeer"
+  },
+  {
+    src: "https://miro.medium.com/v2/resize:fit:546/format:webp/1*scsG27n_o9983xv2M0n4FA.jpeg",
+    alt: "Pattern with dominant colors"
+  },
+  {
+    src: "https://miro.medium.com/v2/resize:fit:518/format:webp/1*TsVswsROpemNdiYFrDNr4w.jpeg",
+    alt: "Depthmap using DPT_Hybrid"
+  }
+]} />
+<ImageList client:load images={[
+  {
+    src: "https://miro.medium.com/v2/resize:fit:678/format:webp/1*zAiI8OPIZNqhU1_hKhmQRw.png",
+    alt: "Generated stereogram"
+  },
+  {
+    src: "https://miro.medium.com/v2/resize:fit:642/format:webp/1*2z78g7hiFoB-bMsJ2Grm2g.png",
+    alt: "Revealed stereogram from an online generator"
+  },
+    {
+        src: "https://miro.medium.com/v2/resize:fit:682/format:webp/1*2tmLL9Ppo5gGzKluKnHL2A.png",
+        alt: "Interesting finding"
+    }
+]} />
 
 ## American Gothic by Grant Wood
 
 The depth map is on point with dpt_large and the colors found are also good and LLM managed to do a good job in getting the names right #242019 (Deep Brown) #c1be98 (Light Tan) #77694e (Mid-Brown)..But why is the stereogram gotten worse. because I have used 16 stripes to generate this stereogram and that had messed up the detectiion. I think people viewing the autostereogram must find it hard and their eyes have to be more corssed.
 
-![Original image](https://miro.medium.com/v2/resize:fit:624/format:webp/1*N6xB8RJb4kCvUJ_QJYoOiA.jpeg)
-*Original image*
-![pattern with dominant colors](https://miro.medium.com/v2/resize:fit:754/format:webp/1*gcQ2CwxeT1Y0IAaVA1u1MA.jpeg)
-*pattern with dominant colors*
-![depthmap using DPT_Large](https://miro.medium.com/v2/resize:fit:624/format:webp/1*ItTYoTImsApMUgRzZp-Zgw.jpeg)
-*depthmap using DPT_Large*
-![generated stereogram](https://miro.medium.com/v2/resize:fit:996/format:webp/1*FjW6FmaU4E1OhXXWgukrPA.png)
-*generated stereogram *
-![Revealed stereogram from an online generator](https://miro.medium.com/v2/resize:fit:1006/format:webp/1*8YaR35YtMZZRAFMNaFVQZw.png)
-*Revealed stereogram from an online generator*
 
+<ImageList client:load images={[
+  {
+    src: "https://miro.medium.com/v2/resize:fit:624/format:webp/1*N6xB8RJb4kCvUJ_QJYoOiA.jpeg",
+    alt: "American Gothic by Grant Wood"
+  },
+  {
+    src: "https://miro.medium.com/v2/resize:fit:754/format:webp/1*gcQ2CwxeT1Y0IAaVA1u1MA.jpeg",
+    alt: "Pattern with dominant colors"
+  },
+  {
+    src: "https://miro.medium.com/v2/resize:fit:624/format:webp/1*ItTYoTImsApMUgRzZp-Zgw.jpeg",
+    alt: "Depthmap using DPT_Large"
+  }
+]} />
+<ImageList client:load images={[
+  {
+    src: "https://miro.medium.com/v2/resize:fit:996/format:webp/1*FjW6FmaU4E1OhXXWgukrPA.png",
+    alt: "Generated stereogram"
+  },
+  {
+    src: "https://miro.medium.com/v2/resize:fit:1006/format:webp/1*8YaR35YtMZZRAFMNaFVQZw.png",
+    alt: "Revealed stereogram from an online generator"
+  }
+]} />
 
 Overall The approach does well on Artistic images but the as we increase number of stripes in the stereogram it is harder and harder to detect the autostereogram. and all the depthmaps have only one subject except for the last one its two people but considered to be one subject. Tried on other kinds of images ( feel free to do so using website links below). the color detectioon is good but the LLM is not able to convert the colors to human readable form all colors don’t have names.
 

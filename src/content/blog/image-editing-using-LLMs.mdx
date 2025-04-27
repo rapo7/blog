@@ -7,6 +7,7 @@ hero: "~/assets/heros/gemini.png"
 heroAlt: "Gemini logo with a dark background"
 tags: ["Image Editing", "LLMs", "Gemini","AI image generation","AI art","Image generation","Prompt engineering","AI models","Artificial intelligence","Machine learning"]
 ---
+import ImageList from "./ImageList.tsx";
 
 # My Experience with the Gemini Model: Creating Cats Playing with Yarn
 
@@ -15,57 +16,112 @@ tags: ["Image Editing", "LLMs", "Gemini","AI image generation","AI art","Image g
 
 
 I started with a simple prompt: “Generate images of a cat playing with yarn.” The result was a cat with an angry face and a red yarn. The cat wasn’t playing with the yarn as I had hoped.
-
-![Angry cat not at all playing with the yarn](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*Sdz__1OxxEk8D87fwUvpIw.jpeg)
+<ImageList client:load
+  images={[
+    {
+      src: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*Sdz__1OxxEk8D87fwUvpIw.jpeg",
+      alt: "Angry cat not at all playing with the yarn",
+    },
+  ]} />
 
 I have tried to improve this by saying, “The cat must play with the yarn.” The cat’s paw moved a bit, but its expression remained angry, and it still didn’t look playful.
-
-![sad looking cat with a yarn](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*1_mEyAirAZ5AuKjqXb6Dlg.jpeg)
+<ImageList client:load
+  images={[
+    {
+      src: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*1_mEyAirAZ5AuKjqXb6Dlg.jpeg",
+      alt: "sad looking cat with a yarn",
+    },
+  ]} />
 
 ## Making Adjustments:
 
 
 Later, I have asked the model to “change the facial expressions of the cat to make it look more like playing.” Although the cat interacted a bit more with the yarn, its angry look stayed the same.
 
-![Poor looking cat with a yarn](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*lCDoaBZQNNbUxhxzlmYGNQ.jpeg)
-
 The cat’s expressions looked like it was hungry from a long time. So , have gone to google and searched for. a cat playing with the yarn and tried to mimic the image so I said, “Make the cat stand on two legs, with one leg in the air and the other on the yarn. The cat must be smiling.” The new image was closer to what I wanted, but the cat’s legs were both on the yarn, and its smile looked more like a human’s.
 
-![captionless image](https://miro.medium.com/v2/resize:fit:656/format:webp/1*T1D2OrkdSo1j6hZydAOyLQ.jpeg)![Left: cat from (google) playing with a yarn Right: Generated image with the given prompt](https://miro.medium.com/v2/resize:fit:922/format:webp/1*TL1PZau6vdrRZF11dnAg2g.jpeg)
+
+  <ImageList client:load
+  images={[{
+    src:"https://miro.medium.com/v2/resize:fit:656/format:webp/1*T1D2OrkdSo1j6hZydAOyLQ.jpeg",
+    alt: "Image from Google showing a cat playing with a yarn",
+  },
+  {
+    src:"https://miro.medium.com/v2/resize:fit:922/format:webp/1*TL1PZau6vdrRZF11dnAg2g.jpeg",
+    alt: "Generated image with the given prompt",
+  }
+  ]} />
 
 ## Trying Different Variations:
 
 
 I have then requested, “Use a different cat.” The model made the change but lost the smile.
 
-![different cat with no smile](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*OBkvMc0xAIXLnZ_KI9bWgA.jpeg)
+<ImageList client:load
+  images={[{
+    src:"https://miro.medium.com/v2/resize:fit:1400/format:webp/1*OBkvMc0xAIXLnZ_KI9bWgA.jpeg",
+    alt: "different cat with no smile",
+  },
+  ]} />
 
-When I asked, “Make it smile,” the result was worse — the cat stopped smiling and looked strange.
+When I asked, “Make it smile,” the result was worse, the cat stopped smiling and looked strange.
 
-![Strange looking cat with no smile](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*KspTszS3UCMjb8FhflSoUA.jpeg)
+<ImageList client:load
+  images={[{
+    src:"https://miro.medium.com/v2/resize:fit:1400/format:webp/1*KspTszS3UCMjb8FhflSoUA.jpeg",
+    alt: "Strange looking cat with no smile",
+  },
+  ]} />
 
 I have decided to try another approach and said, “Make the cat yawn playfully.” The yawn was good, but the cat started to look like a raccoon.
 
-![Cat yawning but the body of the cat looks like a raccoon](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*vwN9VUbIvnSTvYyQ4oxG9A.jpeg)
+<ImageList client:load
+  images={[{
+    src:"https://miro.medium.com/v2/resize:fit:1400/format:webp/1*vwN9VUbIvnSTvYyQ4oxG9A.jpeg",
+    alt: "Cat yawning but the body of the cat looks like a raccoon",
+  },
+  ]} />
 
 I have then asked to “make the cat a little fluffy.” This added a **second yarn** and improved the image, making it the cutest one so far.
 
-![captionless image](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*wgnhnUhuFVvV3jQyB0rGqw.jpeg)
+<ImageList client:load
+  images={[{
+    src:"https://miro.medium.com/v2/resize:fit:1400/format:webp/1*wgnhnUhuFVvV3jQyB0rGqw.jpeg",
+    alt: "Cat with a second yarn (Cutest One so far)",
+  },
+  ]} />
+
 
 ## Final Adjustments:
 
 
 Since I like white cats, I have asked, “Make the cat white.” The new image showed a scared cat instead of a playful one.
 
-![scared cat with a yawn](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*fR_tl7t9ZLkbK2uNARsr1g.jpeg)
+<ImageList client:load
+  images={[{
+    src:"https://miro.medium.com/v2/resize:fit:1400/format:webp/1*fR_tl7t9ZLkbK2uNARsr1g.jpeg",
+    alt: "scared cat with a yawn",
+  },
+  ]} />
+
 
 I have tried to be a little witty with the vocabulary and asked the model to “change the yarn, not yawn,” which changed the yarn’s color but made the cat look more human-like and the cat unfortunately lost the yawn.
 
-![white cat playing with a green yarn with a bad posture and no yawn](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*hLQASpjSNkF0IEHLpgWc5w.jpeg)
+<ImageList client:load
+  images={[{
+    src:"https://miro.medium.com/v2/resize:fit:1400/format:webp/1*hLQASpjSNkF0IEHLpgWc5w.jpeg",
+    alt: "white cat playing with a green yarn with a bad posture and no yawn",
+  },
+  ]} />
 
 Finally, I have told the model, “The yawn should be present.” The model added the yawn back, resulting in a white cat that looked a bit playful with a bluish-green yarn.
 
-![white cat with a bluish green yarn and with a yawn](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*LGtbmn_UhAUBVtwmx5djeQ.jpeg)
+<ImageList client:load
+  images={[{
+    src:"https://miro.medium.com/v2/resize:fit:1400/format:webp/1*LGtbmn_UhAUBVtwmx5djeQ.jpeg",
+    alt: "white cat with a bluish green yarn and with a yawn",
+  },
+  ]} />
 
 ## Conclusion:
 
