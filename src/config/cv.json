@@ -86,22 +86,22 @@
     "socialLinks": [
         {
             "label": "BlueSky",
-            "iconName": "mdi:butterfly",
+            "iconName": "logos:bluesky",
             "link": "https://bsky.app/profile/ravitejarapo.bsky.social"
         },
         {
             "label": "Linkedin",
-            "iconName": "mdi:linkedin",
+            "iconName": "logos:linkedin-icon",
             "link": "https://linkedin.com/in/ravi-teja-rapolu"
         },
         {
             "label": "GitHub",
-            "iconName": "mdi:github",
+            "iconName": "logos:github-octocat",
             "link": "https://github.com/rapo7"
         },
         {
             "label": "Mail",
-            "iconName": "mdi:gmail",
+            "iconName": "logos:google-gmail",
             "link": "mailto:ravi.t.rapolu@gmail.com"
         }
     ]

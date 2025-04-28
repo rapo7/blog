@@ -1,7 +1,8 @@
 ---
-import { Image } from 'astro:assets';
-import heroImage from '../../assets/ravi.png';
-import { basic } from '../../config/cv.json';
+import { Image } from "astro:assets";
+import heroImage from "../../assets/ravi.png";
+import { basic, socialLinks } from "../../config/cv.json";
+import { Icon } from "astro-icon/components";
 ---
 
 <section class="py-5 px-4 sm:py-10 lg:py-16">
@@ -20,23 +21,39 @@ import { basic } from '../../config/cv.json';
                     {basic?.summary}
                 </p>
 
-                <a 
-                    href=`${import.meta.env.BASE_URL}/blogs` 
-                    class="inline-block mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition"
+                <a
+                    href={`${import.meta.env.BASE_URL}/blogs`}
+                    class="flex items-center justify-between w-fit mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition"
                 >
-                    View My Thought Log 
-                    <span class="ml-2" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="inline w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17a4 4 0 01-4-4V7a4 4 0 014-4h10a4 4 0 014 4v6a4 4 0 01-4 4H7zm0 0v2a2 2 0 002 2h6a2 2 0 002-2v-2" />
-                        </svg>
-                    </span>
+                    View My Thought Log
+                    <Icon name="mdi:thought-bubble-outline" class="h-10 w-10 ml-2" />
                 </a>
+                <div class="mt-8 flex space-x-4">
+                    {
+                        socialLinks.map((link) => (
+                            <a
+                                href={link.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="p-3 border border-transparent hover:bg-blue-600/30 rounded-lg transition dark:hover:bg-blue-500/30"
+                            >
+                                <Icon
+                                    name={link.iconName}
+                                    class="h-10 w-10 text-offset dark:text-white"
+                                />
+                                <span class="sr-only">{link.label}</span>
+                            </a>
+                        ))
+                    }
+                </div>
             </div>
             <div class="relative flex justify-center">
-                <Image class="w-full md:max-w-md lg:max-w-md"
+                <Image
+                    class="w-full md:max-w-md lg:max-w-md"
                     src={heroImage}
                     loading="eager"
-                    alt="Ravi Teja Rapolu - Software Engineer" />
+                    alt="Ravi Teja Rapolu - Software Engineer"
+                />
             </div>
         </div>
     </div>
