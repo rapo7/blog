@@ -1,5 +1,6 @@
 ---
 import Footer from "../components/layouts/Footer";
+import ChatFAB from "../components/sections/blog/ChatFab";
 
 import "../styles/index.css";
 import { ClientRouter, fade } from "astro:transitions";
@@ -34,13 +35,10 @@ const { title } = Astro.props;
       <slot />
     </section>
     <Footer client:load/>
+    <ChatFAB client:load />
     <script>
       document.addEventListener("astro:page-load", () => {
-        const themeSaved = localStorage.getItem("theme");
 
-        if (themeSaved) {
-          document.documentElement.dataset.theme = themeSaved;
-        } else {
           const prefersDark = window.matchMedia(
             "(prefers-color-scheme: dark)"
           ).matches;
@@ -48,17 +46,16 @@ const { title } = Astro.props;
           document.documentElement.dataset.theme = prefersDark
             ? "dark"
             : "light";
-        }
 
-        window
-          .matchMedia("(prefers-color-scheme: dark)")
-          .addEventListener("change", (event) => {
-            if (!localStorage.getItem("theme")) {
-              document.documentElement.dataset.theme = event.matches
-                ? "dark"
-                : "light";
-            }
-          });
+          window
+            .matchMedia("(prefers-color-scheme: dark)")
+            .addEventListener("change", (event) => {
+              if (!localStorage.getItem("theme")) {
+                document.documentElement.dataset.theme = event.matches
+                  ? "dark"
+                  : "light";
+              }
+            });
       });
     </script>
   </body>

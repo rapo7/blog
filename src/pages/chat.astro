@@ -1,0 +1,10 @@
+---
+import ChatLayout from "../layouts/ChatLayout.astro"
+import Footer from "../components/layouts/Footer.tsx";
+import ChatContainer from "../components/chat/ChatContainer.tsx"
+---
+
+<ChatLayout title="Chat with Ravi Teja Rapolu">
+    <ChatContainer client:load />
+    <Footer client:load />
+</ChatLayout>

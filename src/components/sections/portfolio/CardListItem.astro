@@ -10,5 +10,9 @@ const { title, sub_title, years, details } = Astro.props;
     </div>
     <p class="text-sm text-offset sm:text-right whitespace-nowrap">{years}</p>
   </div>
-  <p class="mt-4 text-offset leading-relaxed">{details}</p>
+  <ul class="mt-4 text-offset leading-relaxed list-disc list-inside">
+    {details.map(detail => (
+      <li>{detail}</li>
+    ))}
+  </ul>
 </li>

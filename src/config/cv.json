@@ -6,16 +6,24 @@
     },
     "experiences": [
         {
-            "title": "Software Specialist (Technical Support)",
+            "title": "Student Technical Support Assistant / Software Developer",
             "sub_title": "The George washington University",
             "years": "2024 - Present",
-            "details": "Experienced in developing internal developer tools with a focus on performance, scalability, and automation. Skilled in Python (Flask, FastAPI), JavaScript, and cloud technologies, with a strong track record of building efficient, high-performance systems. Adept at automating internal workflows, integrating APIs, and optimizing development pipelines to enhance developer productivity."
+            "details": [
+                "Providing technical support and troubleshooting for various software applications and systems used within the university.",
+                "Collaborating with faculty and staff to resolve software-related issues and improve user experience.",
+                "Assisting in the development and implementation of new software solutions to enhance university operations."
+            ]
         },
         {
             "title": "Software Developer",
             "sub_title": "Oracle",
             "years": "2022 - 2023",
-            "details": "Experienced in developing scalable, data-driven backend systems and internal developer tools with a focus on performance, system integration, and automation. Skilled in Python (Flask, FastAPI), cloud technologies, and streamlining developer workflows to enhance productivity and efficiency."
+            "details": [
+                "Developed and maintained software applications using Java and Python, focusing on backend development.",
+                "Collaborated with cross-functional teams to design and implement new features for existing applications.",
+                "Participated in code reviews and contributed to the improvement of coding standards and best practices."
+            ]
         }
     ],
     "education": [
@@ -23,18 +31,23 @@
             "title": "Master of Science in Computer Science",
             "sub_title": "The George Washington University",
             "years": "2023 - 2024",
-            "details": null
+            "details": [
+                "Relevant Coursework: Software Development, Cloud Computing, Data Structures and Algorithms, Computer Networks, Database Management Systems",
+                "Projects: Developed a kanban board application using React and Node.js, and a news aggregation platform using Dart and Flutter."
+            ]
         },
         {
             "title": "Bachelor of Science in Electronics and Communication Engineering",
             "sub_title": "Vardhaman College of Engineering",
             "years": "2018 - 2022",
-            "details": null
+            "details": [
+                "Relevant Coursework: Data Structures and Algorithms, Computer Networks, Database Management Systems, Operating Systems",
+                "Projects: Designed and implemented a 64-bit computer architecture simulation in C++ and Assembly."
+            ]
         }
     ],
     "projects": [
         {
-            "imageUrl": null,
             "title": "Blog",
             "type": "Website",
             "link": "https://rapo7.github.io/blog/",
@@ -42,7 +55,6 @@
             "techStack": ["Astro", "Tailwind CSS", "Markdown", "GitHub Pages"]
         },
         {
-            "imageUrl": null,
             "title": "64 Bit Computer",
             "type": "System Architecture",
             "link": "https://github.com/rapo7/CSAproject",
@@ -50,7 +62,6 @@
             "techStack": ["C++", "Assembly", "Computer Architecture"]
         },
         {
-            "imageUrl": null,
             "title": "GWQR",
             "type": "Web Application",
             "link": "https://rapo7.github.io/GWQR/",
@@ -58,7 +69,6 @@
             "techStack": ["JavaScript", "HTML/CSS", "QR Code API", "GitHub Pages"]
         },
         {
-            "imageUrl": null,
             "title": "KanbanKraft",
             "type": "Project Management Tool",
             "link": "https://github.com/rapo7/kanbanKraft",
@@ -66,7 +76,6 @@
             "techStack": ["React", "Node.js", "MongoDB", "Express"]
         },
         {
-            "imageUrl": null,
             "title": "Newsly",
             "type": "News Aggregator",
             "link": "https://github.com/rapo7/CSC1_6221_DART",
