@@ -8,7 +8,7 @@ interface Props {
 
 export default function ChatPromptList({ prompts, onSelect }: Props) {
   return (
-    <ul className="space-y-2 mb-10 max-w-xl mx-auto">
+    <ul className="space-y-2 mb-10 max-w-xl mx-auto w-full px-0 sm:px-2">
       {prompts.map(prompt => (
         <li key={prompt.id}>
           <button

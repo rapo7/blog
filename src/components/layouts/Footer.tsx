@@ -1,7 +1,12 @@
 import { useState, useRef, useEffect } from "preact/hooks";
 
-export default function Footer() {
+interface FooterProps {
+  initialPosition?: 'top' | 'bottom';
+}
+
+export default function Footer({ initialPosition = 'bottom' }: FooterProps) {
   const [open, setOpen] = useState(false);
+  const [isTop, setIsTop] = useState(initialPosition === 'top');
   const fabRef = useRef<HTMLDivElement>(null);
 
 
@@ -18,8 +23,9 @@ export default function Footer() {
   return (
     <div
       ref={fabRef}
-      className="fixed left-4 bottom-4 z-50 flex flex-col items-end gap-3"
+      className={`fixed left-4 z-50 flex flex-col items-end gap-3 ${isTop ? 'top-4' : 'bottom-4'}`}
     >
+
       {/* Expanded FABs */}
       <div
         className={`flex flex-col items-end gap-3 transition-all duration-300 ${

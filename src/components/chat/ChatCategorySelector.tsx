@@ -32,7 +32,7 @@ const categoryIcons: Record<ChatCategory, preact.JSX.Element> = {
 
 export default function ChatCategorySelector({ selected, onSelect }: Props) {
   return (
-    <div className="flex justify-center gap-4 mb-6">
+    <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 mb-6 w-full items-center">
       {categories.map(cat => (
         <button
           type="button"
