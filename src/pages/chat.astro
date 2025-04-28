@@ -1,8 +1,12 @@
 ---
 import ChatLayout from "../layouts/ChatLayout.astro"
 import ChatContainer from "../components/chat/ChatContainer.tsx"
+import PostHog from "../components/common/PostHog.astro"
+import GTMAstro from "../components/common/GTMAstro.astro"
 ---
 
 <ChatLayout title="Chat with Ravi Teja Rapolu">
     <ChatContainer client:load />
+    <GTMAstro />
+    <PostHog />
 </ChatLayout>

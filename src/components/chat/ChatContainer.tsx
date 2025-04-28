@@ -3,6 +3,8 @@ import ChatHeader from './ChatHeader';
 import ChatCategorySelector from './ChatCategorySelector';
 import ChatPromptList from './ChatPromptList';
 import ChatInput from './ChatInput';
+import ChatBubble from './ChatBubble';
+import LoadingBubble from './LoadingBubble';
 import type { ChatCategory, ChatPrompt, ChatMessage } from './types';
 
 const promptData: Record<ChatCategory, ChatPrompt[]> = {
@@ -25,22 +27,42 @@ const promptData: Record<ChatCategory, ChatPrompt[]> = {
 export default function ChatContainer() {
   const [category, setCategory] = useState<ChatCategory>('Explore');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [loading, setLoading] = useState(false);
 
   function handlePromptSelect(prompt: ChatPrompt) {
     setMessages(msgs => [
       ...msgs,
       { id: `user-${Date.now()}`, sender: 'user', content: prompt.text },
     ]);
-    // Here you would trigger assistant response logic
+    triggerAssistantResponse(prompt.text);
   }
 
   function handleSend(message: string) {
+    console.log('Sending message:', message);
     setMessages(msgs => [
       ...msgs,
       { id: `user-${Date.now()}`, sender: 'user', content: message },
     ]);
-    // Here you would trigger assistant response logic
+    triggerAssistantResponse(message);
   }
+
+  // Simulate AI response with loading
+  function triggerAssistantResponse(userMessage: string) {
+    setLoading(true);
+    setTimeout(() => {
+      setMessages(msgs => [
+        ...msgs,
+        {
+          id: `assistant-${Date.now()}`,
+          sender: 'assistant',
+          content: `You said: "${userMessage}"`,
+        },
+      ]);
+      setLoading(false);
+    }, 1000);
+  }
+
+
 
   return (
     <div className="relative min-h-screen w-full bg-gradient-to-b from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 flex flex-col items-center px-2 sm:px-0">
@@ -48,6 +70,12 @@ export default function ChatContainer() {
         <ChatHeader />
         <ChatCategorySelector selected={category} onSelect={setCategory} />
         <ChatPromptList prompts={promptData[category]} onSelect={handlePromptSelect} />
+        <div className="flex flex-col gap-1 mt-4 mb-2 w-full min-h-[120px]">
+          {messages.map((msg, idx) => (
+            <ChatBubble key={idx} sender={msg.sender} content={msg.content} />
+          ))}
+          {loading && <LoadingBubble />}
+        </div>
       </div>
       <ChatInput onSend={handleSend} />
     </div>
