@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 import Layout from '../../layouts/Layout.astro';
+import BlogFAB from '../../components/sections/blog/BlogFAB';
 
 export const getStaticPaths = async () => {
     const blogs = await getCollection("blogs");
@@ -34,5 +35,7 @@ const {Content} = await blog.render();
             <Content />
         </div>
     </section>
+    <BlogFAB client:load />
+
 
 </Layout>

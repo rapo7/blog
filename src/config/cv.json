@@ -105,7 +105,7 @@
         {
             "label": "Mail",
             "iconName": "logos:google-gmail",
-            "link": "ravi.t.rapolu@gmail.com",
+            "link": "mailto:ravi.t.rapolu@gmail.com",
             "isMail": true
         }
     ]
