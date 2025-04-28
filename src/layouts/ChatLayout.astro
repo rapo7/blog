@@ -1,4 +1,6 @@
 ---
+import PostHog from "../components/common/PostHog.astro";
+
 const { title } = Astro.props;
 ---
 
@@ -12,6 +14,7 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <PostHog />
   </head>
   <body>
     <slot />
