@@ -37,7 +37,7 @@
             "imageUrl": null,
             "title": "Blog",
             "type": "Website",
-            "link": "https://rapo7.github.io/blog/about",
+            "link": "https://rapo7.github.io/blog/",
             "description": "Personal blog website to share technical insights and learnings",
             "techStack": ["Astro", "Tailwind CSS", "Markdown", "GitHub Pages"]
         },

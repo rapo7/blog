@@ -112,16 +112,16 @@ export default function Footer() {
             <line x1="15" y1="5" x2="5" y2="15" stroke="currentColor" strokeWidth="2" />
           </svg>
         ) : (
-          // Contact icon (envelope)
-          <svg
+          // Contact icon (person)
+            <svg
             className="w-6 h-6 transition-transform duration-200"
             viewBox="0 0 24 24"
             fill="none"
             aria-hidden="true"
-          >
-            <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="2" />
-            <path d="M3 7l9 6 9-6" stroke="currentColor" strokeWidth="2" />
-          </svg>
+            >
+            <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
+            <path d="M4 20c0-3.314 3.134-6 8-6s8 2.686 8 6" stroke="currentColor" strokeWidth="2" />
+            </svg>
         )}
       </button>
     </div>
