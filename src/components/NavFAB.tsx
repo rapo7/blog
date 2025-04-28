@@ -95,7 +95,7 @@ export default function NavFAB() {
       <button
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={() => setOpen((v) => !v)}
-        className="bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg w-10 h-10 flex items-center justify-center text-3xl transition-all duration-200 focus:outline-none"
+        className="bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg w-16 h-16 flex items-center justify-center text-3xl transition-all duration-200 focus:outline-none"
       >
         {open ? (
           // Close (X) icon
