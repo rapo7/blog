@@ -87,22 +87,26 @@
         {
             "label": "BlueSky",
             "iconName": "logos:bluesky",
-            "link": "https://bsky.app/profile/ravitejarapo.bsky.social"
+            "link": "https://bsky.app/profile/ravitejarapo.bsky.social",
+            "isMail": false
         },
         {
             "label": "Linkedin",
             "iconName": "logos:linkedin-icon",
-            "link": "https://linkedin.com/in/ravi-teja-rapolu"
+            "link": "https://linkedin.com/in/ravi-teja-rapolu",
+            "isMail": false
         },
         {
             "label": "GitHub",
             "iconName": "logos:github-octocat",
-            "link": "https://github.com/rapo7"
+            "link": "https://github.com/rapo7",
+            "isMail": false
         },
         {
             "label": "Mail",
             "iconName": "logos:google-gmail",
-            "link": "mailto:ravi.t.rapolu@gmail.com"
+            "link": "ravi.t.rapolu@gmail.com",
+            "isMail": true
         }
     ]
 }

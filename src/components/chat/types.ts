@@ -1,4 +1,4 @@
-export type ChatCategory = 'Create' | 'Explore' | 'Code' | 'Learn';
+export type ChatCategory = 'Basic' | 'Work' | 'Skills' | 'Hobbies';
 
 export interface ChatPrompt {
   id: string;

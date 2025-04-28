@@ -5,42 +5,37 @@ interface Props {
   onSelect: (cat: ChatCategory) => void;
 }
 
-const categories: ChatCategory[] = ['Create', 'Explore', 'Code', 'Learn'];
+const categories: ChatCategory[] = ['Basic', 'Work', 'Skills', 'Hobbies'];
 
 const categoryIcons: Record<ChatCategory, preact.JSX.Element> = {
-  Create: (
-    <svg className="inline-block mr-2 w-5 h-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-      <path d="M11 3a1 1 0 10-2 0v1.07A7.002 7.002 0 003 11c0 2.386 1.2 4.47 3 5.74V18a1 1 0 001 1h6a1 1 0 001-1v-1.26A7.002 7.002 0 0017 11a7.002 7.002 0 00-6-6.93V3zM10 5a6 6 0 016 6c0 1.657-.672 3.156-1.757 4.243A1 1 0 0014 16H6a1 1 0 00-.243-1.757A6.002 6.002 0 0110 5z" />
-    </svg>
+  Basic: (
+    <svg className="inline-block mr-2 w-5 h-5 text-muted" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" /><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" /><path d="M3 6l0 13" /><path d="M12 6l0 13" /><path d="M21 6l0 13" /></svg>
   ),
-  Explore: (
-    <svg className="inline-block mr-2 w-5 h-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-      <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm2.94 5.06a1 1 0 01.13 1.13l-2 5a1 1 0 01-.52.52l-5 2a1 1 0 01-1.13-.13 1 1 0 01-.13-1.13l2-5a1 1 0 01.52-.52l5-2a1 1 0 011.13.13z" />
-    </svg>
+  Work: (
+    <svg className="inline-block mr-2 w-5 h-5 text-muted" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-briefcase"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" /><path d="M12 12l0 .01" /><path d="M3 13a20 20 0 0 0 18 0" /></svg>
   ),
-  Code: (
-    <svg className="inline-block mr-2 w-5 h-5 text-green-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-      <path d="M8.293 6.293a1 1 0 011.414 0L13 9.586a1 1 0 010 1.414l-3.293 3.293a1 1 0 01-1.414-1.414L10.586 11H4a1 1 0 110-2h6.586l-2.293-2.293a1 1 0 010-1.414z" />
-    </svg>
+  Skills: (
+    <svg className="inline-block mr-2 w-5 h-5 text-muted" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bulb"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7" /><path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3" /><path d="M9.7 17l4.6 0" /></svg>
   ),
-  Learn: (
-    <svg className="inline-block mr-2 w-5 h-5 text-purple-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-      <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12v-1a1 1 0 00-2 0v1a1 1 0 002 0zm.293-3.707a1 1 0 00-1.414 0L7 12.172V11a1 1 0 10-2 0v3a1 1 0 001 1h3a1 1 0 001-1v-3a1 1 0 00-.293-.707z" />
-    </svg>
+  Hobbies: (
+    <svg className="inline-block mr-2 w-5 h-5 text-muted" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-heartbeat"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M19.5 13.572l-7.5 7.428l-2.896 -2.868m-6.117 -8.104a5 5 0 0 1 9.013 -3.022a5 5 0 1 1 7.5 6.572" /><path d="M3 13h2l2 3l2 -6l1 3h3" /></svg>
   ),
 };
 
 export default function ChatCategorySelector({ selected, onSelect }: Props) {
   return (
-    <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 mb-6 w-full items-center">
+    <div className="flex flex-wrap sm:flex-row justify-center gap-2 sm:gap-4 mb-6 w-full items-center">
       {categories.map(cat => (
         <button
           type="button"
           key={cat}
-          className={`px-4 py-2 rounded-full font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400/70 focus:ring-offset-2 focus:ring-offset-background
+          className={`flex items-center gap-2 px-4 py-3 rounded-full transition-all duration-200
+            shadow-sm
             ${cat === selected
-              ? 'bg-blue-600 text-white shadow-md dark:bg-blue-700 dark:text-white'
-              : 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 dark:bg-gray-800 dark:text-blue-300 dark:hover:bg-blue-900 dark:border-gray-700'}
+              ? 'bg-blue-600/30 text-blue-600 shadow-lg font-bold' 
+              : 'bg-blue-500/30 dark:bg-neutral-800 text-black dark:text-neutral-200/50 hover:bg-blue-500/80 dark:hover:bg-neutral-700/80' 
+            }
+             
           `}
           onClick={() => onSelect(cat)}
         >

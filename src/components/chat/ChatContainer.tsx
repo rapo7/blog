@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState, useRef, useEffect } from 'preact/hooks';
 import ChatHeader from './ChatHeader';
 import ChatCategorySelector from './ChatCategorySelector';
 import ChatPromptList from './ChatPromptList';
@@ -8,26 +8,47 @@ import LoadingBubble from './LoadingBubble';
 import type { ChatCategory, ChatPrompt, ChatMessage } from './types';
 
 const promptData: Record<ChatCategory, ChatPrompt[]> = {
-  Create: [
-    { id: 'create-1', text: 'Write a short story about a robot discovering emotions' },
-    { id: 'create-2', text: 'Help me outline a sci-fi novel set in a post-apocalyptic world' },
-    { id: 'create-3', text: 'Create a character profile for a complex villain with sympathetic motives' },
-    { id: 'create-4', text: 'Give me 5 creative writing prompts for flash fiction' },
+  "Basic": [
+    { id: "basic-1", text: "What is your educational background?" },
+    { id: "basic-2", text: "How did you get started in software engineering?" },
+    { id: "basic-3", text: "What programming languages do you know?" },
+    { id: "basic-4", text: "What are your strongest technical skills?" },
+    { id: "basic-5", text: "How to contact you?" },
   ],
-  Explore: [
-    { id: 'explore-1', text: 'How does AI work?' },
-    { id: 'explore-2', text: 'Are black holes real?' },
-    { id: 'explore-3', text: 'How many Rs are in the word "strawberry"?' },
-    { id: 'explore-4', text: 'What is the meaning of life?' },
+  "Work": [
+    { id: "work-1", text: "Where are you currently working?" },
+    { id: "work-2", text: "What companies have you worked for?" },
+    { id: "work-3", text: "What was your most challenging project?" },
+    { id: "work-4", text: "What was your Current project?" },
+    { id: "work-5", text: "What is your leadership experience?" },
   ],
-  Code: [],
-  Learn: [],
+  "Skills": [
+    { id: "skills-1", text: "Tell me about your software engineering experience." },
+    { id: "skills-2", text: "What industries have you worked in?" },
+    { id: "skills-3", text: "What are your most impressive projects?" },
+    { id: "skills-4", text: "Do you have any open source contributions?" },
+    { id: "skills-5", text: "What technologies do you use in your projects?" },
+  ],
+  "Hobbies": [
+    { id: "hobbies-1", text: "What are your hobbies?" },
+    { id: "hobbies-2", text: "What do you like to do outside of work?" },
+    { id: "hobbies-3", text: "What project are you most proud of?" },
+    { id: "hobbies-4", text: "What are you learning right now?" },
+    { id: "hobbies-5", text: "Can you share your GitHub?" },
+  ],
 };
 
 export default function ChatContainer() {
-  const [category, setCategory] = useState<ChatCategory>('Explore');
+  const [category, setCategory] = useState<ChatCategory>('Basic');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (messages.length > 1 && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   function handlePromptSelect(prompt: ChatPrompt) {
     setMessages(msgs => [
@@ -49,6 +70,7 @@ export default function ChatContainer() {
   // Simulate AI response with loading
   function triggerAssistantResponse(userMessage: string) {
     setLoading(true);
+    console.log('Sending message:', userMessage);
     setTimeout(() => {
       setMessages(msgs => [
         ...msgs,
@@ -74,6 +96,7 @@ export default function ChatContainer() {
           {messages.map((msg, idx) => (
             <ChatBubble key={idx} sender={msg.sender} content={msg.content} />
           ))}
+          <div ref={messagesEndRef} />
           {loading && <LoadingBubble />}
         </div>
       </div>
