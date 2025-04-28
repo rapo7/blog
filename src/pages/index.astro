@@ -3,10 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/sections/Hero.astro';
 import Resume from '../components/sections/Resume.astro';
 import Portfolio from '../components/sections/portfolio/Portfolio.astro';
+import NavFAB from "../components/NavFAB";
 ---
 
 <Layout title="Ravi teja Rapolu"  ;>
 	<Hero />
 	<Resume />
 	<Portfolio />
+	<NavFAB client:load />
 </Layout>
