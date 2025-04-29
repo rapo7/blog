@@ -8,7 +8,7 @@ interface AssistantMarkdownProps {
 
 export default function AssistantMarkdown({ content }: AssistantMarkdownProps) {
   return (
-    <div className="prose prose-invert dark:prose-invert max-w-none w-full">
+    <div className="max-w-none w-full prose dark:prose-invert">
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
     </div>
   );

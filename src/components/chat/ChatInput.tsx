@@ -17,7 +17,7 @@ export default function ChatInput({ onSend }: Props) {
 
   return (
 
-    <form className="flex items-center gap-2 px-2 sm:px-4 py-3 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 fixed bottom-0 left-0 right-0 max-w-xl mx-auto w-full" onSubmit={(e) => handleSend(e)}>
+    <form className="flex items-center gap-2 px-2 sm:px-4 py-3 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 fixed bottom-0 left-0 right-0 w-screen mx-auto max-w-3xl rounded-full" onSubmit={(e) => handleSend(e)}>
       <a
         href="/blog/"
         className="inline-flex items-center gap-1 px-3 py-2 rounded-full bg-blue-600 text-white font-medium shadow hover:bg-blue-700 transition text-sm"

@@ -127,8 +127,8 @@ export default function ChatContainer() {
 
 
   return (
-    <div className="relative min-h-screen w-full bg-gradient-to-b from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 flex flex-col items-center px-2 sm:px-0">
-      <div className="w-full max-w-xl mx-auto bg-inherit rounded-xl shadow-lg mt-4 sm:mt-10 mb-24 sm:mb-28 px-2 sm:px-6 pt-2 pb-8 flex flex-col">
+    <div className="relative min-h-screen w-full bg-white dark:bg-gray-900 flex flex-col items-center px-2 sm:px-0">
+      <div className="w-full max-w-4xl mx-auto bg-inherit rounded-xl shadow-lg mt-4 sm:mt-10 mb-24 sm:mb-28 px-2 sm:px-6 pt-2 pb-8 flex flex-col">
         <ChatHeader />
         {showCategories && (
           <>
