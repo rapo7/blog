@@ -66,22 +66,38 @@ export default function ChatContainer() {
     ]);
     triggerAssistantResponse(message);
   }
-
-  // Simulate AI response with loading
-  function triggerAssistantResponse(userMessage: string) {
+  // Send AI response via API
+  async function triggerAssistantResponse(userMessage: string) {
     setLoading(true);
-    console.log('Sending message:', userMessage);
-    setTimeout(() => {
+    try {
+      const response = await fetch('https://ravitejarapolu6--ravigpt-modal-ravi-gpt.modal.run', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: userMessage }),
+      });
+      const data = await response.json();
       setMessages(msgs => [
         ...msgs,
         {
           id: `assistant-${Date.now()}`,
           sender: 'assistant',
-          content: `You said: "${userMessage}"`,
+          content: data?.response || 'Sorry, no response received.',
         },
       ]);
+    } catch (error) {
+      setMessages(msgs => [
+        ...msgs,
+        {
+          id: `assistant-${Date.now()}`,
+          sender: 'assistant',
+          content: 'Sorry, there was an error getting a response.',
+        },
+      ]);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   }
 
 
