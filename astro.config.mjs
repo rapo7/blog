@@ -7,14 +7,14 @@ import tailwind from "@astrojs/tailwind";
 import { readFileSync } from "node:fs";
 import mdx from '@astrojs/mdx';
 import icon from "astro-icon";
-import preact from "@astrojs/preact";
+import react from "@astrojs/react";
 import partytown from "@astrojs/partytown";
 // TODO: add pagefind integration
 // import pagefind from "astro-pagefind";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx(), preact(), partytown(), sitemap() , icon({
+  integrations: [tailwind(), mdx(), react(), partytown(), sitemap() , icon({
     include: {
       'logos': ['*']
     },

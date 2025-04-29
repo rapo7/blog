@@ -1,6 +1,7 @@
-import { useCallback } from "preact/hooks";
+import { useCallback } from "react";
+import type { CSSProperties } from "react";
 
-const fabStyle: preact.JSX.CSSProperties = {
+const fabStyle: CSSProperties = {
     position: "fixed",
     bottom: "2rem",
     right: "2rem",

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'preact/hooks';
+import { useState, useRef, useEffect } from 'react';
 import ChatHeader from './ChatHeader';
 import ChatCategorySelector from './ChatCategorySelector';
 import ChatPromptList from './ChatPromptList';

@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState } from 'react';
 
 interface Props {
   onSend: (message: string) => void;
@@ -7,7 +7,7 @@ interface Props {
 export default function ChatInput({ onSend }: Props) {
   const [value, setValue] = useState('');
 
-  function handleSend(e: Event) {
+  function handleSend(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (value.trim()) {
       onSend(value);
@@ -26,7 +26,7 @@ export default function ChatInput({ onSend }: Props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
-        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="16" stroke-dashoffset="16" d="M4.5 21.5h15"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="16;0" /></path><path stroke-dasharray="16" stroke-dashoffset="16" d="M4.5 21.5v-13.5M19.5 21.5v-13.5"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.2s" values="16;0" /></path><path stroke-dasharray="28" stroke-dashoffset="28" d="M2 10l10 -8l10 8"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.4s" dur="0.4s" values="28;0" /></path><path stroke-dasharray="24" stroke-dashoffset="24" d="M9.5 21.5v-9h5v9"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.4s" values="24;0" /></path></g></svg>
+        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path strokeDasharray="16" strokeDashoffset="16" d="M4.5 21.5h15"><animate fill="freeze" attributeName="strokeDashoffset" dur="0.2s" values="16;0" /></path><path strokeDasharray="16" strokeDashoffset="16" d="M4.5 21.5v-13.5M19.5 21.5v-13.5"><animate fill="freeze" attributeName="strokeDashoffset" begin="0.2s" dur="0.2s" values="16;0" /></path><path strokeDasharray="28" strokeDashoffset="28" d="M2 10l10 -8l10 8"><animate fill="freeze" attributeName="strokeDashoffset" begin="0.4s" dur="0.4s" values="28;0" /></path><path strokeDasharray="24" strokeDashoffset="24" d="M9.5 21.5v-9h5v9"><animate fill="freeze" attributeName="strokeDashoffset" begin="0.7s" dur="0.4s" values="24;0" /></path></g></svg>
       </a>
       <input
         type="text"

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "preact/hooks";
+import { useState, useRef, useEffect } from "react";
 
 export default function BlogFAB() {
   const [open, setOpen] = useState(false);
@@ -264,16 +264,16 @@ export default function BlogFAB() {
             <path
               fill="none"
               stroke="currentColor"
-              stroke-dasharray="12"
-              stroke-dashoffset="12"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeDasharray="12"
+              strokeDashoffset="12"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M12 12l7 7M12 12l-7 -7M12 12l-7 7M12 12l7 -7"
             >
               <animate
                 fill="freeze"
-                attributeName="stroke-dashoffset"
+                attributeName="strokeDashoffset"
                 dur="0.3s"
                 values="12;0"
               />
@@ -291,16 +291,16 @@ export default function BlogFAB() {
             <g
               fill="none"
               stroke="currentColor"
-              stroke-dasharray="16"
-              stroke-dashoffset="16"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeDasharray="16"
+              strokeDashoffset="16"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
             >
               <path d="M5 5h14">
                 <animate
                   fill="freeze"
-                  attributeName="stroke-dashoffset"
+                  attributeName="strokeDashoffset"
                   dur="0.2s"
                   values="16;0"
                 />
@@ -308,7 +308,7 @@ export default function BlogFAB() {
               <path d="M5 12h14">
                 <animate
                   fill="freeze"
-                  attributeName="stroke-dashoffset"
+                  attributeName="strokeDashoffset"
                   begin="0.2s"
                   dur="0.2s"
                   values="16;0"
@@ -317,7 +317,7 @@ export default function BlogFAB() {
               <path d="M5 19h14">
                 <animate
                   fill="freeze"
-                  attributeName="stroke-dashoffset"
+                  attributeName="strokeDashoffset"
                   begin="0.4s"
                   dur="0.2s"
                   values="16;0"
