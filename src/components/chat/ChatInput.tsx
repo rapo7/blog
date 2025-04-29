@@ -26,7 +26,7 @@ export default function ChatInput({ onSend }: Props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
-        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path strokeDasharray="16" strokeDashoffset="16" d="M4.5 21.5h15"><animate fill="freeze" attributeName="strokeDashoffset" dur="0.2s" values="16;0" /></path><path strokeDasharray="16" strokeDashoffset="16" d="M4.5 21.5v-13.5M19.5 21.5v-13.5"><animate fill="freeze" attributeName="strokeDashoffset" begin="0.2s" dur="0.2s" values="16;0" /></path><path strokeDasharray="28" strokeDashoffset="28" d="M2 10l10 -8l10 8"><animate fill="freeze" attributeName="strokeDashoffset" begin="0.4s" dur="0.4s" values="28;0" /></path><path strokeDasharray="24" strokeDashoffset="24" d="M9.5 21.5v-9h5v9"><animate fill="freeze" attributeName="strokeDashoffset" begin="0.7s" dur="0.4s" values="24;0" /></path></g></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" width={24} height={24} viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M6 22.879a3 3 0 0 1-3-3v-10q0-.052.005-.1H3c0-.577.229-1.13.636-1.536L9.88 2a3 3 0 0 1 4.242 0l6.243 6.243c.407.407.636.96.636 1.535h-.005q.005.05.005.1v10a3 3 0 0 1-3 3zm6.707-19.465L19 9.707V19.88a1 1 0 0 1-1 1h-3v-5a3 3 0 1 0-6 0v5H6a1 1 0 0 1-1-1V9.707l6.293-6.293a1 1 0 0 1 1.414 0" clipRule="evenodd"></path></svg>
       </a>
       <input
         type="text"

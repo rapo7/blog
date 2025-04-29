@@ -42,6 +42,7 @@ export default function ChatContainer() {
   const [category, setCategory] = useState<ChatCategory>('Basic');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
+  const [showCategories, setShowCategories] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ export default function ChatContainer() {
   }, [messages]);
 
   function handlePromptSelect(prompt: ChatPrompt) {
+    setShowCategories(false);
     setMessages(msgs => [
       ...msgs,
       { id: `user-${Date.now()}`, sender: 'user', content: prompt.text },
@@ -59,6 +61,7 @@ export default function ChatContainer() {
   }
 
   function handleSend(message: string) {
+    setShowCategories(false);
     console.log('Sending message:', message);
     setMessages(msgs => [
       ...msgs,
@@ -106,8 +109,12 @@ export default function ChatContainer() {
     <div className="relative min-h-screen w-full bg-gradient-to-b from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 flex flex-col items-center px-2 sm:px-0">
       <div className="w-full max-w-xl mx-auto bg-inherit rounded-xl shadow-lg mt-4 sm:mt-10 mb-24 sm:mb-28 px-2 sm:px-6 pt-2 pb-8 flex flex-col">
         <ChatHeader />
-        <ChatCategorySelector selected={category} onSelect={setCategory} />
-        <ChatPromptList prompts={promptData[category]} onSelect={handlePromptSelect} />
+        {showCategories && (
+          <>
+            <ChatCategorySelector selected={category} onSelect={setCategory} />
+            <ChatPromptList prompts={promptData[category]} onSelect={handlePromptSelect} />
+          </>
+        )}
         <div className="flex flex-col gap-1 mt-4 mb-2 w-full min-h-[120px]">
           {messages.map((msg, idx) => (
             <ChatBubble key={idx} sender={msg.sender} content={msg.content} />

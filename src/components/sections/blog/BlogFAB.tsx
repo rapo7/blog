@@ -49,9 +49,9 @@ export default function BlogFAB() {
               />
               <path
                 fill="url(#fluentColorHome162)"
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="m8.004 2.636l5.731 5.41a.75.75 0 1 0 1.03-1.091L8.86 1.382a1.25 1.25 0 0 0-1.724.007L1.23 7.059a.75.75 0 0 0 1.038 1.082z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
               <defs>
                 <linearGradient
@@ -62,8 +62,8 @@ export default function BlogFAB() {
                   y2="14.698"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#944600" />
-                  <stop offset="1" stop-color="#cd8e02" />
+                  <stop stopColor="#944600" />
+                  <stop offset="1" stopColor="#cd8e02" />
                 </linearGradient>
                 <linearGradient
                   id="fluentColorHome161"
@@ -73,8 +73,8 @@ export default function BlogFAB() {
                   y2="10.981"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#ffd394" />
-                  <stop offset="1" stop-color="#ffb357" />
+                  <stop stopColor="#ffd394" />
+                  <stop offset="1" stopColor="#ffb357" />
                 </linearGradient>
                 <linearGradient
                   id="fluentColorHome162"
@@ -84,8 +84,8 @@ export default function BlogFAB() {
                   y2="7.895"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#ff921f" />
-                  <stop offset="1" stop-color="#eb4824" />
+                  <stop stopColor="#ff921f" />
+                  <stop offset="1" stopColor="#eb4824" />
                 </linearGradient>
               </defs>
             </g>
@@ -119,12 +119,12 @@ export default function BlogFAB() {
               />
               <path
                 fill="url(#fluentColorDocumentEdit166)"
-                fill-opacity="0.5"
+                fillOpacity="0.5"
                 d="M9.5 4.5L8.004 1H4.5A1.5 1.5 0 0 0 3 2.5v11A1.5 1.5 0 0 0 4.5 15h5l3.494-3.494L13 6z"
               />
               <path
                 fill="url(#fluentColorDocumentEdit167)"
-                fill-opacity="0.5"
+                fillOpacity="0.5"
                 d="M9.5 4.5L8.004 1H4.5A1.5 1.5 0 0 0 3 2.5v11A1.5 1.5 0 0 0 4.5 15h5l3.494-3.494L13 6z"
               />
               <path
@@ -156,8 +156,8 @@ export default function BlogFAB() {
                   y2="12.781"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#6ce0ff" />
-                  <stop offset="1" stop-color="#4894fe" />
+                  <stop stopColor="#6ce0ff" />
+                  <stop offset="1" stopColor="#4894fe" />
                 </linearGradient>
                 <linearGradient
                   id="fluentColorDocumentEdit161"
@@ -167,8 +167,8 @@ export default function BlogFAB() {
                   y2="5.167"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#9ff0f9" />
-                  <stop offset="1" stop-color="#b3e0ff" />
+                  <stop stopColor="#9ff0f9" />
+                  <stop offset="1" stopColor="#b3e0ff" />
                 </linearGradient>
                 <linearGradient
                   id="fluentColorDocumentEdit162"
@@ -178,8 +178,8 @@ export default function BlogFAB() {
                   y2="14.768"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#ffa43d" />
-                  <stop offset="1" stop-color="#fb5937" />
+                  <stop stopColor="#ffa43d" />
+                  <stop offset="1" stopColor="#fb5937" />
                 </linearGradient>
                 <linearGradient
                   id="fluentColorDocumentEdit163"
@@ -189,8 +189,8 @@ export default function BlogFAB() {
                   y2="15.982"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop offset=".255" stop-color="#ffd394" />
-                  <stop offset="1" stop-color="#ff921f" />
+                  <stop offset=".255" stopColor="#ffd394" />
+                  <stop offset="1" stopColor="#ff921f" />
                 </linearGradient>
                 <linearGradient
                   id="fluentColorDocumentEdit164"
@@ -200,8 +200,8 @@ export default function BlogFAB() {
                   y2="10.135"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#f97dbd" />
-                  <stop offset="1" stop-color="#dd3ce2" />
+                  <stop stopColor="#f97dbd" />
+                  <stop offset="1" stopColor="#dd3ce2" />
                 </linearGradient>
                 <linearGradient
                   id="fluentColorDocumentEdit165"
@@ -211,8 +211,8 @@ export default function BlogFAB() {
                   y2="10.32"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#ff921f" />
-                  <stop offset="1" stop-color="#ffe994" />
+                  <stop stopColor="#ff921f" />
+                  <stop offset="1" stopColor="#ffe994" />
                 </linearGradient>
                 <radialGradient
                   id="fluentColorDocumentEdit166"
@@ -222,8 +222,8 @@ export default function BlogFAB() {
                   gradientTransform="rotate(130.372 6.372 3.818)scale(8.35524 4.87457)"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop offset=".362" stop-color="#4a43cb" />
-                  <stop offset="1" stop-color="#4a43cb" stop-opacity="0" />
+                  <stop offset=".362" stopColor="#4a43cb" />
+                  <stop offset="1" stopColor="#4a43cb" stopOpacity="0" />
                 </radialGradient>
                 <radialGradient
                   id="fluentColorDocumentEdit167"
@@ -233,8 +233,8 @@ export default function BlogFAB() {
                   gradientTransform="matrix(-3.5 4 -2.22345 -1.94552 10 14)"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop offset=".535" stop-color="#4a43cb" />
-                  <stop offset="1" stop-color="#4a43cb" stop-opacity="0" />
+                  <stop offset=".535" stopColor="#4a43cb" />
+                  <stop offset="1" stopColor="#4a43cb" stopOpacity="0" />
                 </radialGradient>
               </defs>
             </g>
@@ -250,81 +250,14 @@ export default function BlogFAB() {
       <button
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={() => setOpen((v) => !v)}
-        className="bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg w-16 h-16 flex items-center justify-center text-3xl transition-all duration-200 focus:outline-none"
+        className="bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg w-10 h-10 flex items-center justify-center text-3xl transition-all duration-200 focus:outline-none"
       >
         {open ? (
           // Close (X) icon
-          <svg
-            className="w-6 h-6 transition-transform duration-200"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="none"
-              stroke="currentColor"
-              strokeDasharray="12"
-              strokeDashoffset="12"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 12l7 7M12 12l-7 -7M12 12l-7 7M12 12l7 -7"
-            >
-              <animate
-                fill="freeze"
-                attributeName="strokeDashoffset"
-                dur="0.3s"
-                values="12;0"
-              />
-            </path>
-          </svg>
+          <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={4}><path d="m42 42l-9-9M6 6l9 9zm0 36l9-9M42 6l-9 9z"></path><path fill="currentColor" d="M24 29a5 5 0 1 0 0-10a5 5 0 0 0 0 10"></path></g></svg>
         ) : (
-          // Menu icon (person)
-          <svg
-            className="w-6 h-6 transition-transform duration-200"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <g
-              fill="none"
-              stroke="currentColor"
-              strokeDasharray="16"
-              strokeDashoffset="16"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            >
-              <path d="M5 5h14">
-                <animate
-                  fill="freeze"
-                  attributeName="strokeDashoffset"
-                  dur="0.2s"
-                  values="16;0"
-                />
-              </path>
-              <path d="M5 12h14">
-                <animate
-                  fill="freeze"
-                  attributeName="strokeDashoffset"
-                  begin="0.2s"
-                  dur="0.2s"
-                  values="16;0"
-                />
-              </path>
-              <path d="M5 19h14">
-                <animate
-                  fill="freeze"
-                  attributeName="strokeDashoffset"
-                  begin="0.4s"
-                  dur="0.2s"
-                  values="16;0"
-                />
-              </path>
-            </g>
-          </svg>
+          // Menu icon (joystick)
+          <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}><path d="M21 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM6 15v-2m6 2V9"></path><circle cx={12} cy={6} r={3}></circle></g></svg>
         )}
       </button>
     </div>
