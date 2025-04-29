@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import Markdown from "react-markdown";
+import AssistantMarkdown from "./AssistantMarkdown";
 
 interface ChatBubbleProps extends ComponentProps<"div"> {
   sender: string;
@@ -24,10 +24,8 @@ export default function ChatBubble({
           <div>{content}</div>
         </div>
       ) : (
-        <div
-          className={`max-w-[75%] px-4 py-2 rounded-2xl shadow text-base break-words mb-2 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-sm`}
-        >
-          <Markdown>{content}</Markdown>
+        <div className="w-full my-4">
+          <AssistantMarkdown content={content} />
         </div>
       )}
     </div>

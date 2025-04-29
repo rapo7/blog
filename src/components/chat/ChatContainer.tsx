@@ -44,12 +44,33 @@ export default function ChatContainer() {
   const [loading, setLoading] = useState(false);
   const [showCategories, setShowCategories] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatAreaRef = useRef<HTMLDivElement>(null);
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
 
   useEffect(() => {
     if (messages.length > 1 && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
+
+  useEffect(() => {
+    const chatArea = chatAreaRef.current;
+    if (!chatArea) return;
+    function handleScroll() {
+      // If scrolled to bottom (or very close), hide button
+      const isAtBottom = chatArea.scrollHeight - chatArea.scrollTop - chatArea.clientHeight < 40;
+      setShowScrollToBottom(!isAtBottom);
+    }
+    chatArea.addEventListener('scroll', handleScroll);
+    return () => chatArea.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleScrollToBottom = () => {
+    const chatArea = chatAreaRef.current;
+    if (chatArea) {
+      chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
+    }
+  };
 
   function handlePromptSelect(prompt: ChatPrompt) {
     setShowCategories(false);
@@ -115,15 +136,35 @@ export default function ChatContainer() {
             <ChatPromptList prompts={promptData[category]} onSelect={handlePromptSelect} />
           </>
         )}
-        <div className="flex flex-col gap-1 mt-4 mb-2 w-full min-h-[120px]">
+        <div
+          ref={chatAreaRef}
+          className="flex flex-col gap-1 mt-4 mb-2 w-full min-h-[120px] pb-32 relative"
+          style={{ scrollBehavior: 'smooth' }}
+        >
           {messages.map((msg, idx) => (
             <ChatBubble key={idx} sender={msg.sender} content={msg.content} />
           ))}
           <div ref={messagesEndRef} />
           {loading && <LoadingBubble />}
         </div>
+        {showScrollToBottom && (
+          <button
+            onClick={handleScrollToBottom}
+            className="fixed bottom-28 right-8 z-50 bg-blue-600 text-white rounded-full shadow-lg p-2 hover:bg-blue-700 transition"
+            aria-label="Scroll to bottom"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        )}
       </div>
-      <ChatInput onSend={handleSend} />
+      {/* Sticky ChatInput at bottom of viewport */}
+      <div className="fixed bottom-0 left-0 w-full z-40 bg-inherit border-t border-gray-200 dark:border-gray-800 px-2 sm:px-0 flex justify-center">
+        <div className="w-full max-w-xl">
+          <ChatInput onSend={handleSend} />
+        </div>
+      </div>
     </div>
   );
 }
