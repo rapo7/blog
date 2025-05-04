@@ -1,0 +1,227 @@
+---
+title: Getting Started with Spring AI - A Comprehensive Guide
+description: This guide will walk you through spring ai and its features and how to implement it in your application
+datetime: 2025-05-03
+image: "https://picsum.photos/id/13/200/150"
+url: "blog/spring-ai"
+---
+
+import BlogTitle from "../../components/sections/blog/BlogTitle.tsx";
+
+<BlogTitle text={frontmatter.title} />
+
+
+Spring AI brings the power of generative AI models into your familiar Spring ecosystem, letting you build production‑grade AI features with POJOs, dependency injection, and auto‑configuration. In this guide, we’ll cover:
+
+1. [Introduction & Core Concepts](#introduction--core-concepts)
+2. [Key Features](#key-features)
+3. [Setup & Installation](#setup--installation)
+4. [Basic Usage: ChatClient Demo](#basic-usage-chatclient-demo)
+5. [Advanced Topics](#advanced-topics)
+
+   * Function / Tool Calling
+   * Retrieval‑Augmented Generation (RAG)
+   * Vector Database Integration
+   * Observability & Monitoring
+   * Document ETL & Model Evaluation
+6. [Best Practices](#best-practices)
+7. [Resources & Next Steps](#resources--next-steps)
+
+---
+
+### Introduction & Core Concepts
+
+At its heart, **Spring AI** solves the fundamental challenge of enterprise AI integration: **connecting your data and APIs** with **large AI models** (e.g., OpenAI, Anthropic, Azure, AWS, Google, Ollama). By applying Spring’s design principles—portability, modularity, and POJO‑centric APIs—to AI development, Spring AI lets you:
+
+* Write strongly‑typed Java code for prompts and outputs.
+* Swap AI providers without rewriting business logic.
+* Inject AI clients via Spring DI and Spring Boot starters.
+
+
+---
+
+### Key Features
+
+* **Provider‑agnostic API** across all major AI services (OpenAI, Anthropic, Azure OpenAI, AWS Bedrock, Google Vertex AI, Ollama).
+* **Model‑type support**: Chat completion, embeddings, text‑to‑image, audio transcription & TTS, moderation.
+* **Structured outputs**: Map model responses directly into your Java POJOs.
+* **Function/Tool Calling**: Allow LLMs to invoke your Java methods or REST APIs to fetch real‑time data.
+* **Vector store integration**: Portable API for Pinecone, Redis, Neo4j, PostgreSQL (PGVector), Chroma, Milvus, Weaviate, and others, with SQL‑like metadata filters.
+* **Retrieval‑Augmented Generation (RAG)**: Combine your own document corpus or knowledge base with LLMs for contextually relevant answers.
+* **Observability**: Built‑in tracing and metrics for prompt calls, usage analytics, and latency insights.
+* **Document ETL framework**: Ingest, chunk, and index documents for RAG workflows.
+* **AI Model Evaluation**: Utilities to test, validate, and detect hallucinations in AI outputs.
+* **Fluent APIs**:
+
+  * **ChatClient** — idiomatic client like `WebClient` / `RestClient` for LLMs.
+  * **Advisors** — reusable, pattern‑based wrappers for common GenAI tasks (summarization, Q\&A, translation).
+* **Spring Boot Starters**: Auto‑configure both AI clients and vector stores via `spring.factories` / `spring-boot-autoconfigure`.
+
+---
+
+### Setup & Installation
+
+1. **Generate your project** via [Spring Initializr](https://start.spring.io/):
+
+   * Choose **Spring Boot** version (e.g., 3.2.x).
+   * Under **Dependencies**, search for **Spring AI OpenAI** (or your preferred provider) and **Spring AI Vector Store**.
+2. **Add your API key** to `src/main/resources/application.properties`:
+
+   ```properties
+   # for OpenAI
+   spring.ai.openai.api-key=${OPENAI_API_KEY}
+   # for Anthropic
+   spring.ai.anthropic.api-key=${ANTHROPIC_API_KEY}
+   ```
+3. **Build & run**:
+
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+---
+
+### Basic Usage: ChatClient Demo
+
+Add a simple `CommandLineRunner` in your main application:
+
+```java
+@SpringBootApplication
+public class SpringAiDemoApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(SpringAiDemoApplication.class, args);
+  }
+
+  @Bean
+  public CommandLineRunner runner(ChatClient.Builder builder) {
+    return args -> {
+      ChatClient chatClient = builder.build();
+      String response = chatClient
+        .prompt("Tell me a joke")
+        .call()
+        .content();
+      System.out.println("AI says: " + response);
+    };
+  }
+}
+```
+
+> **What happens here?**
+>
+> * Spring Boot auto‑wires a `ChatClient.Builder` based on your configured provider.
+> * You build a `ChatClient`, send a prompt, and receive a typed response.
+
+---
+
+### Advanced Topics
+
+#### Function / Tool Calling
+
+Enable LLMs to request the execution of your client‑side functions:
+
+```java
+@Bean
+public ChatFunction getWeather = ChatFunction.of(
+    "getWeather",
+    Map.of("city", String.class),
+    (params) -> {
+        String city = (String) params.get("city");
+        // call your weather API...
+        return Map.of("temperature", 72, "conditions", "Sunny");
+    }
+);
+
+@Bean
+public CommandLineRunner runnerWithTools(ChatClient.Builder builder,
+                                         List<ChatFunction> functions) {
+  return args -> {
+    ChatClient client = builder.build();
+    ChatResponse resp = client
+      .prompt("What’s the weather in Paris?")
+      .functions(functions)
+      .call();
+    System.out.println(resp.content());
+  };
+}
+```
+
+#### Retrieval‑Augmented Generation (RAG)
+
+1. **Ingest documents** via the ETL framework:
+
+   ```java
+   @Autowired DocumentIngestor ingestor;
+
+   ingestor.ingestFolder(Path.of("docs/"), "my-doc-index");
+   ```
+2. **Query with context**:
+
+   ```java
+   ChatResponse resp = chatClient
+     .prompt("Explain our refund policy")
+     .withRag("my-doc-index", 3)   // retrieve top 3 relevant chunks
+     .call();
+   ```
+
+#### Vector Database Integration
+
+Configure a vector store via properties:
+
+```properties
+spring.ai.vector-store.provider=redis
+spring.ai.vector-store.redis.host=localhost
+spring.ai.vector-store.redis.port=6379
+```
+
+Use the portable `VectorStoreTemplate`:
+
+```java
+@Autowired VectorStoreTemplate template;
+
+template.upsert("vector-id-1", new float[]{0.12f, 0.98f, …}, Map.of("category", "faq"));
+List<VectorDocument> docs = template.queryByVector(
+    queryEmbedding, 5, MetadataFilters.match("category", "faq"));
+```
+
+#### Observability & Monitoring
+
+Spring AI publishes metrics (Micrometer) and supports OpenTelemetry tracing:
+
+```properties
+management.metrics.export.prometheus.enabled=true
+management.tracing.enabled=true
+```
+
+You’ll get metrics like `spring_ai.requests.count` and trace spans for each prompt call.
+
+#### Document ETL & Model Evaluation
+
+* **ETL**: Chunk large docs, embed, and store in vector stores.
+* **Evaluation**: Use `EvaluationClient` to run tests (e.g., question/answer accuracy, red-team tests against hallucinations).
+
+---
+
+### Best Practices
+
+* **Use POJOs** for structured inputs/outputs to reduce parsing boilerplate.
+* **Leverage advisors** for common patterns (e.g., summarization).
+* **Enable streaming** for large payloads or token‑by‑token UIs.
+* **Monitor costs** by tracking token usage via observability metrics.
+* **Sanitize inputs** when using user‑provided text to avoid injection risks.
+* **Validate outputs** with model evaluation utilities before sending to end users.
+
+---
+
+### Resources & Next Steps
+
+* 📖 **Reference Docs:** [https://docs.spring.io/spring-ai/reference/](https://docs.spring.io/spring-ai/reference/)
+* ⚙️ **Spring Initializr:** [https://start.spring.io/](https://start.spring.io/) (search “Spring AI”)
+* 🔍 **Sample Code & Workshops:** [https://github.com/spring-projects/spring-ai-samples](https://github.com/spring-projects/spring-ai-samples)
+* 🎓 **Tutorials & Courses:** Check the “Getting Started” section in the docs for workshops.
+
+> Ready to supercharge your Spring apps with AI? Give Spring AI a spin today, and let us know what you build! 🚀
+
+---
+
+*Happy coding!*
