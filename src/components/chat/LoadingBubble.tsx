@@ -23,7 +23,7 @@ export default function LoadingBubble() {
 
   return (
     <div className="flex justify-start w-full">
-      <div className="max-w-[75%] px-4 py-2 rounded-2xl shadow text-base break-words mb-2 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-sm flex flex-col gap-1 items-start">
+      <div className="mb-2 flex max-w-[92%] flex-col items-start gap-1 break-words rounded-3xl rounded-bl-md border border-default bg-default px-4 py-3 text-base text-default shadow-sm sm:max-w-[82%]">
         <div className="flex items-center gap-2">
           <TypingDots />
           <span className="font-medium">rAvI is typing…</span>
@@ -37,9 +37,9 @@ export default function LoadingBubble() {
 function TypingDots() {
   return (
     <span className="inline-flex items-center h-4">
-      <span className="bg-gray-500 dark:bg-gray-300 rounded-full w-1.5 h-1.5 mx-0.5 animate-bounce" style={{animationDelay: '0ms'}} />
-      <span className="bg-gray-500 dark:bg-gray-300 rounded-full w-1.5 h-1.5 mx-0.5 animate-bounce" style={{animationDelay: '150ms'}} />
-      <span className="bg-gray-500 dark:bg-gray-300 rounded-full w-1.5 h-1.5 mx-0.5 animate-bounce" style={{animationDelay: '300ms'}} />
+      <span className="mx-0.5 h-1.5 w-1.5 animate-bounce rounded-full bg-tertiary" style={{animationDelay: '0ms'}} />
+      <span className="mx-0.5 h-1.5 w-1.5 animate-bounce rounded-full bg-primary" style={{animationDelay: '150ms'}} />
+      <span className="mx-0.5 h-1.5 w-1.5 animate-bounce rounded-full bg-secondary" style={{animationDelay: '300ms'}} />
     </span>
   );
 }

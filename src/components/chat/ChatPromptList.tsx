@@ -8,15 +8,12 @@ interface Props {
 
 export default function ChatPromptList({ prompts, onSelect }: Props) {
   return (
-    <ul className="space-y-2 mb-10 max-w-xl mx-auto w-full px-0 sm:px-2">
+    <ul className="mx-auto mb-8 grid w-full max-w-md gap-2 px-0 sm:mb-10 sm:max-w-2xl sm:grid-cols-2 sm:gap-3 sm:px-2">
       {prompts.map(prompt => (
         <li key={prompt.id}>
           <button
             type="button"
-            className="w-full text-left px-5 py-3 rounded-lg bg-white dark:bg-gray-900 border 
-            border-gray-200 dark:border-gray-800 shadow-sm hover:bg-blue-50 hover:text-blue-700
-            dark:hover:bg-blue-900 dark:text-blue-300 dark:hover:text-blue-200 transition-colors focus:outline-none 
-            focus:ring-2 focus:ring-blue-400/70"
+            className="h-full w-full rounded-2xl border border-default bg-default px-4 py-4 text-left text-sm font-semibold leading-6 text-default shadow-sm transition hover:-translate-y-0.5 hover:border-[#010920] hover:bg-primary hover:text-[#010920] focus:outline-none focus:ring-2 focus:ring-secondary/70 dark:hover:border-primary sm:px-5"
             onClick={() => onSelect(prompt)}
           >
             {prompt.text}

@@ -127,8 +127,9 @@ export default function ChatContainer() {
 
 
   return (
-    <div className="relative min-h-screen w-full bg-white dark:bg-gray-900 flex flex-col items-center px-2 sm:px-0">
-      <div className="w-full max-w-4xl mx-auto bg-inherit rounded-xl shadow-lg mt-4 sm:mt-10 mb-24 sm:mb-28 px-2 sm:px-6 pt-2 pb-8 flex flex-col">
+    <div className="relative flex min-h-dvh w-full flex-col items-center overflow-x-hidden bg-default px-0 text-default sm:px-6">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_0%_0%,rgb(155_220_40_/_18%),transparent_35%),radial-gradient(circle_at_100%_0%,rgb(37_199_188_/_14%),transparent_34%)] sm:h-64" />
+      <div className="relative mx-auto mb-24 flex w-full max-w-4xl flex-col bg-surface px-4 pb-8 pt-4 sm:mb-32 sm:mt-8 sm:rounded-[32px] sm:border sm:border-default sm:px-6 sm:pt-3 sm:shadow-[0_24px_80px_rgb(1_9_32_/_12%)]">
         <ChatHeader />
         {showCategories && (
           <>
@@ -138,7 +139,7 @@ export default function ChatContainer() {
         )}
         <div
           ref={chatAreaRef}
-          className="flex flex-col gap-1 mt-4 mb-2 w-full min-h-[120px] pb-32 relative"
+          className="relative mb-2 mt-4 flex min-h-[120px] w-full flex-col gap-2 pb-28 sm:mt-5 sm:min-h-[160px] sm:pb-32"
           style={{ scrollBehavior: 'smooth' }}
         >
           {messages.map((msg, idx) => (
@@ -150,7 +151,7 @@ export default function ChatContainer() {
         {showScrollToBottom && (
           <button
             onClick={handleScrollToBottom}
-            className="fixed bottom-28 right-8 z-50 bg-blue-600 text-white rounded-full shadow-lg p-2 hover:bg-blue-700 transition"
+            className="fixed bottom-24 right-4 z-50 rounded-full border border-[#010920] bg-primary p-3 text-[#010920] shadow-[0_12px_30px_rgb(1_9_32_/_18%)] transition hover:-translate-y-0.5 dark:border-primary sm:bottom-28 sm:right-6"
             aria-label="Scroll to bottom"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -160,8 +161,8 @@ export default function ChatContainer() {
         )}
       </div>
       {/* Sticky ChatInput at bottom of viewport */}
-      <div className="fixed bottom-0 left-0 w-full z-40 bg-inherit border-t border-gray-200 dark:border-gray-800 px-2 sm:px-0 flex justify-center">
-        <div className="w-full max-w-xl">
+      <div className="fixed bottom-0 left-0 z-40 flex w-full justify-center border-t border-default bg-default/90 px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 backdrop-blur sm:px-6 sm:py-3">
+        <div className="w-full max-w-3xl">
           <ChatInput onSend={handleSend} />
         </div>
       </div>

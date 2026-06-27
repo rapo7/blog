@@ -19,12 +19,12 @@ export default function ChatBubble({
     >
       {isUser ? (
         <div
-          className={`max-w-[75%] px-4 py-2 rounded-2xl shadow text-base break-words mb-2 bg-blue-600 text-white rounded-br-sm`}
+          className="mb-2 max-w-[92%] break-words rounded-3xl rounded-br-md border border-[#010920] bg-primary px-4 py-3 text-base font-semibold text-[#010920] shadow-[0_10px_28px_rgb(1_9_32_/_12%)] dark:border-primary sm:max-w-[82%]"
         >
           <div>{content}</div>
         </div>
       ) : (
-        <div className="w-full my-4">
+        <div className="my-3 w-full rounded-3xl border border-default bg-default p-4 sm:my-4 sm:p-5">
           <AssistantMarkdown content={content} />
         </div>
       )}

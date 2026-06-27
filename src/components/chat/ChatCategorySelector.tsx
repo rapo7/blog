@@ -25,16 +25,15 @@ const categoryIcons: Record<ChatCategory, JSX.Element> = {
 
 export default function ChatCategorySelector({ selected, onSelect }: Props) {
   return (
-    <div className="flex flex-wrap sm:flex-row justify-center gap-2 sm:gap-4 mb-6 w-full items-center">
+    <div className="mx-auto mb-5 mt-4 grid w-full max-w-md grid-cols-2 gap-2 sm:mb-6 sm:mt-5 sm:flex sm:max-w-none sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
       {categories.map(cat => (
         <button
           type="button"
           key={cat}
-          className={`flex items-center gap-2 px-4 py-3 rounded-full transition-all duration-200
-            shadow-sm
+          className={`flex min-h-12 items-center justify-center gap-2 rounded-full border px-3 py-3 text-sm font-semibold transition-all duration-200 sm:px-4
             ${cat === selected
-              ? 'bg-blue-600/30 text-blue-600 shadow-lg font-bold' 
-              : 'bg-blue-500/30 dark:bg-neutral-800 text-black dark:text-neutral-200/50 hover:bg-blue-500/80 dark:hover:bg-neutral-700/80' 
+              ? 'border-[#010920] bg-primary text-[#010920] shadow-[0_10px_24px_rgb(1_9_32_/_12%)] dark:border-primary'
+              : 'border-default bg-default text-offset hover:border-tertiary hover:bg-surface hover:text-default'
             }
              
           `}
