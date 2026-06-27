@@ -1,5 +1,10 @@
 ---
-const { title, sub_title, years, details } = Astro.props;
+const { title, sub_title, years, details } = Astro.props as {
+  title: string;
+  sub_title: string;
+  years: string;
+  details: string[];
+};
 ---
 
 <li class="p-5 bg-background-offset dark:hover:shadow-blue-500 shadow-sm hover:shadow-lg rounded-xl border border-default transition-all ease-out">

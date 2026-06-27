@@ -29,7 +29,7 @@ export default function NavFAB() {
       >
         {/* Main FAB */}
         <button
-          onClick={() => document.getElementById('hero').scrollIntoView()}
+          onClick={() => document.getElementById('hero')?.scrollIntoView()}
           className="bg-slate-300 dark:bg-zinc-900/95 rounded-full shadow-lg p-2 hover:scale-110 transition relative"
           title="Home"
           onMouseEnter={() => setIsMainHovered(true)}
@@ -45,7 +45,7 @@ export default function NavFAB() {
         </button>
         {/* Education FAB */}
         <button
-          onClick={() => document.getElementById('education').scrollIntoView()}
+          onClick={() => document.getElementById('education')?.scrollIntoView()}
           className="bg-slate-300 dark:bg-zinc-900/95 rounded-full shadow-lg p-2 hover:scale-110 transition relative"
           title="Education"
           onMouseEnter={() => setIsEducationHovered(true)}
@@ -61,7 +61,7 @@ export default function NavFAB() {
         </button>
         {/* Projects FAB */}
         <button
-          onClick={() => document.getElementById('portfolio').scrollIntoView()}
+          onClick={() => document.getElementById('portfolio')?.scrollIntoView()}
           className="bg-slate-300 dark:bg-zinc-900/95 rounded-full shadow-lg p-2 hover:scale-110 transition relative"
           title="Projects"
           onMouseEnter={() => setIsProjectsHovered(true)}
@@ -76,7 +76,7 @@ export default function NavFAB() {
           )}
         </button>
         <button
-          onClick={() => document.getElementById('experience').scrollIntoView()}
+          onClick={() => document.getElementById('experience')?.scrollIntoView()}
           className="bg-slate-300 dark:bg-zinc-900/95 rounded-full shadow-lg p-2 hover:scale-110 transition relative"
           title="Experience"
           onMouseEnter={() => setIsExperienceHovered(true)}

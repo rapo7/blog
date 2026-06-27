@@ -1,5 +1,12 @@
 ---
-const { title, type, link, description, techStack = [], years } = Astro.props;
+const { title, type, link, description, techStack = [], years } = Astro.props as {
+    title: string;
+    type: string;
+    link: string;
+    description?: string;
+    techStack?: string[];
+    years?: string;
+};
 ---
 
 <div class="p-5 bg-background-offset shadow-sm rounded-xl border border-default hover:shadow-lg dark:hover:shadow-blue-500 transition-all">
