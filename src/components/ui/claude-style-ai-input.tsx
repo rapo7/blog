@@ -72,6 +72,8 @@ interface ChatInputProps {
   defaultModel?: string;
   onModelChange?: (modelId: string) => void;
   suggestions?: ChatInputSuggestion[];
+  variant?: 'anthropic' | 'openai';
+  onVariantChange?: (variant: 'anthropic' | 'openai') => void;
 }
 
 const MAX_FILES = 10;
@@ -496,6 +498,8 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
   defaultModel,
   onModelChange,
   suggestions = [],
+  variant = 'anthropic',
+  onVariantChange,
 }) => {
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState<FileWithPreview[]>([]);
@@ -512,14 +516,16 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
       const maxHeight =
-        Number.parseInt(getComputedStyle(textareaRef.current).maxHeight, 10) ||
+        variant === 'openai'
+          ? 72
+          : Number.parseInt(getComputedStyle(textareaRef.current).maxHeight, 10) ||
         120;
       textareaRef.current.style.height = `${Math.min(
         textareaRef.current.scrollHeight,
         maxHeight,
       )}px`;
     }
-  }, [message]);
+  }, [message, variant]);
 
   const handleFileSelect = useCallback(
     (selectedFiles: FileList | null) => {
@@ -761,6 +767,149 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
     hasContent &&
     !disabled &&
     !files.some((file) => file.uploadStatus === 'uploading');
+  const isOpenAI = variant === 'openai';
+
+  if (isOpenAI) {
+    return (
+      <div
+        className="relative w-full"
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
+        {isDragging && (
+          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center rounded-[28px] border-2 border-dashed border-[#8e8e8e] bg-[#212121] text-[#f4f4f4] pointer-events-none">
+            <p className="flex items-center gap-2 text-sm">
+              <ImageIcon className="size-4 opacity-60" />
+              Drop files here
+            </p>
+          </div>
+        )}
+
+        <div className="flex min-h-[146px] flex-col rounded-[32px] border border-white/10 bg-[#181818] px-5 py-4 shadow-[0_18px_60px_rgb(0_0_0_/_34%)]">
+          {suggestions.length > 0 && !message && files.length === 0 && pastedContent.length === 0 && (
+            <div className="mb-2 w-full overflow-x-auto border-b border-white/10 pb-2 hide-scroll-bar">
+              <div className="flex gap-2">
+                {suggestions.map((suggestion) => (
+                  <button
+                    key={suggestion.id}
+                    type="button"
+                    className="flex max-w-[260px] shrink-0 items-center gap-2 rounded-full border border-white/10 bg-[#171717] px-3 py-1.5 text-left text-xs font-medium text-[#d1d1d1] transition hover:bg-[#2f2f2f] hover:text-white"
+                    onClick={() => setMessage(suggestion.text)}
+                    title={suggestion.text}
+                  >
+                    <SuggestionIcon category={suggestion.category} text={suggestion.text} />
+                    <span className="truncate">{suggestion.text}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          {(files.length > 0 || pastedContent.length > 0) && (
+            <div className="mb-2 overflow-x-auto border-b border-white/10 pb-2 hide-scroll-bar">
+              <div className="flex gap-3">
+                {pastedContent.map((content) => (
+                  <PastedContentCard
+                    key={content.id}
+                    content={content}
+                    onRemove={(id) =>
+                      setPastedContent((prev) => prev.filter((item) => item.id !== id))
+                    }
+                  />
+                ))}
+                {files.map((file) => (
+                  <FilePreviewCard
+                    key={file.id}
+                    file={file}
+                    onRemove={removeFile}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+          <textarea
+            ref={textareaRef}
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+            onPaste={handlePaste}
+            onKeyDown={handleKeyDown}
+            placeholder={placeholder}
+            disabled={disabled}
+            rows={1}
+            className="min-h-[58px] max-h-[110px] w-full resize-none border-0 bg-transparent px-0 py-0 text-[1.35rem] leading-8 text-[#f4f4f4] shadow-none outline-none placeholder:text-[#f4f4f4] focus:outline-none focus-visible:ring-0 sm:text-2xl"
+          />
+          <div className="mt-auto flex items-center justify-between gap-3 pt-3">
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              className="hidden"
+              accept={acceptedFileTypes?.join(',')}
+              onChange={(event) => {
+                handleFileSelect(event.target.files);
+                if (event.target) event.target.value = '';
+              }}
+            />
+            <div className="flex min-w-0 items-center gap-2">
+              <button
+                type="button"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#f4f4f4] transition hover:bg-white/10 disabled:opacity-40"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={disabled || files.length >= maxFiles}
+                aria-label="Attach files"
+                title="Attach files"
+              >
+                <Plus className="h-7 w-7" strokeWidth={1.9} />
+              </button>
+              <button
+                type="button"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#4d9cff] transition hover:bg-white/10"
+                onClick={() => onVariantChange?.('anthropic')}
+                aria-label="Switch to Anthropic chat style"
+                title="Switch to Anthropic chat style"
+              >
+                <CodexIcon />
+              </button>
+              <button
+                type="button"
+                className="min-w-[68px] whitespace-nowrap rounded-full px-1 text-sm font-semibold leading-none text-[#f4f4f4] transition hover:text-white sm:text-[1.7rem]"
+                aria-label="Current model: Ravi GPT"
+                title="Ravi GPT"
+              >
+                <span className="text-[#f4f4f4]">Ravi</span>
+                <span className="ml-1.5 text-[#9b9b9b] sm:ml-2">GPT</span>
+              </button>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                type="button"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-[#f4f4f4] transition hover:bg-white/10"
+                aria-label="Voice input"
+                title="Voice input"
+              >
+                <MicIcon className="h-8 w-8" />
+              </button>
+              <button
+                type="button"
+                className={cn(
+                  'flex h-14 w-14 items-center justify-center rounded-full transition',
+                  canSend
+                    ? 'bg-white text-black hover:bg-[#ececec]'
+                    : 'bg-white text-black',
+                )}
+                onClick={handleSend}
+                disabled={!canSend}
+                aria-label="Send message"
+                title="Send message"
+              >
+                <ArrowUp className="h-8 w-8" strokeWidth={2.8} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -829,7 +978,8 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
               variant="ghost"
               className="h-9 w-9 p-0 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700 flex-shrink-0"
               disabled={disabled}
-              title="Options"
+              onClick={() => onVariantChange?.('openai')}
+              title="Switch to OpenAI chat style"
             >
               <SlidersHorizontal className="h-5 w-5" />
             </Button>
@@ -948,4 +1098,47 @@ function SuggestionIcon({ category, text }: { category?: string; text: string })
   }
 
   return <BookOpen className={className} />;
+}
+
+function MicIcon({ className = 'h-5 w-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 4a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V7a3 3 0 0 0-3-3Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M5 11a7 7 0 0 0 14 0M12 18v3"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function CodexIcon() {
+  return (
+    <svg className="h-9 w-9" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <path
+        d="M16 13 10 20l6 7M24 13l6 7-6 7"
+        stroke="currentColor"
+        strokeWidth="3.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M19 27h2"
+        stroke="currentColor"
+        strokeWidth="3.2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M20 4.5c6.1 0 8.6.9 10.9 3.2 2.3 2.3 3.2 4.8 3.2 10.9v2.8c0 6.1-.9 8.6-3.2 10.9-2.3 2.3-4.8 3.2-10.9 3.2s-8.6-.9-10.9-3.2C6.8 30 5.9 27.5 5.9 21.4v-2.8c0-6.1.9-8.6 3.2-10.9C11.4 5.4 13.9 4.5 20 4.5Z"
+        stroke="currentColor"
+        strokeWidth="2.4"
+      />
+    </svg>
+  );
 }
