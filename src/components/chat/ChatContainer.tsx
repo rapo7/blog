@@ -193,17 +193,15 @@ export default function ChatContainer() {
             {messages.length === 0 && !loading && (
               <div className={isOpenAI ? 'flex flex-1 items-center justify-center py-8' : 'flex flex-1 items-center justify-center py-8'}>
                 <div className="text-center">
-                  {!isOpenAI && (
-                    <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center text-[#d97745]">
-                      <ClaudeBurst />
-                    </div>
-                  )}
+                  <div className={isOpenAI ? 'mx-auto mb-5 flex h-11 w-11 items-center justify-center text-[#f4f4f4]' : 'mx-auto mb-5 flex h-14 w-14 items-center justify-center text-[#d97745]'}>
+                    {isOpenAI ? <OpenAILogo /> : <ClaudeBurst />}
+                  </div>
                   <p className={
                     isOpenAI
                       ? 'mx-auto max-w-xs text-[1.75rem] font-semibold leading-[1.08] text-[#f4f4f4] sm:text-4xl'
                       : 'text-[2rem] font-semibold leading-tight text-[#d7d2c8] sm:text-5xl'
                   }>
-                    {isOpenAI ? "What's on your mind today?" : emptyStatePhrases[emptyPhraseIndex]}
+                    {emptyStatePhrases[emptyPhraseIndex]}
                   </p>
                 </div>
               </div>
@@ -215,11 +213,6 @@ export default function ChatContainer() {
             {loading && <LoadingBubble />}
           </div>
 
-          {isOpenAI && messages.length === 0 && (
-            <p className="mx-auto mb-2 w-[min(21rem,calc(100vw-3rem))] text-center text-[0.68rem] leading-4 text-[#b4b4b4]">
-              Ravi GPT can make mistakes. Check important info.
-            </p>
-          )}
           <div className={isOpenAI ? 'sticky bottom-0 mx-auto w-full max-w-[720px] pb-1' : 'mx-auto w-full max-w-3xl pb-1'}>
             <ChatInput
               onSend={handleSend}
@@ -273,6 +266,22 @@ function ClaudeBurst() {
           />
         );
       })}
+    </svg>
+  );
+}
+
+function OpenAILogo() {
+  return (
+    <svg viewBox="0 0 64 64" className="h-full w-full" fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M32 8.6c4.1 0 7.5 2.6 8.8 6.2 3.8-.5 7.7 1.3 9.8 4.9 2.1 3.6 1.6 7.8-.7 10.9 2.4 3.1 2.8 7.3.8 10.9-2.1 3.6-5.9 5.5-9.8 5-1.4 3.6-4.8 6.1-8.9 6.1s-7.5-2.5-8.9-6.1c-3.8.5-7.7-1.4-9.8-5-2.1-3.6-1.6-7.8.8-10.9-2.4-3.1-2.8-7.3-.7-10.9 2.1-3.6 5.9-5.4 9.8-4.9C24.5 11.2 27.9 8.6 32 8.6Z" />
+        <path d="M40.8 14.8 25.7 23.5a8.3 8.3 0 0 0-4.1 7.2v15.8" />
+        <path d="M49.9 30.6 34.8 21.9a8.3 8.3 0 0 0-8.2 0L12.9 29.8" />
+        <path d="M40.9 46.5V29.1a8.3 8.3 0 0 0-4.1-7.2L23.2 14" />
+        <path d="M23.2 46.5 38.3 37.8a8.3 8.3 0 0 0 4.1-7.2V14.8" />
+        <path d="M14.1 30.6 29.2 39.3a8.3 8.3 0 0 0 8.2 0l13.7-7.9" />
+        <path d="M23.1 14.8v17.4a8.3 8.3 0 0 0 4.1 7.2l13.6 7.9" />
+      </g>
     </svg>
   );
 }

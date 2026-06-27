@@ -786,7 +786,7 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
           </div>
         )}
 
-        <div className="flex min-h-[146px] flex-col rounded-[32px] border border-white/10 bg-[#181818] px-5 py-4 shadow-[0_18px_60px_rgb(0_0_0_/_34%)]">
+        <div className="flex min-h-[124px] flex-col rounded-[30px] border border-white/10 bg-[#181818] px-4 py-3.5 shadow-[0_18px_60px_rgb(0_0_0_/_34%)]">
           {suggestions.length > 0 && !message && files.length === 0 && pastedContent.length === 0 && (
             <div className="mb-2 w-full overflow-x-auto border-b border-white/10 pb-2 hide-scroll-bar">
               <div className="flex gap-2">
@@ -836,9 +836,9 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
             placeholder={placeholder}
             disabled={disabled}
             rows={1}
-            className="min-h-[58px] max-h-[110px] w-full resize-none border-0 bg-transparent px-0 py-0 text-[1.35rem] leading-8 text-[#f4f4f4] shadow-none outline-none placeholder:text-[#f4f4f4] focus:outline-none focus-visible:ring-0 sm:text-2xl"
+            className="min-h-[44px] max-h-[104px] w-full resize-none border-0 bg-transparent px-0 py-0 text-lg leading-7 text-[#f4f4f4] shadow-none outline-none placeholder:text-[#f4f4f4] focus:outline-none focus-visible:ring-0 sm:text-xl"
           />
-          <div className="mt-auto flex items-center justify-between gap-3 pt-3">
+          <div className="mt-auto flex items-center justify-between gap-3 pt-2.5">
             <input
               ref={fileInputRef}
               type="file"
@@ -853,46 +853,38 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
             <div className="flex min-w-0 items-center gap-2">
               <button
                 type="button"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#f4f4f4] transition hover:bg-white/10 disabled:opacity-40"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#f4f4f4] transition hover:bg-white/10 disabled:opacity-40"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={disabled || files.length >= maxFiles}
                 aria-label="Attach files"
                 title="Attach files"
               >
-                <Plus className="h-7 w-7" strokeWidth={1.9} />
+                <Plus className="h-6 w-6" strokeWidth={1.9} />
               </button>
               <button
                 type="button"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#4d9cff] transition hover:bg-white/10"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#4d9cff] transition hover:bg-white/10"
                 onClick={() => onVariantChange?.('anthropic')}
                 aria-label="Switch to Anthropic chat style"
                 title="Switch to Anthropic chat style"
               >
-                <CodexIcon />
+                <SlidersHorizontal className="h-5 w-5" />
               </button>
+            </div>
+            <div className="flex min-w-0 shrink-0 items-center gap-2">
               <button
                 type="button"
-                className="min-w-[68px] whitespace-nowrap rounded-full px-1 text-sm font-semibold leading-none text-[#f4f4f4] transition hover:text-white sm:text-[1.7rem]"
+                className="min-w-[62px] whitespace-nowrap rounded-full px-1 text-sm font-semibold leading-none text-[#f4f4f4] transition hover:text-white sm:text-base"
                 aria-label="Current model: Ravi GPT"
                 title="Ravi GPT"
               >
                 <span className="text-[#f4f4f4]">Ravi</span>
-                <span className="ml-1.5 text-[#9b9b9b] sm:ml-2">GPT</span>
-              </button>
-            </div>
-            <div className="flex shrink-0 items-center gap-2">
-              <button
-                type="button"
-                className="flex h-10 w-10 items-center justify-center rounded-full text-[#f4f4f4] transition hover:bg-white/10"
-                aria-label="Voice input"
-                title="Voice input"
-              >
-                <MicIcon className="h-8 w-8" />
+                <span className="ml-1.5 text-[#9b9b9b]">GPT</span>
               </button>
               <button
                 type="button"
                 className={cn(
-                  'flex h-14 w-14 items-center justify-center rounded-full transition',
+                  'flex h-11 w-11 items-center justify-center rounded-full transition',
                   canSend
                     ? 'bg-white text-black hover:bg-[#ececec]'
                     : 'bg-white text-black',
@@ -902,7 +894,7 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
                 aria-label="Send message"
                 title="Send message"
               >
-                <ArrowUp className="h-8 w-8" strokeWidth={2.8} />
+                <ArrowUp className="h-6 w-6" strokeWidth={2.8} />
               </button>
             </div>
           </div>
@@ -1098,47 +1090,4 @@ function SuggestionIcon({ category, text }: { category?: string; text: string })
   }
 
   return <BookOpen className={className} />;
-}
-
-function MicIcon({ className = 'h-5 w-5' }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 4a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V7a3 3 0 0 0-3-3Z"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
-      <path
-        d="M5 11a7 7 0 0 0 14 0M12 18v3"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function CodexIcon() {
-  return (
-    <svg className="h-9 w-9" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <path
-        d="M16 13 10 20l6 7M24 13l6 7-6 7"
-        stroke="currentColor"
-        strokeWidth="3.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M19 27h2"
-        stroke="currentColor"
-        strokeWidth="3.2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M20 4.5c6.1 0 8.6.9 10.9 3.2 2.3 2.3 3.2 4.8 3.2 10.9v2.8c0 6.1-.9 8.6-3.2 10.9-2.3 2.3-4.8 3.2-10.9 3.2s-8.6-.9-10.9-3.2C6.8 30 5.9 27.5 5.9 21.4v-2.8c0-6.1.9-8.6 3.2-10.9C11.4 5.4 13.9 4.5 20 4.5Z"
-        stroke="currentColor"
-        strokeWidth="2.4"
-      />
-    </svg>
-  );
 }
