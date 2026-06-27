@@ -1,24 +1,33 @@
 export default function ChatHeader() {
   return (
-    <header className="rounded-[22px] border border-default bg-default px-4 py-4 sm:rounded-[24px] sm:px-6 sm:py-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <a
-            href="/blog/"
-            className="mb-4 inline-flex rounded-full border border-default bg-surface px-3 py-1.5 text-xs font-semibold text-offset transition hover:bg-primary hover:text-[#010920]"
-          >
-            Back to site
-          </a>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-tertiary sm:text-sm">
-            Ravi GPT
-          </p>
-          <h1 className="mt-2 max-w-2xl text-[2.15rem] font-black leading-[0.95] text-default sm:text-5xl">
-            Ask me anything about Ravi
-          </h1>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-offset sm:text-base">
-            Choose a topic below or ask a direct question.
-          </p>
-        </div>
+    <header className="absolute left-0 right-0 top-0 z-20 px-5 py-6">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
+        <a
+          href="/blog/"
+          className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-[#d7d2c8] shadow-[0_12px_30px_rgb(0_0_0_/_18%)] backdrop-blur transition hover:border-[#d97745]/50 hover:text-[#f3eee5]"
+          aria-label="Back to site"
+          title="Back to site"
+        >
+          <svg className="h-6 w-6" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M4 7h16v2H4V7Zm0 4h16v2H4v-2Zm0 4h10v2H4v-2Z"
+            />
+          </svg>
+        </a>
+        <a
+          href="/blog/"
+          className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-[#d7d2c8] shadow-[0_12px_30px_rgb(0_0_0_/_18%)] backdrop-blur transition hover:border-[#d97745]/50 hover:text-[#f3eee5]"
+          aria-label="Ravi portfolio"
+          title="Ravi portfolio"
+        >
+          <svg className="h-7 w-7" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M12 3a5 5 0 0 0-5 5v8.5c0 .9 1 1.5 1.8.9l1.2-.9 1.3 1a1.2 1.2 0 0 0 1.4 0l1.3-1 1.2.9c.8.6 1.8 0 1.8-.9V8a5 5 0 0 0-5-5Zm-2 7.5a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Zm4 0a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z"
+            />
+          </svg>
+        </a>
       </div>
     </header>
   );

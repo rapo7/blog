@@ -1,5 +1,6 @@
 
 import type { ChatPrompt } from './types';
+import { BookOpen, BriefcaseBusiness, HeartPulse, Lightbulb, Mail } from 'lucide-react';
 
 interface Props {
   prompts: ChatPrompt[];
@@ -8,18 +9,42 @@ interface Props {
 
 export default function ChatPromptList({ prompts, onSelect }: Props) {
   return (
-    <ul className="mx-auto mb-8 grid w-full max-w-md gap-2 px-0 sm:mb-10 sm:max-w-2xl sm:grid-cols-2 sm:gap-3 sm:px-2">
+    <ul className="grid w-full gap-2">
       {prompts.map(prompt => (
         <li key={prompt.id}>
           <button
             type="button"
-            className="h-full w-full rounded-2xl border border-default bg-default px-4 py-4 text-left text-sm font-semibold leading-6 text-default shadow-sm transition hover:-translate-y-0.5 hover:border-[#010920] hover:bg-primary hover:text-[#010920] focus:outline-none focus:ring-2 focus:ring-secondary/70 dark:hover:border-primary sm:px-5"
+            className="flex h-full w-full items-center gap-3 rounded-2xl border border-white/10 bg-[#1b1b19] px-4 py-3 text-left text-sm font-semibold leading-6 text-[#ede7dc] transition hover:border-[#d97745]/50 hover:bg-[#2f2d2a] focus:outline-none focus:ring-2 focus:ring-[#d97745]/60"
             onClick={() => onSelect(prompt)}
           >
-            {prompt.text}
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-[#d97745]">
+              <PromptIcon prompt={prompt} />
+            </span>
+            <span>{prompt.text}</span>
           </button>
         </li>
       ))}
     </ul>
   );
+}
+
+function PromptIcon({ prompt }: { prompt: ChatPrompt }) {
+  const className = 'h-4 w-4';
+  if (prompt.text.toLowerCase().includes('contact')) {
+    return <Mail className={className} />;
+  }
+
+  if (prompt.category === 'Work') {
+    return <BriefcaseBusiness className={className} />;
+  }
+
+  if (prompt.category === 'Skills') {
+    return <Lightbulb className={className} />;
+  }
+
+  if (prompt.category === 'Hobbies') {
+    return <HeartPulse className={className} />;
+  }
+
+  return <BookOpen className={className} />;
 }
