@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import BlogList from '../../components/sections/blog/BlogList.astro';
+import Pagination from '../../components/common/Pagination.astro';
+
+const PAGE_SIZE = 5;
+const blogs = await getCollection("blogs");
+const latestBlogs = blogs.sort((a, b) =>
+    new Date(b.data.datetime).getTime() - new Date(a.data.datetime).getTime()
+);
+const totalPages = Math.ceil(latestBlogs.length / PAGE_SIZE);
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const page = {
+    data: latestBlogs.slice(0, PAGE_SIZE),
+    start: 0,
+    end: Math.min(PAGE_SIZE, latestBlogs.length),
+    total: latestBlogs.length,
+    size: PAGE_SIZE,
+    currentPage: 1,
+    lastPage: totalPages,
+    url: {
+        current: `${baseUrl}/blogs`,
+        first: `${baseUrl}/blogs`,
+        prev: undefined,
+        next: totalPages > 1 ? `${baseUrl}/blogs/2` : undefined,
+        last: totalPages > 1 ? `${baseUrl}/blogs/${totalPages}` : `${baseUrl}/blogs`,
+    },
+};
+---
+
+<Layout title={`Blogs`}>
+    <BlogList blogs={page.data} />
+    <Pagination page={page} />
+</Layout>

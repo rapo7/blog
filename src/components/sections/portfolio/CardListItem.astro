@@ -7,17 +7,17 @@ const { title, sub_title, years, details } = Astro.props as {
 };
 ---
 
-<li class="p-5 bg-background-offset dark:hover:shadow-blue-500 shadow-sm hover:shadow-lg rounded-xl border border-default transition-all ease-out">
+<li class="rounded-[1.35rem] border border-default bg-background p-5 transition hover:-translate-y-1 hover:shadow-[8px_8px_0_#010920]">
   <div class="flex flex-col sm:flex-row justify-between items-start">
     <div class="mb-4 sm:mb-0">
-      <h3 class="text-2xl font-semibold">{title}</h3>
-      <p class="text-lg font-medium text-secondary pt-2">{sub_title}</p>
+      <h3 class="text-2xl font-black leading-tight">{title}</h3>
+      <p class="pt-2 text-base font-bold text-secondary">{sub_title}</p>
     </div>
-    <p class="text-sm text-offset sm:text-right whitespace-nowrap">{years}</p>
+    <p class="rounded-full bg-offset px-3 py-1 text-sm font-bold text-default sm:text-right whitespace-nowrap">{years}</p>
   </div>
-  <ul class="mt-4 text-offset leading-relaxed list-disc list-inside">
+  <ul class="mt-4 space-y-2 text-offset leading-relaxed">
     {details.map(detail => (
-      <li>{detail}</li>
+      <li class="flex gap-2"><span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-primary"></span><span>{detail}</span></li>
     ))}
   </ul>
 </li>

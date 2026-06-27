@@ -1,10 +1,12 @@
 ---
 import PostHog from "../components/common/PostHog.astro";
+import QuickBall from "../components/QuickBall";
+import "../styles/index.css";
 
 const { title } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Chat with rAvI" />
@@ -13,10 +15,29 @@ const { title } = Astro.props;
     <link rel="sitemap" href={import.meta.env.BASE_URL + "/sitemap-index.xml"} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      (() => {
+        const key = "themeMode";
+        const stored = localStorage.getItem(key);
+        const legacy = localStorage.getItem("theme");
+        const mode =
+          stored === "light" || stored === "dark" || stored === "system"
+            ? stored
+            : legacy === "light" || legacy === "dark"
+              ? legacy
+              : "system";
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+        document.documentElement.dataset.theme =
+          mode === "system" ? systemTheme : mode;
+        document.documentElement.dataset.themeMode = mode;
+      })();
+    </script>
     <PostHog />
   </head>
-  <body>
+  <body class="h-full bg-default text-default">
     <slot />
+    <QuickBall client:load />
   </body>
 </html>

@@ -1,3 +1,20 @@
 @config "../../tailwind.config.mjs";
 @import "tailwindcss";
 @import "theme.css";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+}
+
+a {
+    text-underline-offset: 0.18em;
+}
+
+::selection {
+    background: var(--color-primary);
+    color: var(--color-text);
+}

@@ -3,7 +3,6 @@ import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 import Layout from '../../layouts/Layout.astro';
-import BlogFAB from '../../components/sections/blog/BlogFAB';
 
 export const getStaticPaths = async () => {
     const blogs = await getCollection("blogs");
@@ -27,15 +26,52 @@ type Props = {
 
 const {blog} = Astro.props;
 const {Content} = await render(blog);
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Layout title={blog.data.title}>
-    <section class="container mx-auto px-4 flex justify-center mt-16 sm:mt-20">
-        <div id="markdown" class="dark:prose-invert prose prose-lg overflow-scroll relative mb-8 sm:mb-12">
-            <Content />
-        </div>
+    <section class="mx-auto w-full max-w-4xl px-4 pb-24 pt-5 sm:px-6 sm:pt-10 lg:px-8">
+        <article class="overflow-hidden rounded-[24px] border border-default bg-default shadow-[0_18px_60px_rgb(1_9_32_/_10%)] sm:rounded-[32px]">
+            <header class="border-b border-default bg-surface px-4 py-5 sm:px-8 sm:py-8 lg:px-10">
+                <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <a
+                        href={`${baseUrl}/blogs`}
+                        class="inline-flex w-fit rounded-full border border-default bg-default px-3 py-1.5 text-xs font-semibold text-offset transition hover:bg-primary hover:text-[#010920]"
+                    >
+                        Back to posts
+                    </a>
+                </div>
+                <p class="text-xs font-semibold uppercase tracking-[0.16em] text-tertiary">
+                    Thought log
+                </p>
+                <h1 class="mt-2 text-[2.15rem] font-black leading-[0.96] text-default sm:text-5xl lg:text-6xl">
+                    {blog.data.title}
+                </h1>
+                <time datetime={blog.data.datetime.toISOString()} class="mt-4 block text-sm font-semibold text-offset">
+                    {blog.data.datetime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                {blog.data.description && (
+                    <p class="mt-4 max-w-2xl text-base leading-7 text-offset sm:text-lg">
+                        {blog.data.description}
+                    </p>
+                )}
+            </header>
+            {blog.data.image && (
+                <div class="border-b border-default bg-surface px-4 py-4 sm:px-8 lg:px-10">
+                    <img
+                        src={blog.data.image}
+                        alt={blog.data.title}
+                        loading="eager"
+                        class="max-h-[420px] w-full rounded-[18px] border border-default object-cover sm:rounded-[24px]"
+                    />
+                </div>
+            )}
+            <div
+                id="markdown"
+                class="prose max-w-none bg-default px-4 py-6 text-[1rem] leading-7 text-default [--tw-prose-body:var(--color-text)] [--tw-prose-bold:var(--color-text)] [--tw-prose-bullets:var(--color-primary)] [--tw-prose-code:var(--color-text)] [--tw-prose-counters:var(--color-text-offset)] [--tw-prose-headings:var(--color-text)] [--tw-prose-hr:var(--color-border)] [--tw-prose-links:var(--color-secondary)] [--tw-prose-pre-bg:var(--color-surface)] [--tw-prose-pre-code:var(--color-text)] [--tw-prose-quotes:var(--color-text)] [--tw-prose-th-borders:var(--color-border)] [--tw-prose-td-borders:var(--color-border)] prose-headings:scroll-mt-24 prose-h1:hidden prose-h2:mt-10 prose-h2:text-2xl prose-h2:leading-tight prose-h3:text-xl prose-p:my-5 prose-p:text-justify prose-p:text-default prose-p:[hyphens:auto] prose-p:[text-align-last:left] prose-a:font-semibold prose-a:text-secondary prose-strong:text-default prose-ul:my-5 prose-li:my-2 prose-blockquote:rounded-2xl prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-surface prose-blockquote:px-4 prose-blockquote:py-1 prose-blockquote:text-default prose-img:mx-auto prose-img:max-h-[420px] prose-img:w-full prose-img:rounded-[18px] prose-img:border prose-img:border-default prose-img:object-cover prose-pre:max-w-full prose-pre:overflow-x-auto prose-pre:rounded-2xl prose-code:break-words sm:px-8 sm:py-8 sm:text-[1.06rem] lg:px-10"
+            >
+                <Content />
+            </div>
+        </article>
     </section>
-    <BlogFAB client:load />
-
-
 </Layout>
