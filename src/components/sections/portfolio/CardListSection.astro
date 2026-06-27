@@ -11,13 +11,13 @@ interface Item {
 const { title, items } = Astro.props;
 ---
 
-<section class="py-14 bg-background">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl lg:text-4xl font-semibold text-center mb-12">
+<section class="h-full rounded-[2rem] border border-default bg-surface p-5 shadow-sm">
+  <div>
+    <h2 class="mb-6 text-3xl font-black tracking-tight text-default lg:text-4xl">
         {title}
     </h2>
 
-    <ul class="space-y-8">
+    <ul class="space-y-5">
       {items.map((item: Item) => (
         <CardListItem
           title={item.title}

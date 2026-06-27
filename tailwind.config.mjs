@@ -6,6 +6,7 @@ export default {
 			colors: {
 				primary: "var(--color-primary)",
 				secondary: "var(--color-secondary)",
+				tertiary: "var(--color-tertiary)",
 			},
 			textColor: {
 				default: "var(--color-text)",
@@ -14,6 +15,7 @@ export default {
 			backgroundColor: {
 				default: "var(--color-background)",
 				offset: "var(--color-background-offset)",
+				surface: "var(--color-surface)",
 				border: "var(--color-border)",
 			},
 			borderColor: {

@@ -3,14 +3,18 @@ import Experience from './portfolio/Experience.astro';
 import Education from './portfolio/Education.astro';
 ---
 
-<section class="py-8 bg-background">
-  <div class="container mx-auto px-6">
-    <div class="flex flex-col lg:flex-row lg:space-x-12">
-      <div id="experience" class="lg:w-1/2 mb-12 lg:mb-0">
+<section class="bg-background px-4 py-14">
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-10 max-w-3xl">
+      <p class="mb-3 inline-flex rounded-full bg-primary px-4 py-2 text-sm font-black uppercase tracking-wide text-default">Proof of work</p>
+      <h2 class="text-4xl font-black leading-tight text-default sm:text-5xl">Experience and education, without the resume-template fog.</h2>
+    </div>
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div id="experience">
         <Experience  />
       </div>
 
-      <div id="education" class="lg:w-1/2">
+      <div id="education">
         <Education />
       </div>
     </div>

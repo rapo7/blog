@@ -30,8 +30,8 @@ const {Content} = await blog.render();
 ---
 
 <Layout title={blog.data.title}>
-    <section class="container mx-auto px-4 flex justify-center mt-16 sm:mt-20">
-        <div id="markdown" class="dark:prose-invert prose prose-lg overflow-scroll relative mb-8 sm:mb-12">
+    <section class="mx-auto mt-10 flex max-w-5xl justify-center px-4 sm:mt-14">
+        <div id="markdown" class="prose prose-lg relative mb-10 max-w-none rounded-[2rem] border border-default bg-background p-6 shadow-[10px_10px_0_#010920] sm:p-10 lg:p-12">
             <Content />
         </div>
     </section>

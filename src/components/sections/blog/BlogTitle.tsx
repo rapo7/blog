@@ -5,7 +5,7 @@ interface BlogTitleProps {
 }
 
 const BlogTitle: FunctionComponent<BlogTitleProps> = ({ text }) => (
-  <h1 className="text-blue-500">{text}</h1>
+  <h1 className="mb-8 text-4xl font-black leading-tight tracking-tight text-default sm:text-5xl lg:text-6xl">{text}</h1>
 );
 
 export default BlogTitle;
