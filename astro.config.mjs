@@ -1,18 +1,16 @@
 import sitemap from '@astrojs/sitemap';
 
 import { defineConfig, sharpImageService } from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import { readFileSync } from "node:fs";
 import mdx from '@astrojs/mdx';
 import icon from "astro-icon";
 import react from "@astrojs/react";
 import partytown from "@astrojs/partytown";
-// TODO: add pagefind integration
-// import pagefind from "astro-pagefind";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx(), react(), partytown(), sitemap() , icon({
+  integrations: [mdx(), react(), partytown(), sitemap() , icon({
     include: {
       'logos': ['*']
     },
@@ -24,7 +22,7 @@ export default defineConfig({
   site: 'https://rapo7.github.io',
   base: '/blog',
   vite: {
-    plugins: [rawFonts([".ttf", ".woff"])],
+    plugins: [tailwindcss(), rawFonts([".ttf", ".woff"])],
     build: {
       minify: "terser",
       brotliSize: false,

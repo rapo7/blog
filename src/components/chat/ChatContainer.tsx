@@ -56,13 +56,14 @@ export default function ChatContainer() {
   useEffect(() => {
     const chatArea = chatAreaRef.current;
     if (!chatArea) return;
+    const chatAreaElement = chatArea;
     function handleScroll() {
       // If scrolled to bottom (or very close), hide button
-      const isAtBottom = chatArea.scrollHeight - chatArea.scrollTop - chatArea.clientHeight < 40;
+      const isAtBottom = chatAreaElement.scrollHeight - chatAreaElement.scrollTop - chatAreaElement.clientHeight < 40;
       setShowScrollToBottom(!isAtBottom);
     }
-    chatArea.addEventListener('scroll', handleScroll);
-    return () => chatArea.removeEventListener('scroll', handleScroll);
+    chatAreaElement.addEventListener('scroll', handleScroll);
+    return () => chatAreaElement.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleScrollToBottom = () => {
