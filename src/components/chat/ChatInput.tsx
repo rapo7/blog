@@ -7,7 +7,6 @@ interface Props {
   suggestions?: ChatInputSuggestion[];
   interfaceTheme?: ChatInterfaceTheme;
   onInterfaceThemeChange?: (theme: ChatInterfaceTheme) => void;
-  onFocusChange?: (isFocused: boolean) => void;
 }
 
 const models = [
@@ -34,7 +33,6 @@ export default function ChatInput({
   suggestions = [],
   interfaceTheme = 'anthropic',
   onInterfaceThemeChange,
-  onFocusChange,
 }: Props) {
   return (
     <ClaudeChatInput
@@ -47,7 +45,6 @@ export default function ChatInput({
       suggestions={suggestions}
       variant={interfaceTheme}
       onVariantChange={onInterfaceThemeChange}
-      onFocusChange={onFocusChange}
     />
   );
 }

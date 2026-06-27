@@ -78,7 +78,6 @@ export default function ChatContainer() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatAreaRef = useRef<HTMLDivElement>(null);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
-  const [isInputFocused, setIsInputFocused] = useState(false);
 
   useEffect(() => {
     if (messages.length > 1 && messagesEndRef.current) {
@@ -116,25 +115,6 @@ export default function ChatContainer() {
     }, 4200);
 
     return () => window.clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const viewport = window.visualViewport;
-    if (!viewport) return;
-
-    function syncViewportHeight() {
-      document.documentElement.style.setProperty('--chat-viewport-height', `${viewport.height}px`);
-    }
-
-    syncViewportHeight();
-    viewport.addEventListener('resize', syncViewportHeight);
-    viewport.addEventListener('scroll', syncViewportHeight);
-
-    return () => {
-      viewport.removeEventListener('resize', syncViewportHeight);
-      viewport.removeEventListener('scroll', syncViewportHeight);
-      document.documentElement.style.removeProperty('--chat-viewport-height');
-    };
   }, []);
 
   const handleScrollToBottom = () => {
@@ -187,9 +167,9 @@ export default function ChatContainer() {
 
   const isOpenAI = interfaceTheme === 'openai';
   const rootClassName = isOpenAI
-    ? 'relative flex h-[var(--chat-viewport-height,100dvh)] w-screen flex-col overflow-hidden bg-black text-[#f4f4f4]'
-    : 'font-anthropic relative flex h-[var(--chat-viewport-height,100dvh)] w-screen flex-col overflow-hidden bg-[#1f1f1d] text-[#f4efe7]';
-  const mainClassName = 'mx-auto flex h-full w-full max-w-5xl flex-1 flex-col px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-6';
+    ? 'relative flex min-h-dvh w-screen flex-col overflow-hidden bg-black text-[#f4f4f4]'
+    : 'font-anthropic relative flex min-h-dvh w-screen flex-col overflow-hidden bg-[#1f1f1d] text-[#f4efe7]';
+  const mainClassName = 'mx-auto flex min-h-dvh w-full max-w-5xl flex-1 flex-col px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-6';
   const chatAreaClassName = 'relative flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-1 py-4 sm:px-5';
   const sectionClassName = 'flex min-h-0 flex-1 flex-col';
 
@@ -204,7 +184,7 @@ export default function ChatContainer() {
             className={chatAreaClassName}
             style={{ scrollBehavior: 'smooth' }}
           >
-            {messages.length === 0 && !loading && !isInputFocused && (
+            {messages.length === 0 && !loading && (
               <div className="flex flex-1 items-center justify-center py-8">
                 <div className="text-center">
                   <div className={isOpenAI ? 'mx-auto mb-5 flex h-14 w-14 items-center justify-center text-[#f4f4f4]' : 'mx-auto mb-5 flex h-14 w-14 items-center justify-center text-[#d97745]'}>
@@ -237,7 +217,6 @@ export default function ChatContainer() {
               onSend={handleSend}
               interfaceTheme={interfaceTheme}
               onInterfaceThemeChange={setInterfaceTheme}
-              onFocusChange={setIsInputFocused}
               suggestions={allPrompts.map((prompt) => ({
                 id: prompt.id,
                 text: prompt.text,
