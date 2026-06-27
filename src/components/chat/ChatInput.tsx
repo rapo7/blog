@@ -1,9 +1,12 @@
 import { ClaudeChatInput } from '@/components/ui/claude-style-ai-input';
 import type { ChatInputSuggestion } from '@/components/ui/claude-style-ai-input';
+import type { ChatInterfaceTheme } from './types';
 
 interface Props {
   onSend: (message: string) => void;
   suggestions?: ChatInputSuggestion[];
+  interfaceTheme?: ChatInterfaceTheme;
+  onInterfaceThemeChange?: (theme: ChatInterfaceTheme) => void;
 }
 
 const models = [
@@ -25,16 +28,23 @@ const models = [
   },
 ];
 
-export default function ChatInput({ onSend, suggestions = [] }: Props) {
+export default function ChatInput({
+  onSend,
+  suggestions = [],
+  interfaceTheme = 'anthropic',
+  onInterfaceThemeChange,
+}: Props) {
   return (
     <ClaudeChatInput
       onSendMessage={(message) => onSend(message)}
-      placeholder="Ask Ravi anything"
+      placeholder={interfaceTheme === 'openai' ? 'Message Ravi GPT' : 'Ask Ravi anything'}
       maxFiles={10}
       maxFileSize={10 * 1024 * 1024}
       models={models}
       defaultModel="ravi-gpt"
       suggestions={suggestions}
+      variant={interfaceTheme}
+      onVariantChange={onInterfaceThemeChange}
     />
   );
 }
