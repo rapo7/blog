@@ -26,7 +26,7 @@ export default defineConfig({
     build: {
       minify: "terser",
       brotliSize: false,
-      sourcemap: true,
+      sourcemap: false,
       chunkSizeWarningLimit: 1024,
     },
     optimizeDeps: {
