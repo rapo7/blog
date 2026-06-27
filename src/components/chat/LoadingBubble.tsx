@@ -1,41 +1,93 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
+import type { ChatInterfaceTheme } from './types';
 
-const funMessages = [
-  "Reviewing Ravi's background",
-  "Checking the best match",
-  "Preparing a concise answer",
-  "Reading the relevant context",
-];
+interface LoadingBubbleProps {
+  interfaceTheme: ChatInterfaceTheme;
+}
 
-export default function LoadingBubble() {
-  const [msgIdx, setMsgIdx] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMsgIdx(() => Math.floor(Math.random() * funMessages.length));
-    }, 1500);
-    return () => clearInterval(interval);
-  }, []);
-
+export default function LoadingBubble({ interfaceTheme }: LoadingBubbleProps) {
   return (
     <div className="flex w-full justify-start">
-      <div className="mb-2 flex max-w-[92%] flex-col items-start gap-1 break-words rounded-2xl rounded-bl-md border border-default bg-default px-4 py-3 text-sm text-default shadow-sm sm:max-w-[78%]">
-        <div className="flex items-center gap-2">
-          <TypingDots />
-          <span className="font-semibold">Ravi GPT is responding</span>
-        </div>
-        <span className="mt-1 min-h-[1.5em] text-xs text-offset transition-all">{funMessages[msgIdx]}</span>
-      </div>
+      {interfaceTheme === 'openai' ? <OpenAILoading /> : <AnthropicLoading />}
     </div>
   );
 }
 
-function TypingDots() {
+function OpenAILoading() {
   return (
-    <span className="inline-flex items-center h-4">
-      <span className="mx-0.5 h-1.5 w-1.5 animate-bounce rounded-full bg-tertiary" style={{animationDelay: '0ms'}} />
-      <span className="mx-0.5 h-1.5 w-1.5 animate-bounce rounded-full bg-primary" style={{animationDelay: '150ms'}} />
-      <span className="mx-0.5 h-1.5 w-1.5 animate-bounce rounded-full bg-secondary" style={{animationDelay: '300ms'}} />
-    </span>
+    <div className="mb-2 max-w-[92%] rounded-2xl rounded-bl-md border border-white/10 bg-[#181818] px-4 py-3 text-sm shadow-sm sm:max-w-[78%]">
+      <style>{`
+        @keyframes ravi-openai-shimmer {
+          0% { background-position: 140% 50%; }
+          100% { background-position: -40% 50%; }
+        }
+      `}</style>
+      <span
+        className="block bg-[linear-gradient(90deg,#8a8a8a_0%,#f4f4f4_38%,#8a8a8a_76%)] bg-[length:220%_100%] bg-clip-text text-sm font-semibold text-transparent"
+        style={{ animation: 'ravi-openai-shimmer 1.45s ease-in-out infinite' }}
+      >
+        Ravi GPT is thinking
+      </span>
+    </div>
+  );
+}
+
+function AnthropicLoading() {
+  const [dotCount, setDotCount] = useState(1);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setDotCount((current) => (current % 3) + 1);
+    }, 420);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="mb-2 flex max-w-[92%] items-center gap-3 break-words rounded-2xl rounded-bl-md border border-zinc-700 bg-[#30302E] px-4 py-3 text-sm text-[#d7d2c8] shadow-sm sm:max-w-[78%]">
+      <style>{`
+        @keyframes ravi-anthropic-bloom {
+          0%, 100% { transform: scale(0.78) rotate(0deg); opacity: 0.72; }
+          45% { transform: scale(1.08) rotate(10deg); opacity: 1; }
+          70% { transform: scale(0.92) rotate(18deg); opacity: 0.9; }
+        }
+      `}</style>
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center text-[#d97745]"
+        style={{ animation: 'ravi-anthropic-bloom 1.45s ease-in-out infinite' }}
+      >
+        <AnthropicBurst />
+      </span>
+      <span className="font-semibold">
+        Cooking<span className="inline-block min-w-[1.5em] text-left">{'.'.repeat(dotCount)}</span>
+      </span>
+    </div>
+  );
+}
+
+function AnthropicBurst() {
+  return (
+    <svg viewBox="0 0 64 64" className="h-full w-full" aria-hidden="true">
+      {Array.from({ length: 16 }).map((_, index) => {
+        const angle = (index * 22.5 * Math.PI) / 180;
+        const x1 = 32 + Math.cos(angle) * 7;
+        const y1 = 32 + Math.sin(angle) * 7;
+        const x2 = 32 + Math.cos(angle) * 25;
+        const y2 = 32 + Math.sin(angle) * 25;
+
+        return (
+          <line
+            key={index}
+            x1={x1}
+            y1={y1}
+            x2={x2}
+            y2={y2}
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+        );
+      })}
+    </svg>
   );
 }
