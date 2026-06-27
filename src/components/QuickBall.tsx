@@ -41,7 +41,13 @@ export default function QuickBall() {
     yRatio: null,
   });
   const [dragX, setDragX] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const ballRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number | null>(null);
+  const pendingDragRef = useRef<{
+    x: number;
+    position: QuickBallPosition;
+  } | null>(null);
   const dragState = useRef({
     active: false,
     moved: false,
@@ -106,6 +112,9 @@ export default function QuickBall() {
     window.addEventListener("resize", handleResize);
 
     return () => {
+      if (frameRef.current !== null) {
+        cancelAnimationFrame(frameRef.current);
+      }
       document.removeEventListener("mousedown", handleClick);
       window.removeEventListener(THEME_CHANGE_EVENT, handleModeChange);
       media.removeEventListener("change", handleSystemChange);
@@ -120,6 +129,7 @@ export default function QuickBall() {
   }
 
   function handlePointerDown(event: PointerEvent<HTMLButtonElement>) {
+    setIsDragging(true);
     dragState.current = {
       active: true,
       moved: false,
@@ -133,6 +143,26 @@ export default function QuickBall() {
     event.currentTarget.setPointerCapture(event.pointerId);
   }
 
+  function scheduleDragUpdate(x: number, nextPosition: QuickBallPosition) {
+    pendingDragRef.current = { x, position: nextPosition };
+
+    if (frameRef.current !== null) {
+      return;
+    }
+
+    frameRef.current = requestAnimationFrame(() => {
+      const pending = pendingDragRef.current;
+      frameRef.current = null;
+
+      if (!pending) {
+        return;
+      }
+
+      setDragX(pending.x);
+      setPosition(pending.position);
+    });
+  }
+
   function handlePointerMove(event: PointerEvent<HTMLButtonElement>) {
     const state = dragState.current;
     if (!state.active || state.pointerId !== event.pointerId) {
@@ -142,14 +172,15 @@ export default function QuickBall() {
     const deltaX = event.clientX - state.startX;
     const deltaY = event.clientY - state.startY;
     if (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4) {
+      if (!state.moved) {
+        setOpen(false);
+      }
       state.moved = true;
-      setOpen(false);
     }
 
     const nextX = clampX(state.startXPosition + deltaX);
     const centerX = nextX + BALL_SIZE / 2;
-    setDragX(nextX);
-    setPosition({
+    scheduleDragUpdate(nextX, {
       side: centerX < window.innerWidth / 2 ? "left" : "right",
       yRatio: pixelsToRatio(clampY(state.startYPosition + deltaY)),
     });
@@ -161,17 +192,30 @@ export default function QuickBall() {
       return;
     }
 
+    const pending = pendingDragRef.current;
+    if (frameRef.current !== null) {
+      cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
+    pendingDragRef.current = null;
+
+    const finalX =
+      pending?.x ??
+      dragX ??
+      (position.side === "left" ? EDGE_GAP : window.innerWidth - BALL_SIZE - EDGE_GAP);
+    const finalYRatio = pending?.position.yRatio ?? position.yRatio;
     const side: QuickBallSide =
-      (dragX ?? (position.side === "left" ? EDGE_GAP : window.innerWidth - BALL_SIZE - EDGE_GAP)) +
+      finalX +
         BALL_SIZE / 2 <
       window.innerWidth / 2
         ? "left"
         : "right";
     const nextPosition: QuickBallPosition = {
       side,
-      yRatio: pixelsToRatio(clampY(ratioToPixels(position.yRatio))),
+      yRatio: pixelsToRatio(clampY(ratioToPixels(finalYRatio))),
     };
     dragState.current.active = false;
+    setIsDragging(false);
     setDragX(null);
     setPosition(nextPosition);
     persistPosition(nextPosition);
@@ -197,13 +241,14 @@ export default function QuickBall() {
       : `${clampY(ratioToPixels(position.yRatio))}px`;
   const wrapperStyle: CSSProperties = {
     top: yPosition,
+    willChange: isDragging ? "left, right, top" : undefined,
     ...(dragX !== null
       ? { left: `${dragX}px` }
       : position.side === "left"
         ? { left: `${EDGE_GAP}px` }
         : { right: `${EDGE_GAP}px` }),
   };
-  const openDownward = ratioToPixels(position.yRatio) < 148;
+  const yPixels = ratioToPixels(position.yRatio);
   const radialItems = [
     ...navItems.map((item) => ({ ...item, type: "link" as const })),
     {
@@ -217,7 +262,11 @@ export default function QuickBall() {
   return (
     <div
       ref={ballRef}
-      className="fixed z-[70] h-16 w-16 transition-[left,top] duration-150"
+      className={`fixed z-[70] h-16 w-16 ${
+        isDragging
+          ? "cursor-grabbing select-none"
+          : "transition-[left,right,top] duration-100 ease-out"
+      }`}
       style={wrapperStyle}
     >
       <div
@@ -233,10 +282,10 @@ export default function QuickBall() {
             item.type === "theme"
               ? "bg-tertiary text-[#010920] hover:bg-primary"
               : "bg-primary text-[#010920] hover:bg-tertiary";
-          const className = `absolute flex h-[52px] w-[52px] items-center justify-center rounded-full border border-white/50 ${tone} shadow-[0_18px_42px_rgb(1_9_32_/_32%)] ring-2 ring-[#010920]/20 backdrop-blur-xl transition duration-200 focus:outline-none focus:ring-2 focus:ring-secondary/90 ${
+          const className = `absolute flex h-[52px] w-[52px] items-center justify-center rounded-full border border-white/50 ${tone} shadow-[0_18px_42px_rgb(1_9_32_/_32%)] ring-2 ring-[#010920]/20 backdrop-blur-xl transition duration-100 ease-out focus:outline-none focus:ring-2 focus:ring-secondary/90 ${
             open ? "scale-100 opacity-100" : "scale-75 opacity-0"
           }`;
-          const style = getRadialItemStyle(index, position.side, openDownward, open);
+          const style = getRadialItemStyle(index, position.side, yPixels, open);
 
           if (item.type === "theme") {
             return (
@@ -283,7 +332,7 @@ export default function QuickBall() {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         onClick={toggleOpen}
-        className="group relative h-16 w-16 touch-none rounded-full border border-default bg-surface/92 text-default shadow-[0_14px_34px_rgb(1_9_32_/_22%)] ring-1 ring-default/20 backdrop-blur-xl transition-colors hover:border-primary hover:bg-default focus:outline-none focus:ring-2 focus:ring-secondary/80"
+        className="group relative h-16 w-16 touch-none rounded-full border border-default bg-surface/92 text-default shadow-[0_14px_34px_rgb(1_9_32_/_22%)] ring-1 ring-default/20 backdrop-blur-xl transition-[background-color,border-color,box-shadow,transform] duration-100 ease-out hover:border-primary hover:bg-default active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-secondary/80"
       >
         <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-primary" />
         <span
@@ -380,20 +429,21 @@ function persistPosition(position: QuickBallPosition) {
 function getRadialItemStyle(
   index: number,
   side: QuickBallSide,
-  openDownward: boolean,
+  yPixels: number,
   open: boolean,
 ): CSSProperties {
   const itemSize = 52;
   const center = BALL_SIZE / 2 - itemSize / 2;
   const radius = 116;
-  const angles =
-    side === "right"
-      ? openDownward
-        ? [90, 120, 150, 180]
-        : [270, 240, 210, 180]
-      : openDownward
-        ? [90, 60, 30, 0]
-        : [270, 300, 330, 0];
+  const cornerLimit = radius + itemSize / 2 + EDGE_GAP * 4;
+  const topRoom = yPixels;
+  const bottomRoom =
+    typeof window === "undefined"
+      ? cornerLimit
+      : window.innerHeight - yPixels - BALL_SIZE;
+  const isTopCorner = topRoom < cornerLimit;
+  const isBottomCorner = bottomRoom < cornerLimit;
+  const angles = getRadialAngles(side, isTopCorner, isBottomCorner);
   const angle = (angles[index] * Math.PI) / 180;
   const x = Math.cos(angle) * radius;
   const y = Math.sin(angle) * radius;
@@ -401,8 +451,36 @@ function getRadialItemStyle(
   return {
     left: `${center + x}px`,
     top: `${center + y}px`,
-    transitionDelay: open ? `${index * 28}ms` : "0ms",
+    transitionDelay: open ? `${index * 16}ms` : "0ms",
   };
+}
+
+function getRadialAngles(
+  side: QuickBallSide,
+  isTopCorner: boolean,
+  isBottomCorner: boolean,
+) {
+  if (side === "right") {
+    if (isTopCorner) {
+      return [90, 120, 150, 180];
+    }
+
+    if (isBottomCorner) {
+      return [270, 240, 210, 180];
+    }
+
+    return [270, 210, 150, 90];
+  }
+
+  if (isTopCorner) {
+    return [90, 60, 30, 0];
+  }
+
+  if (isBottomCorner) {
+    return [270, 300, 330, 0];
+  }
+
+  return [270, 330, 30, 90];
 }
 
 function QuickIcon({ name }: { name: string }) {
