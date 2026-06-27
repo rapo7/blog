@@ -27,6 +27,9 @@ export default {
 				"spin-slower": "spin 35s ease infinite",
 				"spin-slow": "spin 25s ease-in-out infinite reverse",
 			},
+			fontFamily: {
+				anthropic: ['"Styrene B"', '"Styrene A"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+			},
 		}
 	},
 	plugins: [

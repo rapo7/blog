@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import ChatHeader from './ChatHeader';
 import ChatCategorySelector from './ChatCategorySelector';
-import ChatPromptList from './ChatPromptList';
 import ChatInput from './ChatInput';
 import ChatBubble from './ChatBubble';
 import LoadingBubble from './LoadingBubble';
@@ -38,11 +37,44 @@ const promptData: Record<ChatCategory, ChatPrompt[]> = {
   ],
 };
 
+const allPrompts = Object.entries(promptData).flatMap(([category, prompts]) =>
+  prompts.map((prompt) => ({
+    ...prompt,
+    category: category as ChatCategory,
+  })),
+);
+
+const emptyStatePhrases = [
+  'Up late, Ravi?',
+  'Ask something about Ravi?',
+  'Ask Ravi a question?',
+  'Ready to interrogate Ravi?',
+  'What should we ask Ravi?',
+  'Curious about Ravi?',
+  'What is Ravi building?',
+  'Need Ravi context?',
+  'Looking for the real Ravi?',
+  'What should Ravi explain?',
+  'Interview Ravi for a minute?',
+  'Ask Ravi about work?',
+  'Ask Ravi about the weird stuff?',
+  'What makes Ravi useful?',
+  'Ravi, in one question?',
+  'What is Ravi good at?',
+  'Want the Ravi rundown?',
+  'Ask the Ravi file?',
+  'What has Ravi shipped?',
+  'What is Ravi learning?',
+  'What would Ravi say?',
+  'Need a Ravi signal?',
+  'Start with Ravi?',
+];
+
 export default function ChatContainer() {
   const [category, setCategory] = useState<ChatCategory>('Basic');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
-  const [showCategories, setShowCategories] = useState(true);
+  const [emptyPhraseIndex, setEmptyPhraseIndex] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatAreaRef = useRef<HTMLDivElement>(null);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
@@ -66,6 +98,14 @@ export default function ChatContainer() {
     return () => chatAreaElement.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setEmptyPhraseIndex((current) => (current + 1) % emptyStatePhrases.length);
+    }, 4200);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
   const handleScrollToBottom = () => {
     const chatArea = chatAreaRef.current;
     if (chatArea) {
@@ -73,18 +113,7 @@ export default function ChatContainer() {
     }
   };
 
-  function handlePromptSelect(prompt: ChatPrompt) {
-    setShowCategories(false);
-    setMessages(msgs => [
-      ...msgs,
-      { id: `user-${Date.now()}`, sender: 'user', content: prompt.text },
-    ]);
-    triggerAssistantResponse(prompt.text);
-  }
-
   function handleSend(message: string) {
-    setShowCategories(false);
-    console.log('Sending message:', message);
     setMessages(msgs => [
       ...msgs,
       { id: `user-${Date.now()}`, sender: 'user', content: message },
@@ -128,45 +157,88 @@ export default function ChatContainer() {
 
 
   return (
-    <div className="relative flex min-h-dvh w-full flex-col items-center overflow-x-hidden bg-default px-0 text-default sm:px-6">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_0%_0%,rgb(155_220_40_/_18%),transparent_35%),radial-gradient(circle_at_100%_0%,rgb(37_199_188_/_14%),transparent_34%)] sm:h-64" />
-      <div className="relative mx-auto mb-24 flex w-full max-w-4xl flex-col bg-surface px-4 pb-8 pt-4 sm:mb-32 sm:mt-8 sm:rounded-[32px] sm:border sm:border-default sm:px-6 sm:pt-3 sm:shadow-[0_24px_80px_rgb(1_9_32_/_12%)]">
-        <ChatHeader />
-        {showCategories && (
-          <>
-            <ChatCategorySelector selected={category} onSelect={setCategory} />
-            <ChatPromptList prompts={promptData[category]} onSelect={handlePromptSelect} />
-          </>
-        )}
-        <div
-          ref={chatAreaRef}
-          className="relative mb-2 mt-4 flex min-h-[120px] w-full flex-col gap-2 pb-28 sm:mt-5 sm:min-h-[160px] sm:pb-32"
-          style={{ scrollBehavior: 'smooth' }}
-        >
-          {messages.map((msg, idx) => (
-            <ChatBubble key={idx} sender={msg.sender} content={msg.content} />
-          ))}
-          <div ref={messagesEndRef} />
-          {loading && <LoadingBubble />}
-        </div>
+    <div className="font-anthropic relative flex min-h-dvh w-full flex-col overflow-hidden bg-[#1f1f1d] text-[#f4efe7]">
+      <ChatHeader />
+      <main className="mx-auto flex min-h-dvh w-full max-w-5xl flex-1 flex-col px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-24 sm:px-6">
+        <section className="flex min-h-0 flex-1 flex-col">
+          <div
+            ref={chatAreaRef}
+            className="relative flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-1 py-4 sm:px-5"
+            style={{ scrollBehavior: 'smooth' }}
+          >
+            {messages.length === 0 && !loading && (
+              <div className="flex flex-1 items-center justify-center py-8">
+                <div className="text-center">
+                  <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center text-[#d97745]">
+                    <ClaudeBurst />
+                  </div>
+                  <p className="text-[2rem] font-semibold leading-tight text-[#d7d2c8] sm:text-5xl">
+                    {emptyStatePhrases[emptyPhraseIndex]}
+                  </p>
+                </div>
+              </div>
+            )}
+            {messages.map((msg) => (
+              <ChatBubble key={msg.id} sender={msg.sender} content={msg.content} />
+            ))}
+            <div ref={messagesEndRef} />
+            {loading && <LoadingBubble />}
+          </div>
+
+          <div className="mx-auto w-full max-w-3xl pb-1">
+            <div className="mb-3 rounded-[24px] border border-white/10 bg-[#282825]/80 p-2 shadow-[0_18px_70px_rgb(0_0_0_/_22%)] backdrop-blur">
+              <ChatCategorySelector selected={category} onSelect={setCategory} />
+            </div>
+            <ChatInput
+              onSend={handleSend}
+              suggestions={allPrompts.map((prompt) => ({
+                id: prompt.id,
+                text: prompt.text,
+                category: prompt.category,
+              }))}
+            />
+          </div>
+        </section>
+
         {showScrollToBottom && (
           <button
             onClick={handleScrollToBottom}
-            className="fixed bottom-24 right-4 z-50 rounded-full border border-[#010920] bg-primary p-3 text-[#010920] shadow-[0_12px_30px_rgb(1_9_32_/_18%)] transition hover:-translate-y-0.5 dark:border-primary sm:bottom-28 sm:right-6"
+            className="fixed bottom-24 right-4 z-50 rounded-full border border-[#010920] bg-primary p-3 text-[#010920] shadow-[0_12px_30px_rgb(1_9_32_/_18%)] transition hover:bg-tertiary dark:border-primary sm:bottom-8 sm:right-8"
             aria-label="Scroll to bottom"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
         )}
-      </div>
-      {/* Sticky ChatInput at bottom of viewport */}
-      <div className="fixed bottom-0 left-0 z-40 flex w-full justify-center border-t border-default bg-default/90 px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 backdrop-blur sm:px-6 sm:py-3">
-        <div className="w-full max-w-3xl">
-          <ChatInput onSend={handleSend} />
-        </div>
-      </div>
+      </main>
     </div>
+  );
+}
+
+function ClaudeBurst() {
+  return (
+    <svg viewBox="0 0 64 64" className="h-full w-full" aria-hidden="true">
+      {Array.from({ length: 16 }).map((_, index) => {
+        const angle = (index * 22.5 * Math.PI) / 180;
+        const x1 = 32 + Math.cos(angle) * 7;
+        const y1 = 32 + Math.sin(angle) * 7;
+        const x2 = 32 + Math.cos(angle) * 25;
+        const y2 = 32 + Math.sin(angle) * 25;
+
+        return (
+          <line
+            key={index}
+            x1={x1}
+            y1={y1}
+            x2={x2}
+            y2={y2}
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+        );
+      })}
+    </svg>
   );
 }
