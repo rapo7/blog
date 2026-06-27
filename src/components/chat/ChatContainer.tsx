@@ -169,15 +169,9 @@ export default function ChatContainer() {
   const rootClassName = isOpenAI
     ? 'relative flex min-h-dvh w-screen flex-col overflow-hidden bg-black text-[#f4f4f4]'
     : 'font-anthropic relative flex min-h-dvh w-screen flex-col overflow-hidden bg-[#1f1f1d] text-[#f4efe7]';
-  const mainClassName = isOpenAI
-    ? 'mx-auto flex min-h-dvh w-full max-w-3xl flex-1 flex-col px-1.5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-6'
-    : 'mx-auto flex min-h-dvh w-full max-w-5xl flex-1 flex-col px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-6';
-  const chatAreaClassName = isOpenAI
-    ? 'relative flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-1 py-0 sm:px-5'
-    : 'relative flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-1 py-4 sm:px-5';
-  const sectionClassName = isOpenAI
-    ? 'flex min-h-0 flex-1 flex-col justify-between pt-[5.5rem]'
-    : 'flex min-h-0 flex-1 flex-col';
+  const mainClassName = 'mx-auto flex min-h-dvh w-full max-w-5xl flex-1 flex-col px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-6';
+  const chatAreaClassName = 'relative flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-1 py-4 sm:px-5';
+  const sectionClassName = 'flex min-h-0 flex-1 flex-col';
 
 
 
@@ -191,14 +185,14 @@ export default function ChatContainer() {
             style={{ scrollBehavior: 'smooth' }}
           >
             {messages.length === 0 && !loading && (
-              <div className={isOpenAI ? 'flex flex-1 items-center justify-center py-8' : 'flex flex-1 items-center justify-center py-8'}>
+              <div className="flex flex-1 items-center justify-center py-8">
                 <div className="text-center">
-                  <div className={isOpenAI ? 'mx-auto mb-5 flex h-11 w-11 items-center justify-center text-[#f4f4f4]' : 'mx-auto mb-5 flex h-14 w-14 items-center justify-center text-[#d97745]'}>
+                  <div className={isOpenAI ? 'mx-auto mb-5 flex h-14 w-14 items-center justify-center text-[#f4f4f4]' : 'mx-auto mb-5 flex h-14 w-14 items-center justify-center text-[#d97745]'}>
                     {isOpenAI ? <OpenAILogo /> : <ClaudeBurst />}
                   </div>
                   <p className={
                     isOpenAI
-                      ? 'mx-auto max-w-xs text-[1.75rem] font-semibold leading-[1.08] text-[#f4f4f4] sm:text-4xl'
+                      ? 'text-[2rem] font-semibold leading-tight text-[#f4f4f4] sm:text-5xl'
                       : 'text-[2rem] font-semibold leading-tight text-[#d7d2c8] sm:text-5xl'
                   }>
                     {emptyStatePhrases[emptyPhraseIndex]}
@@ -213,7 +207,7 @@ export default function ChatContainer() {
             {loading && <LoadingBubble />}
           </div>
 
-          <div className={isOpenAI ? 'sticky bottom-0 mx-auto w-full max-w-[720px] pb-1' : 'mx-auto w-full max-w-3xl pb-1'}>
+          <div className="mx-auto w-full max-w-3xl pb-1">
             <ChatInput
               onSend={handleSend}
               interfaceTheme={interfaceTheme}

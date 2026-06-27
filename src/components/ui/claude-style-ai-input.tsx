@@ -344,11 +344,21 @@ const ModelSelectorDropdown: React.FC<{
   models: ModelOption[];
   selectedModel: string;
   onModelChange: (modelId: string) => void;
-}> = ({ models, selectedModel, onModelChange }) => {
+  variant?: 'anthropic' | 'openai';
+  onOpenChange?: (isOpen: boolean) => void;
+}> = ({ models, selectedModel, onModelChange, variant = 'anthropic', onOpenChange }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const isOpenAI = variant === 'openai';
   const selectedModelData =
     models.find((model) => model.id === selectedModel) || models[0];
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const updateIsOpen = useCallback(
+    (nextIsOpen: boolean) => {
+      setIsOpen(nextIsOpen);
+      onOpenChange?.(nextIsOpen);
+    },
+    [onOpenChange],
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -356,20 +366,28 @@ const ModelSelectorDropdown: React.FC<{
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        updateIsOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [updateIsOpen]);
 
   return (
     <div className="relative" ref={dropdownRef}>
       <Button
+        type="button"
         variant="ghost"
         size="sm"
-        className="h-9 px-2.5 text-sm font-medium text-zinc-300 hover:text-zinc-100 hover:bg-zinc-700"
-        onClick={() => setIsOpen(!isOpen)}
+        className={cn(
+          'h-9 px-2.5 text-sm font-medium',
+          isOpenAI
+            ? 'text-[#f4f4f4] hover:bg-white/10 hover:text-white'
+            : 'text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100',
+        )}
+        aria-label={`Current model: ${selectedModelData.name}`}
+        title={selectedModelData.name}
+        onClick={() => updateIsOpen(!isOpen)}
       >
         <span className="truncate max-w-[150px] sm:max-w-[200px]">
           {selectedModelData.name}
@@ -383,36 +401,50 @@ const ModelSelectorDropdown: React.FC<{
       </Button>
 
       {isOpen && (
-        <div className="absolute bottom-full right-0 mb-2 w-72 bg-zinc-800 border border-zinc-700 rounded-lg shadow-xl z-20 p-2">
+        <div className={cn(
+          'absolute bottom-full right-0 z-20 mb-2 w-72 rounded-lg border p-2 shadow-xl',
+          isOpenAI
+            ? 'border-white/10 bg-[#181818] shadow-black/40'
+            : 'border-zinc-700 bg-zinc-800',
+        )}>
           {models.map((model) => (
             <button
               key={model.id}
+              type="button"
               className={cn(
-                'w-full text-left p-2.5 rounded-md hover:bg-zinc-700 transition-colors flex items-center justify-between',
-                model.id === selectedModel && 'bg-zinc-700',
+                'flex w-full items-center justify-between rounded-md p-2.5 text-left transition-colors',
+                isOpenAI
+                  ? 'hover:bg-white/10'
+                  : 'hover:bg-zinc-700',
+                model.id === selectedModel && (isOpenAI ? 'bg-white/10' : 'bg-zinc-700'),
               )}
               onClick={() => {
                 onModelChange(model.id);
-                setIsOpen(false);
+                updateIsOpen(false);
               }}
             >
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-zinc-100">
+                  <span className={cn('font-medium', isOpenAI ? 'text-[#f4f4f4]' : 'text-zinc-100')}>
                     {model.name}
                   </span>
                   {model.badge && (
-                    <span className="px-1.5 py-0.5 text-xs bg-blue-500/20 text-blue-300 rounded">
+                    <span className={cn(
+                      'rounded px-1.5 py-0.5 text-xs',
+                      isOpenAI
+                        ? 'bg-[#4d9cff]/15 text-[#8ec2ff]'
+                        : 'bg-blue-500/20 text-blue-300',
+                    )}>
                       {model.badge}
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-zinc-400 mt-0.5">
+                <p className={cn('mt-0.5 text-xs', isOpenAI ? 'text-[#9b9b9b]' : 'text-zinc-400')}>
                   {model.description}
                 </p>
               </div>
               {model.id === selectedModel && (
-                <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                <Check className={cn('h-4 w-4 flex-shrink-0', isOpenAI ? 'text-[#4d9cff]' : 'text-blue-400')} />
               )}
             </button>
           ))}
@@ -505,6 +537,7 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const [pastedContent, setPastedContent] = useState<PastedContent[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false);
   const [selectedModel, setSelectedModel] = useState(
     defaultModel || models[0]?.id || '',
   );
@@ -516,16 +549,14 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
       const maxHeight =
-        variant === 'openai'
-          ? 72
-          : Number.parseInt(getComputedStyle(textareaRef.current).maxHeight, 10) ||
+        Number.parseInt(getComputedStyle(textareaRef.current).maxHeight, 10) ||
         120;
       textareaRef.current.style.height = `${Math.min(
         textareaRef.current.scrollHeight,
         maxHeight,
       )}px`;
     }
-  }, [message, variant]);
+  }, [message]);
 
   const handleFileSelect = useCallback(
     (selectedFiles: FileList | null) => {
@@ -768,140 +799,20 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
     !disabled &&
     !files.some((file) => file.uploadStatus === 'uploading');
   const isOpenAI = variant === 'openai';
-
-  if (isOpenAI) {
-    return (
-      <div
-        className="relative w-full"
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
-        {isDragging && (
-          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center rounded-[28px] border-2 border-dashed border-[#8e8e8e] bg-[#212121] text-[#f4f4f4] pointer-events-none">
-            <p className="flex items-center gap-2 text-sm">
-              <ImageIcon className="size-4 opacity-60" />
-              Drop files here
-            </p>
-          </div>
-        )}
-
-        <div className="flex min-h-[124px] flex-col rounded-[30px] border border-white/10 bg-[#181818] px-4 py-3.5 shadow-[0_18px_60px_rgb(0_0_0_/_34%)]">
-          {suggestions.length > 0 && !message && files.length === 0 && pastedContent.length === 0 && (
-            <div className="mb-2 w-full overflow-x-auto border-b border-white/10 pb-2 hide-scroll-bar">
-              <div className="flex gap-2">
-                {suggestions.map((suggestion) => (
-                  <button
-                    key={suggestion.id}
-                    type="button"
-                    className="flex max-w-[260px] shrink-0 items-center gap-2 rounded-full border border-white/10 bg-[#171717] px-3 py-1.5 text-left text-xs font-medium text-[#d1d1d1] transition hover:bg-[#2f2f2f] hover:text-white"
-                    onClick={() => setMessage(suggestion.text)}
-                    title={suggestion.text}
-                  >
-                    <SuggestionIcon category={suggestion.category} text={suggestion.text} />
-                    <span className="truncate">{suggestion.text}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-          {(files.length > 0 || pastedContent.length > 0) && (
-            <div className="mb-2 overflow-x-auto border-b border-white/10 pb-2 hide-scroll-bar">
-              <div className="flex gap-3">
-                {pastedContent.map((content) => (
-                  <PastedContentCard
-                    key={content.id}
-                    content={content}
-                    onRemove={(id) =>
-                      setPastedContent((prev) => prev.filter((item) => item.id !== id))
-                    }
-                  />
-                ))}
-                {files.map((file) => (
-                  <FilePreviewCard
-                    key={file.id}
-                    file={file}
-                    onRemove={removeFile}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-          <textarea
-            ref={textareaRef}
-            value={message}
-            onChange={(event) => setMessage(event.target.value)}
-            onPaste={handlePaste}
-            onKeyDown={handleKeyDown}
-            placeholder={placeholder}
-            disabled={disabled}
-            rows={1}
-            className="min-h-[44px] max-h-[104px] w-full resize-none border-0 bg-transparent px-0 py-0 text-lg leading-7 text-[#f4f4f4] shadow-none outline-none placeholder:text-[#f4f4f4] focus:outline-none focus-visible:ring-0 sm:text-xl"
-          />
-          <div className="mt-auto flex items-center justify-between gap-3 pt-2.5">
-            <input
-              ref={fileInputRef}
-              type="file"
-              multiple
-              className="hidden"
-              accept={acceptedFileTypes?.join(',')}
-              onChange={(event) => {
-                handleFileSelect(event.target.files);
-                if (event.target) event.target.value = '';
-              }}
-            />
-            <div className="flex min-w-0 items-center gap-2">
-              <button
-                type="button"
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#f4f4f4] transition hover:bg-white/10 disabled:opacity-40"
-                onClick={() => fileInputRef.current?.click()}
-                disabled={disabled || files.length >= maxFiles}
-                aria-label="Attach files"
-                title="Attach files"
-              >
-                <Plus className="h-6 w-6" strokeWidth={1.9} />
-              </button>
-              <button
-                type="button"
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#4d9cff] transition hover:bg-white/10"
-                onClick={() => onVariantChange?.('anthropic')}
-                aria-label="Switch to Anthropic chat style"
-                title="Switch to Anthropic chat style"
-              >
-                <SlidersHorizontal className="h-5 w-5" />
-              </button>
-            </div>
-            <div className="flex min-w-0 shrink-0 items-center gap-2">
-              <button
-                type="button"
-                className="min-w-[62px] whitespace-nowrap rounded-full px-1 text-sm font-semibold leading-none text-[#f4f4f4] transition hover:text-white sm:text-base"
-                aria-label="Current model: Ravi GPT"
-                title="Ravi GPT"
-              >
-                <span className="text-[#f4f4f4]">Ravi</span>
-                <span className="ml-1.5 text-[#9b9b9b]">GPT</span>
-              </button>
-              <button
-                type="button"
-                className={cn(
-                  'flex h-11 w-11 items-center justify-center rounded-full transition',
-                  canSend
-                    ? 'bg-white text-black hover:bg-[#ececec]'
-                    : 'bg-white text-black',
-                )}
-                onClick={handleSend}
-                disabled={!canSend}
-                aria-label="Send message"
-                title="Send message"
-              >
-                <ArrowUp className="h-6 w-6" strokeWidth={2.8} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const suggestionQuery = message.trim().toLowerCase();
+  const suggestionTokens = suggestionQuery.split(/\s+/).filter(Boolean);
+  const visibleSuggestions = (suggestionTokens.length > 0
+    ? suggestions.filter((suggestion) => {
+        const searchableText = `${suggestion.text} ${suggestion.category || ''}`.toLowerCase();
+        return suggestionTokens.every((token) => searchableText.includes(token));
+      })
+    : suggestions
+  ).slice(0, 3);
+  const shouldShowSuggestions =
+    visibleSuggestions.length > 0 &&
+    files.length === 0 &&
+    pastedContent.length === 0 &&
+    !isModelSelectorOpen;
 
   return (
     <div
@@ -911,33 +822,83 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
       onDrop={handleDrop}
     >
       {isDragging && (
-        <div className="absolute inset-0 z-50 bg-[#1C3F62] border-2 border-dashed border-blue-500 rounded-xl flex flex-col items-center justify-center pointer-events-none">
-          <p className="text-sm text-blue-500 flex items-center gap-2">
+        <div
+          className={cn(
+            'absolute inset-0 z-50 flex flex-col items-center justify-center rounded-xl border-2 border-dashed pointer-events-none',
+            isOpenAI
+              ? 'border-[#4d9cff] bg-[#111111] text-[#8ec2ff]'
+              : 'border-blue-500 bg-[#1C3F62] text-blue-500',
+          )}
+        >
+          <p className="text-sm flex items-center gap-2">
             <ImageIcon className="size-4 opacity-50" />
             Drop files here to add to chat
           </p>
         </div>
       )}
 
-      <div className="bg-[#30302E] border border-zinc-700 rounded-xl shadow-lg items-end gap-2 min-h-[150px] flex flex-col">
-        {suggestions.length > 0 && !message && files.length === 0 && pastedContent.length === 0 && (
-          <div className="w-full overflow-x-auto border-b border-zinc-700 px-3 py-2 hide-scroll-bar">
-            <div className="flex gap-2 py-0.5">
-              {suggestions.map((suggestion) => (
-                <button
-                  key={suggestion.id}
-                  type="button"
-                  className="flex max-w-[280px] shrink-0 items-center gap-2 rounded-full border border-zinc-600 bg-[#262624] px-3 py-1.5 text-left text-xs font-medium text-zinc-300 transition hover:border-zinc-500 hover:bg-zinc-700 hover:text-zinc-100"
-                  onClick={() => setMessage(suggestion.text)}
-                  title={suggestion.text}
+      {shouldShowSuggestions && (
+        <div
+          className={cn(
+            'absolute bottom-[calc(100%+0.8rem)] left-0 right-0 z-30 mx-auto grid max-w-2xl gap-2',
+            isOpenAI ? 'font-sans' : 'font-anthropic',
+          )}
+        >
+          {visibleSuggestions.map((suggestion) => (
+            <button
+              key={suggestion.id}
+              type="button"
+              className={cn(
+                'group flex w-full items-center gap-3 px-4 py-1 text-left transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+                isOpenAI
+                  ? 'text-[#b7b7b7] hover:text-[#f4f4f4] focus-visible:outline-[#4d9cff]'
+                  : 'text-[#cfc8bd] hover:text-[#f4efe7] focus-visible:outline-[#d97745]',
+              )}
+              onClick={() => {
+                setMessage(suggestion.text);
+                textareaRef.current?.focus();
+              }}
+              title={suggestion.text}
+            >
+              <span
+                className={cn(
+                  'flex h-6 w-6 shrink-0 items-center justify-center',
+                  isOpenAI
+                    ? 'text-[#9f9f9f] group-hover:text-[#4d9cff]'
+                    : 'text-[#d97745]',
+                )}
+              >
+                <SuggestionIcon
+                  category={suggestion.category}
+                  text={suggestion.text}
+                  className="h-5 w-5 shrink-0"
+                />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span
+                  className={cn(
+                    'block whitespace-normal break-words',
+                    isOpenAI
+                      ? 'text-sm font-semibold leading-snug tracking-normal'
+                      : 'text-sm font-semibold leading-snug',
+                  )}
                 >
-                  <SuggestionIcon category={suggestion.category} text={suggestion.text} />
-                  <span className="truncate">{suggestion.text}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+                  {suggestion.text}
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div
+        className={cn(
+          'items-end gap-2 min-h-[150px] flex flex-col rounded-xl border shadow-lg',
+          isOpenAI
+            ? 'border-white/10 bg-[#181818] shadow-black/30'
+            : 'border-zinc-700 bg-[#30302E]',
         )}
+      >
         <textarea
           ref={textareaRef}
           value={message}
@@ -946,7 +907,12 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled}
-          className="flex-1 min-h-[100px] w-full p-4 focus-within:border-none focus:outline-none focus:border-none border-none outline-none focus-within:ring-0 focus-within:ring-offset-0 focus-within:outline-none max-h-[120px] resize-none bg-transparent text-zinc-100 shadow-none focus-visible:ring-0 placeholder:text-zinc-500 text-sm sm:text-base custom-scrollbar"
+          className={cn(
+            'flex-1 min-h-[100px] w-full p-4 focus-within:border-none focus:outline-none focus:border-none border-none outline-none focus-within:ring-0 focus-within:ring-offset-0 focus-within:outline-none max-h-[120px] resize-none bg-transparent shadow-none focus-visible:ring-0 text-sm sm:text-base custom-scrollbar',
+            isOpenAI
+              ? 'text-[#f4f4f4] placeholder:text-[#8e8e8e]'
+              : 'text-zinc-100 placeholder:text-zinc-500',
+          )}
           rows={1}
         />
         <div className="flex items-center gap-2 justify-between w-full px-3 pb-1.5">
@@ -954,7 +920,12 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
             <Button
               size="icon"
               variant="ghost"
-              className="h-9 w-9 p-0 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700 flex-shrink-0"
+              className={cn(
+                'h-9 w-9 p-0 flex-shrink-0',
+                isOpenAI
+                  ? 'text-[#f4f4f4] hover:bg-white/10 hover:text-white'
+                  : 'text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200',
+              )}
               onClick={() => fileInputRef.current?.click()}
               disabled={disabled || files.length >= maxFiles}
               title={
@@ -968,10 +939,15 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
             <Button
               size="icon"
               variant="ghost"
-              className="h-9 w-9 p-0 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700 flex-shrink-0"
+              className={cn(
+                'h-9 w-9 p-0 flex-shrink-0',
+                isOpenAI
+                  ? 'text-[#4d9cff] hover:bg-white/10 hover:text-[#8ec2ff]'
+                  : 'text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200',
+              )}
               disabled={disabled}
-              onClick={() => onVariantChange?.('openai')}
-              title="Switch to OpenAI chat style"
+              onClick={() => onVariantChange?.(isOpenAI ? 'anthropic' : 'openai')}
+              title={isOpenAI ? 'Switch to Anthropic chat style' : 'Switch to OpenAI chat style'}
             >
               <SlidersHorizontal className="h-5 w-5" />
             </Button>
@@ -982,16 +958,22 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
                 models={models}
                 selectedModel={selectedModel}
                 onModelChange={handleModelChangeInternal}
+                variant={variant}
+                onOpenChange={setIsModelSelectorOpen}
               />
             )}
 
             <Button
               size="icon"
               className={cn(
-                'h-9 w-9 p-0 flex-shrink-0 rounded-md transition-colors',
-                canSend
-                  ? 'bg-amber-600 hover:bg-amber-700 text-white'
-                  : 'bg-zinc-700 text-zinc-500 cursor-not-allowed',
+                'h-9 w-9 p-0 flex-shrink-0 transition-colors',
+                isOpenAI
+                  ? canSend
+                    ? 'rounded-full bg-white text-black hover:bg-[#ececec]'
+                    : 'rounded-full bg-white text-black cursor-not-allowed'
+                  : canSend
+                    ? 'rounded-md bg-amber-600 hover:bg-amber-700 text-white'
+                    : 'rounded-md bg-zinc-700 text-zinc-500 cursor-not-allowed',
               )}
               onClick={handleSend}
               disabled={!canSend}
@@ -1002,7 +984,14 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
           </div>
         </div>
         {(files.length > 0 || pastedContent.length > 0) && (
-          <div className="overflow-x-auto border-t-[1px] p-3 border-zinc-700 w-full bg-[#262624] hide-scroll-bar">
+          <div
+            className={cn(
+              'overflow-x-auto border-t-[1px] p-3 w-full hide-scroll-bar',
+              isOpenAI
+                ? 'border-white/10 bg-[#111111]'
+                : 'border-zinc-700 bg-[#262624]',
+            )}
+          >
             <div className="flex gap-3">
               {pastedContent.map((content) => (
                 <PastedContentCard
@@ -1071,8 +1060,15 @@ export const Component = () => {
   );
 };
 
-function SuggestionIcon({ category, text }: { category?: string; text: string }) {
-  const className = 'h-3.5 w-3.5 shrink-0 text-zinc-400';
+function SuggestionIcon({
+  category,
+  text,
+  className = 'h-3.5 w-3.5 shrink-0 text-zinc-400',
+}: {
+  category?: string;
+  text: string;
+  className?: string;
+}) {
   if (text.toLowerCase().includes('contact')) {
     return <Mail className={className} />;
   }
