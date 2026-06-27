@@ -74,7 +74,6 @@ interface ChatInputProps {
   suggestions?: ChatInputSuggestion[];
   variant?: 'anthropic' | 'openai';
   onVariantChange?: (variant: 'anthropic' | 'openai') => void;
-  onFocusChange?: (isFocused: boolean) => void;
 }
 
 const MAX_FILES = 10;
@@ -533,7 +532,6 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
   suggestions = [],
   variant = 'anthropic',
   onVariantChange,
-  onFocusChange,
 }) => {
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState<FileWithPreview[]>([]);
@@ -905,8 +903,6 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
           ref={textareaRef}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
-          onFocus={() => onFocusChange?.(true)}
-          onBlur={() => window.setTimeout(() => onFocusChange?.(false), 120)}
           onPaste={handlePaste}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
