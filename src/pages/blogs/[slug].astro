@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 import Layout from '../../layouts/Layout.astro';
@@ -9,7 +9,7 @@ export const getStaticPaths = async () => {
     const paths = blogs.map(blog => {
         return {
             params: {
-                slug: blog.slug
+                slug: blog.id
             },
             props: {
                 blog
@@ -25,7 +25,7 @@ type Props = {
 }
 
 const {blog} = Astro.props;
-const {Content} = await blog.render();
+const {Content} = await render(blog);
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 

@@ -1,12 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
 import Layout from '../../layouts/Layout.astro';
 import BlogList from '../../components/sections/blog/BlogList.astro';
 import Pagination from '../../components/common/Pagination.astro';
 
-export async function getStaticPaths({ paginate }) {
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
     const blogs = await getCollection("blogs");
     const latestBlogs = blogs.sort((a, b) =>
         new Date(b.data.datetime).getTime() - new Date(a.data.datetime).getTime()
@@ -15,7 +16,7 @@ export async function getStaticPaths({ paginate }) {
     return paginate(latestBlogs, {
         pageSize: 5,
     });
-}
+};
 
 export interface Props {
   page: Page<CollectionEntry<"blogs">>;
