@@ -28,7 +28,8 @@ export default {
 				"spin-slow": "spin 25s ease-in-out infinite reverse",
 			},
 			fontFamily: {
-				anthropic: ['"Styrene B"', '"Styrene A"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				anthropic: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				openai: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
 			},
 		}
 	},
