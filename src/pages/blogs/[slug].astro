@@ -31,12 +31,12 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 <Layout title={blog.data.title}>
     <section class="mx-auto w-full max-w-4xl px-4 pb-24 pt-5 sm:px-6 sm:pt-10 lg:px-8">
-        <article class="overflow-hidden rounded-[24px] border border-default bg-default shadow-[0_18px_60px_rgb(1_9_32_/_10%)] sm:rounded-[32px]">
+        <article class="overflow-hidden rounded-[24px] border border-default bg-default shadow-[var(--shadow-lift)] sm:rounded-[32px]">
             <header class="border-b border-default bg-surface px-4 py-5 sm:px-8 sm:py-8 lg:px-10">
                 <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <a
                         href={`${baseUrl}/blogs`}
-                        class="inline-flex w-fit rounded-full border border-default bg-default px-3 py-1.5 text-xs font-semibold text-offset transition hover:bg-primary hover:text-[#010920]"
+                        class="inline-flex w-fit rounded-full border border-default bg-default px-3 py-1.5 text-xs font-semibold text-offset transition-colors hover:bg-primary hover:text-default"
                     >
                         Back to posts
                     </a>

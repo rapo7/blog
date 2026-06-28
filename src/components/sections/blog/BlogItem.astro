@@ -4,8 +4,8 @@ const { blog, isFirst } = Astro.props;
 ---
 
 <a href={`${import.meta.env.BASE_URL}/blogs/${blog.id}`} class="block">
-    <div class="group flex flex-col items-start rounded-[1.75rem] border border-default bg-surface p-5 transition md:flex-row
-        hover:-translate-y-1 hover:bg-background hover:shadow-[10px_10px_0_#010920]">
+    <div class="group flex flex-col items-start rounded-[1.75rem] border border-default bg-surface p-5 transition-colors md:flex-row
+        hover:bg-background hover:shadow-[var(--shadow-card)]">
         <div class="flex-1 pr-3">
             <h2 class="pt-1 text-2xl font-black leading-tight transition-colors group-hover:text-secondary">
                 {blog.data.title}

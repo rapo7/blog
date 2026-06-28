@@ -17,8 +17,9 @@ const { title } = Astro.props;
     <title>{title}</title>
     <script is:inline>
       (() => {
-        const key = "themeMode";
-        const stored = localStorage.getItem(key);
+        const modeKey = "themeMode";
+        const familyKey = "themeFamily";
+        const stored = localStorage.getItem(modeKey);
         const legacy = localStorage.getItem("theme");
         const mode =
           stored === "light" || stored === "dark" || stored === "system"
@@ -26,14 +27,25 @@ const { title } = Astro.props;
             : legacy === "light" || legacy === "dark"
               ? legacy
               : "system";
+        const storedFamily = localStorage.getItem(familyKey);
+        const family =
+          storedFamily === "anthropic" || storedFamily === "openai" || storedFamily === "neo"
+            ? storedFamily
+            : "neo";
         const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light";
         document.documentElement.dataset.theme =
           mode === "system" ? systemTheme : mode;
         document.documentElement.dataset.themeMode = mode;
+        document.documentElement.dataset.themeFamily = family;
       })();
     </script>
+    <style>
+      body {
+        font-family: var(--font-body);
+      }
+    </style>
     <PostHog />
   </head>
 <body class="h-full bg-background text-default">
