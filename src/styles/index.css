@@ -26,6 +26,46 @@ body {
     min-height: 100vh;
 }
 
+.theme-morph-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    pointer-events: none;
+    overflow: hidden;
+    background: transparent;
+    contain: strict;
+    transform: translate3d(0, 0, 0);
+    will-change: opacity;
+}
+
+.theme-morph-overlay__svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: translate3d(0, 0, 0);
+}
+
+.theme-morph-overlay__path {
+    shape-rendering: geometricPrecision;
+}
+
+.theme-morphing body,
+.theme-morphing .bg-default,
+.theme-morphing .bg-background,
+.theme-morphing .bg-surface,
+.theme-morphing .bg-offset,
+.theme-morphing .text-default,
+.theme-morphing .text-offset,
+.theme-morphing .border-default {
+    transition-duration: 0ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-morph-overlay {
+        display: none;
+    }
+}
+
 a {
     text-underline-offset: 0.18em;
 }

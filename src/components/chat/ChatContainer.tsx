@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
+import { ArrowDown } from 'lucide-react';
 import ChatInput from './ChatInput';
 import ChatBubble from './ChatBubble';
 import LoadingBubble from './LoadingBubble';
@@ -13,6 +14,14 @@ import type { ChatMessage, ChatInterfaceTheme } from './types';
 import type { ChatModelSelection } from '@/components/ui/claude-style-ai-input';
 
 type ChatSiteTheme = 'light' | 'dark';
+
+const RAVI_GPT_ENDPOINT = 'https://ravitejarapolu6--ravigpt-modal-ravi-gpt.modal.run';
+const RAVI_GPT_STREAM_ENDPOINT = `${RAVI_GPT_ENDPOINT}/stream`;
+const RATE_LIMIT_FALLBACK_MESSAGE =
+  'Rate limit exceeded on Cerebras free tier.\n\nRavi GPT uses `gpt-oss-120b` and `zai-glm-4.7`, which are limited to **5 requests per minute** and **30K tokens per minute** on the free trial. The quota refills continuously, so wait about 60 seconds and try again.';
+const PROVIDER_ERROR_FALLBACK_MESSAGE =
+  'Ravi GPT could not reach the model provider. If you just sent several messages quickly, the Cerebras free-tier quota may still be refilling. Please try again in about a minute.';
+const STREAM_REVEAL_INTERVAL_MS = 18;
 
 const emptyStatePhrases = [
   'What should we ask Ravi?',
@@ -107,16 +116,19 @@ export default function ChatContainer() {
     }
 
     scrollFrameRef.current = window.requestAnimationFrame(() => {
-      chatArea.scrollTo({ top: chatArea.scrollHeight, behavior });
+      chatArea.scrollTo({
+        top: Math.max(0, chatArea.scrollHeight - chatArea.clientHeight),
+        behavior,
+      });
       scrollFrameRef.current = null;
     });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if ((messages.length > 0 || loading) && shouldStickToBottomRef.current) {
-      scrollToBottom(messages.length <= 1 ? 'auto' : 'smooth');
+      scrollToBottom(loading || messages.length <= 1 ? 'auto' : 'smooth');
     }
-  }, [loading, messages.length, scrollToBottom]);
+  }, [loading, messages, scrollToBottom]);
 
   useEffect(() => {
     return () => {
@@ -166,6 +178,7 @@ export default function ChatContainer() {
 
   const handleScrollToBottom = () => {
     shouldStickToBottomRef.current = true;
+    setShowScrollToBottom(false);
     scrollToBottom('smooth');
   };
 
@@ -181,60 +194,186 @@ export default function ChatContainer() {
     ]);
     triggerAssistantResponse(message, selection);
   }
+
+  function buildRequestPayload(userMessage: string, selection: ChatModelSelection) {
+    return {
+      prompt: userMessage,
+      interface_theme: selection.interfaceTheme,
+      selected_model_id: selection.modelId,
+      selected_model_name: selection.modelName,
+      selected_effort: selection.effort,
+    };
+  }
+
+  function appendAssistantMessage(content: string) {
+    setMessages(msgs => [
+      ...msgs,
+      {
+        id: `assistant-${Date.now()}`,
+        sender: 'assistant',
+        content,
+      },
+    ]);
+  }
+
   // Send AI response via API
   async function triggerAssistantResponse(userMessage: string, selection: ChatModelSelection) {
     setLoading(true);
+    const assistantId = `assistant-${Date.now()}`;
+    const requestPayload = buildRequestPayload(userMessage, selection);
+    const writer = createStreamingAssistantWriter(assistantId);
+
     try {
-      const response = await fetch('https://ravitejarapolu6--ravigpt-modal-ravi-gpt.modal.run', {
+      const response = await fetch(RAVI_GPT_STREAM_ENDPOINT, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
-        body: JSON.stringify({
-          prompt: userMessage,
-          interface_theme: selection.interfaceTheme,
-          selected_model_id: selection.modelId,
-          selected_model_name: selection.modelName,
-          selected_effort: selection.effort,
-        }),
+        body: JSON.stringify(requestPayload),
       });
-      const data = await response.json();
-      setMessages(msgs => [
-        ...msgs,
-        {
-          id: `assistant-${Date.now()}`,
-          sender: 'assistant',
-          content: data?.response || 'Sorry, no response received.',
-        },
-      ]);
-    } catch (error) {
-      setMessages(msgs => [
-        ...msgs,
-        {
-          id: `assistant-${Date.now()}`,
-          sender: 'assistant',
-          content: 'Sorry, there was an error getting a response.',
-        },
-      ]);
+
+      if (!response.ok || !response.body) {
+        if (response.status === 429) {
+          await writer.finish();
+          appendAssistantMessage(RATE_LIMIT_FALLBACK_MESSAGE);
+          return;
+        }
+
+        throw new Error(`Ravi GPT stream failed with ${response.status}`);
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        if (!chunk) continue;
+
+        writer.append(chunk);
+      }
+
+      const tail = decoder.decode();
+      if (tail) {
+        writer.append(tail);
+      }
+
+      await writer.finish();
+
+      if (!writer.fullText.trim()) {
+        appendAssistantMessage('Ravi GPT did not return any text. Please try again.');
+      }
+    } catch {
+      if (writer.fullText.trim()) {
+        writer.append('\n\nThe response stopped before it finished. Please try again.');
+        await writer.finish();
+      } else {
+        await writer.finish();
+        appendAssistantMessage(PROVIDER_ERROR_FALLBACK_MESSAGE);
+      }
     } finally {
       setLoading(false);
     }
+  }
+
+  function createStreamingAssistantWriter(assistantId: string) {
+    let fullText = '';
+    let visibleText = '';
+    let hasAssistantMessage = false;
+    let isFinished = false;
+    let timerId: number | null = null;
+    let resolveFinished: () => void = () => {};
+
+    const finished = new Promise<void>((resolve) => {
+      resolveFinished = resolve;
+    });
+
+    const upsertAssistantMessage = (content: string) => {
+      if (!hasAssistantMessage) {
+        hasAssistantMessage = true;
+        setMessages(msgs => [
+          ...msgs,
+          {
+            id: assistantId,
+            sender: 'assistant',
+            content,
+          },
+        ]);
+        return;
+      }
+
+      setMessages(msgs =>
+        msgs.map(msg => (msg.id === assistantId ? { ...msg, content } : msg)),
+      );
+    };
+
+    const revealNextChunk = () => {
+      timerId = null;
+
+      if (visibleText.length < fullText.length) {
+        const remaining = fullText.length - visibleText.length;
+        const stepSize = remaining > 120 ? 14 : remaining > 48 ? 9 : 5;
+        visibleText = fullText.slice(0, visibleText.length + stepSize);
+        upsertAssistantMessage(visibleText);
+      }
+
+      if (isFinished && visibleText.length >= fullText.length) {
+        resolveFinished();
+        return;
+      }
+
+      scheduleReveal();
+    };
+
+    const scheduleReveal = () => {
+      if (timerId !== null) return;
+      timerId = window.setTimeout(revealNextChunk, STREAM_REVEAL_INTERVAL_MS);
+    };
+
+    return {
+      get fullText() {
+        return fullText;
+      },
+      append(text: string) {
+        if (!text) return;
+        fullText += text;
+        scheduleReveal();
+      },
+      finish() {
+        isFinished = true;
+        scheduleReveal();
+        return finished;
+      },
+    };
   }
 
   const isOpenAI = interfaceTheme === 'openai';
   const isWise = interfaceTheme === 'wise';
   const rootClassName = isOpenAI
     ? siteTheme === 'dark'
-      ? 'font-openai relative flex min-h-dvh w-full max-w-full flex-col overflow-hidden bg-black text-white'
-      : 'font-openai relative flex min-h-dvh w-full max-w-full flex-col overflow-hidden bg-white text-[#0d0d0d]'
+      ? 'font-openai relative flex h-dvh min-h-dvh w-full max-w-full flex-col overflow-hidden bg-black text-white'
+      : 'font-openai relative flex h-dvh min-h-dvh w-full max-w-full flex-col overflow-hidden bg-white text-[#0d0d0d]'
     : isWise
-      ? 'font-wise relative flex min-h-dvh w-full max-w-full flex-col overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]'
-    : 'font-anthropic relative flex min-h-dvh w-full max-w-full flex-col overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]';
-  const mainClassName = 'mx-auto flex min-h-dvh w-full max-w-5xl flex-1 flex-col overflow-hidden px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-[calc(5rem+env(safe-area-inset-top))] sm:px-6';
+      ? 'font-wise relative flex h-dvh min-h-dvh w-full max-w-full flex-col overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]'
+    : 'font-anthropic relative flex h-dvh min-h-dvh w-full max-w-full flex-col overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]';
+  const mainClassName = 'mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col overflow-hidden px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-[calc(5rem+env(safe-area-inset-top))] sm:px-6';
   const chatAreaClassName = 'relative flex min-h-0 flex-1 overflow-y-auto overflow-x-hidden px-1 py-4 sm:px-5';
   const chatContentClassName = 'flex min-h-full w-full flex-col gap-2';
-  const sectionClassName = 'flex min-h-0 flex-1 flex-col overflow-hidden';
-  const composerClassName = 'mx-auto w-full max-w-3xl min-w-0 pb-1';
+  const sectionClassName = 'relative flex min-h-0 flex-1 flex-col overflow-hidden';
+  const composerClassName = 'relative z-20 mx-auto w-full max-w-3xl min-w-0 shrink-0 pb-1';
+  const scrollButtonClassName = [
+    'absolute bottom-[calc(100%+0.75rem)] left-1/2 z-30 flex h-10 w-10 -translate-x-1/2 items-center justify-center border shadow-lg transition-colors',
+    isOpenAI
+      ? siteTheme === 'dark'
+        ? 'rounded-full border-white/10 bg-[#2f2f2f] text-white shadow-black/35 hover:bg-[#3a3a3a]'
+        : 'rounded-full border-[#d9d9e3] bg-white text-[#0d0d0d] shadow-[0_8px_22px_rgb(0_0_0_/_12%)] hover:bg-[#f4f4f4]'
+      : isWise
+        ? 'rounded-full border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-[0_12px_30px_rgb(20_20_19_/_18%)] hover:bg-[var(--color-background-offset)]'
+        : siteTheme === 'dark'
+          ? 'rounded-lg border-white/10 bg-[#30302E] text-[#f2f0ea] shadow-black/30 hover:bg-[#3a3936]'
+          : 'rounded-lg border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-[0_8px_22px_rgb(31_25_16_/_14%)] hover:bg-[var(--color-background-offset)]',
+  ].join(' ');
 
 
 
@@ -289,6 +428,16 @@ export default function ChatContainer() {
           </div>
 
           <div className={composerClassName}>
+            {showScrollToBottom && (
+              <button
+                onClick={handleScrollToBottom}
+                className={scrollButtonClassName}
+                aria-label="Scroll to latest message"
+                title="Scroll to latest message"
+              >
+                <ArrowDown className="h-5 w-5" />
+              </button>
+            )}
             <ChatInput
               onSend={handleSend}
               interfaceTheme={interfaceTheme}
@@ -298,19 +447,6 @@ export default function ChatContainer() {
           </div>
         </section>
 
-        {showScrollToBottom && (
-          <button
-            onClick={handleScrollToBottom}
-            className={
-              'fixed bottom-24 right-4 z-50 rounded-full border border-[var(--color-border)] bg-surface p-3 text-[var(--color-text)] shadow-[0_12px_30px_rgb(20_20_19_/_24%)] transition hover:bg-[var(--color-background-offset)] sm:bottom-8 sm:right-8'
-            }
-            aria-label="Scroll to bottom"
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-        )}
       </main>
     </div>
   );
