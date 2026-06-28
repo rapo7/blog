@@ -1,5 +1,5 @@
 export type ThemeMode = "system" | "light" | "dark";
-export type ThemeFamily = "neo" | "anthropic" | "openai";
+export type ThemeFamily = "neo" | "anthropic" | "openai" | "wise";
 
 export const THEME_MODE_KEY = "themeMode";
 export const THEME_FAMILY_KEY = "themeFamily";
@@ -12,11 +12,11 @@ export function isThemeMode(value: string | null): value is ThemeMode {
 }
 
 export function isThemeFamily(value: string | null): value is ThemeFamily {
-  return value === "neo" || value === "anthropic" || value === "openai";
+  return value === "neo" || value === "anthropic" || value === "openai" || value === "wise";
 }
 
 export function pickRandomThemeFamily(): ThemeFamily {
-  const families: ThemeFamily[] = ["neo", "anthropic", "openai"];
+  const families: ThemeFamily[] = ["neo", "anthropic", "openai", "wise"];
 
   if (typeof crypto !== "undefined" && "getRandomValues" in crypto) {
     const values = new Uint32Array(1);

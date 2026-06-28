@@ -35,6 +35,21 @@ a {
     color: var(--color-text);
 }
 
+[data-theme-family="openai"][data-theme="light"] ::selection {
+    background: #d9d9d9;
+    color: #0d0d0d;
+}
+
+[data-theme-family="openai"][data-theme="dark"] ::selection {
+    background: #3f3f3f;
+    color: #f4f4f4;
+}
+
+[data-theme-family="anthropic"] ::selection {
+    background: hsl(var(--accent-brand) / 1);
+    color: #ffffff;
+}
+
 [data-theme-family="anthropic"] .font-black {
     font-weight: 650;
 }
@@ -68,6 +83,27 @@ a {
     box-shadow: var(--shadow-card);
 }
 
+[data-theme-family="anthropic"] nav {
+    border-radius: 12px;
+}
+
+[data-theme-family="anthropic"] nav a,
+[data-theme-family="anthropic"] nav button,
+[data-theme-family="anthropic"] a.rounded-full,
+[data-theme-family="anthropic"] button.rounded-full,
+[data-theme-family="anthropic"] p.rounded-full,
+[data-theme-family="anthropic"] span.rounded-full,
+[data-theme-family="anthropic"] .inline-flex.rounded-full {
+    border-radius: 8px;
+}
+
+[data-theme-family="anthropic"] a.rounded-xl,
+[data-theme-family="anthropic"] button.rounded-xl,
+[data-theme-family="anthropic"] p.rounded-xl,
+[data-theme-family="anthropic"] span.rounded-xl {
+    border-radius: 8px;
+}
+
 [data-theme-family="anthropic"] #hero .absolute.rounded-full.bg-secondary,
 [data-theme-family="anthropic"] #hero .absolute.rounded-full.bg-tertiary {
     display: none;
@@ -83,7 +119,10 @@ a {
 }
 
 [data-theme-family="anthropic"] a.bg-primary,
-[data-theme-family="anthropic"] button.bg-primary {
+[data-theme-family="anthropic"] button.bg-primary,
+[data-theme-family="anthropic"] p.bg-primary,
+[data-theme-family="anthropic"] span.bg-primary,
+[data-theme-family="anthropic"] .inline-flex.bg-primary {
     color: #ffffff;
 }
 
@@ -92,6 +131,16 @@ a {
 [data-theme-family="neo"] a.bg-tertiary,
 [data-theme-family="neo"] button.bg-tertiary {
     color: #010920;
+}
+
+[data-theme-family="neo"] nav [data-nav-item="site-nav-chat"] {
+    border: 2px solid #010920;
+    box-shadow: 4px 4px 0 #010920;
+}
+
+[data-theme-family="neo"][data-theme="dark"] nav [data-nav-item="site-nav-chat"] {
+    border-color: #9bdc28;
+    box-shadow: 4px 4px 0 #9bdc28;
 }
 
 [data-theme-family="openai"][data-theme="dark"] a.bg-primary,
@@ -109,12 +158,140 @@ a {
     color: #f4f4f4;
 }
 
+[data-theme-family="wise"] a.bg-primary,
+[data-theme-family="wise"] button.bg-primary,
+[data-theme-family="wise"] a.bg-tertiary,
+[data-theme-family="wise"] button.bg-tertiary {
+    color: #0e0f0c;
+}
+
+[data-theme-family="wise"] .font-black {
+    font-weight: 900;
+}
+
+[data-theme-family="wise"] .font-bold {
+    font-weight: 750;
+}
+
+[data-theme-family="wise"] body {
+    font-size: 15px;
+}
+
+[data-theme-family="wise"] p,
+[data-theme-family="wise"] li {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+}
+
+[data-theme-family="wise"] .uppercase {
+    letter-spacing: 0.02em;
+}
+
+[data-theme-family="wise"] .shadow-\[var\(--shadow-lift\)\],
+[data-theme-family="wise"] .shadow-\[var\(--shadow-card\)\],
+[data-theme-family="wise"] .shadow-sm {
+    box-shadow: var(--shadow-card);
+}
+
+[data-theme-family="wise"] nav {
+    max-width: min(62rem, calc(100vw - 1.5rem));
+    border-radius: 9999px;
+    border-color: color-mix(in oklab, var(--color-text) 12%, transparent);
+    background: color-mix(in oklab, var(--color-surface) 88%, transparent);
+}
+
+[data-theme-family="wise"] nav a[aria-current="page"] {
+    background: var(--color-tertiary);
+    color: var(--color-text);
+}
+
+[data-theme-family="wise"] nav a.bg-primary {
+    background: var(--color-primary);
+    color: #0e0f0c;
+}
+
+[data-theme-family="wise"] #hero {
+    background: var(--color-background-offset);
+}
+
+[data-theme-family="wise"] #hero h1 {
+    max-width: 12ch;
+    font-size: clamp(3rem, 7.4vw, 6.6rem);
+    font-weight: 900;
+    letter-spacing: -0.052em;
+    line-height: 0.88;
+}
+
+[data-theme-family="wise"] #hero p.text-lg {
+    color: var(--color-text-offset);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    line-height: 1.5;
+}
+
+[data-theme-family="wise"] #hero .absolute.rounded-full.bg-secondary {
+    background: var(--color-primary);
+    opacity: 0.42;
+}
+
+[data-theme-family="wise"] #hero .absolute.rounded-full.bg-tertiary {
+    background: #38c8ff;
+    opacity: 0.26;
+}
+
+[data-theme-family="wise"] #hero .relative:has(img) > .relative.rounded-\[2rem\],
+[data-theme-family="wise"] section.h-full.rounded-\[2rem\],
+[data-theme-family="wise"] article.rounded-\[24px\],
+[data-theme-family="wise"] article.sm\:rounded-\[32px\],
+[data-theme-family="wise"] #portfolio .group.h-full,
+[data-theme-family="wise"] .space-y-6 > a > .group,
+[data-theme-family="wise"] .space-y-5 > li {
+    border-radius: 24px;
+    border-color: color-mix(in oklab, var(--color-text) 12%, transparent);
+    background: var(--color-surface);
+}
+
+[data-theme-family="wise"] #portfolio,
+[data-theme-family="wise"] section.bg-background,
+[data-theme-family="wise"] section.bg-offset {
+    background: var(--color-background);
+}
+
+[data-theme-family="wise"] #portfolio h3,
+[data-theme-family="wise"] .space-y-6 h2,
+[data-theme-family="wise"] .space-y-5 h3,
+[data-theme-family="wise"] article h1 {
+    color: var(--color-text);
+    font-weight: 900;
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+    letter-spacing: -0.035em;
+}
+
+[data-theme-family="wise"] p.inline-flex.rounded-full.bg-offset,
+[data-theme-family="wise"] section p.inline-flex.rounded-full.bg-primary,
+[data-theme-family="wise"] section p.inline-flex.rounded-full.bg-secondary,
+[data-theme-family="wise"] #portfolio span.rounded-full,
+[data-theme-family="wise"] .space-y-5 p.rounded-full {
+    border: 1px solid color-mix(in oklab, var(--color-text) 12%, transparent);
+    background: var(--color-tertiary);
+    color: var(--color-text);
+}
+
 [data-theme-family="openai"] .font-black {
     font-weight: 560;
 }
 
 [data-theme-family="openai"] .font-bold {
     font-weight: 520;
+}
+
+[data-theme-family="openai"] body {
+    font-size: 14px;
+}
+
+[data-theme-family="openai"] p,
+[data-theme-family="openai"] li {
+    font-size: 0.875rem;
+    line-height: 1.55;
 }
 
 [data-theme-family="openai"] .uppercase {
@@ -142,6 +319,12 @@ a {
     box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-text) 8%, transparent);
 }
 
+[data-theme-family="openai"] nav a,
+[data-theme-family="openai"] nav button {
+    font-size: 0.8125rem;
+    font-weight: 520;
+}
+
 [data-theme-family="openai"] nav a[aria-current="page"] {
     background: var(--color-background-offset);
     color: var(--color-text);
@@ -152,8 +335,8 @@ a {
 }
 
 [data-theme-family="openai"] #hero {
-    padding-top: 4.5rem;
-    padding-bottom: 5rem;
+    padding-top: 5.5rem;
+    padding-bottom: 4.25rem;
 }
 
 [data-theme-family="openai"] #hero > div > div {
@@ -163,20 +346,23 @@ a {
 }
 
 [data-theme-family="openai"] #hero .max-w-3xl {
-    max-width: 48rem;
+    max-width: 35rem;
 }
 
 [data-theme-family="openai"] #hero h1 {
-    font-size: clamp(3rem, 7vw, 5.8rem);
+    font-size: clamp(2.65rem, 5.1vw, 4rem);
     font-weight: 520;
-    letter-spacing: -0.035em;
-    line-height: 0.98;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
 }
 
 [data-theme-family="openai"] #hero p.text-lg {
     margin-left: auto;
     margin-right: auto;
-    max-width: 42rem;
+    max-width: 28rem;
+    font-size: 0.9375rem;
+    font-weight: 520;
+    line-height: 1.55;
 }
 
 [data-theme-family="openai"] #hero .relative:has(img) {
@@ -239,7 +425,8 @@ a {
     color: var(--color-background);
     border: 1px solid var(--color-primary);
     border-radius: 9999px;
-    padding: 0.85rem 1.25rem;
+    padding: 0.65rem 1.05rem;
+    font-size: 0.8125rem;
     font-weight: 560;
     box-shadow: none;
 }
@@ -279,7 +466,7 @@ a {
     border-color: var(--color-border);
     border-radius: 1.25rem;
     background: var(--color-background);
-    padding: 1.6rem;
+    padding: 1.25rem;
     box-shadow: none;
 }
 
@@ -293,16 +480,17 @@ a {
 [data-theme-family="openai"] #portfolio .group.h-full > a,
 [data-theme-family="openai"] .space-y-6 > a > .group,
 [data-theme-family="openai"] .space-y-5 > li {
-    padding-left: 1.6rem;
-    padding-right: 1.6rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
 }
 
 [data-theme-family="openai"] #portfolio h3,
 [data-theme-family="openai"] .space-y-6 h2,
 [data-theme-family="openai"] .space-y-5 h3 {
     color: var(--color-text);
-    font-size: clamp(1.25rem, 2vw, 1.7rem);
+    font-size: clamp(1.05rem, 1.65vw, 1.35rem);
     font-weight: 560;
+    letter-spacing: -0.02em;
 }
 
 [data-theme-family="openai"] #portfolio h3:hover,

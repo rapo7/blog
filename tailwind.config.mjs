@@ -30,6 +30,7 @@ export default {
 			fontFamily: {
 				anthropic: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
 				openai: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				wise: ['"Wise Sans"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
 			},
 		}
 	},
