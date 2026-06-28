@@ -15,7 +15,7 @@ export default function LoadingBubble({ interfaceTheme }: LoadingBubbleProps) {
 
 function OpenAILoading() {
   return (
-    <div className="mb-2 max-w-[92%] rounded-2xl rounded-bl-md border border-white/10 bg-[#181818] px-4 py-3 text-sm shadow-sm sm:max-w-[78%]">
+    <div className="mb-2 w-full px-1 py-2 text-sm sm:px-2">
       <style>{`
         @keyframes ravi-openai-shimmer {
           0% { background-position: 140% 50%; }
@@ -44,7 +44,7 @@ function AnthropicLoading() {
   }, []);
 
   return (
-    <div className="mb-2 flex max-w-[92%] items-center gap-3 break-words rounded-2xl rounded-bl-md border border-zinc-700 bg-[#30302E] px-4 py-3 text-sm text-[#d7d2c8] shadow-sm sm:max-w-[78%]">
+    <div className="mb-2 flex w-full items-center gap-3 break-words px-1 py-2 text-sm text-[#f4efe7] sm:px-2">
       <style>{`
         @keyframes ravi-anthropic-bloom {
           0%, 100% { transform: scale(0.78) rotate(0deg); opacity: 0.72; }
