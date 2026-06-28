@@ -157,7 +157,7 @@ a {
 }
 
 [data-theme-family="openai"] #hero > div > div {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.05fr);
     justify-items: center;
     text-align: center;
 }
@@ -179,12 +179,48 @@ a {
     max-width: 42rem;
 }
 
-[data-theme-family="openai"] #hero .mt-8 {
-    justify-content: center;
+[data-theme-family="openai"] #hero .relative:has(img) {
+    display: block;
+    width: 100%;
+    max-width: 28rem;
 }
 
-[data-theme-family="openai"] #hero .relative:has(img) {
+[data-theme-family="openai"] #hero .relative:has(img) > .absolute {
     display: none;
+}
+
+[data-theme-family="openai"] #hero .relative:has(img) > .relative.rounded-\[2rem\] {
+    border-width: 1px;
+    border-color: var(--color-border);
+    border-radius: 1.5rem;
+    background: var(--color-background-offset);
+    padding: 0.85rem;
+    box-shadow: none;
+}
+
+[data-theme-family="openai"] #hero .relative:has(img) .mb-4.flex.gap-2 {
+    display: none;
+}
+
+[data-theme-family="openai"] #hero .relative:has(img) img {
+    border-radius: 1rem;
+    border-color: color-mix(in oklab, var(--color-text) 8%, transparent);
+}
+
+[data-theme-family="openai"] #hero .relative:has(img) .mt-4.rounded-2xl {
+    margin-top: 0.85rem;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+[data-theme-family="openai"] #hero .relative:has(img) .mt-4.rounded-2xl .text-primary {
+    color: var(--color-text-offset);
+}
+
+[data-theme-family="openai"] #hero .mt-8 {
+    justify-content: center;
 }
 
 [data-theme-family="openai"] #hero p.inline-flex.rounded-full.bg-offset,
@@ -228,22 +264,22 @@ a {
 [data-theme-family="openai"] #portfolio .grid.grid-cols-1,
 [data-theme-family="openai"] .space-y-6,
 [data-theme-family="openai"] .space-y-5 {
-    gap: 0;
+    gap: 1.5rem;
 }
 
 [data-theme-family="openai"] #portfolio .grid.grid-cols-1 {
-    display: block;
-    border-top: 1px solid var(--color-border);
+    display: grid;
+    border-top: 0;
 }
 
 [data-theme-family="openai"] #portfolio .group.h-full,
 [data-theme-family="openai"] .space-y-6 > a > .group,
 [data-theme-family="openai"] .space-y-5 > li {
-    border-width: 0 0 1px;
+    border-width: 1px;
     border-color: var(--color-border);
-    border-radius: 0;
-    background: transparent;
-    padding: 1.4rem 0;
+    border-radius: 1.25rem;
+    background: var(--color-background);
+    padding: 1.6rem;
     box-shadow: none;
 }
 
@@ -251,13 +287,14 @@ a {
 [data-theme-family="openai"] .space-y-6 > a > .group:hover,
 [data-theme-family="openai"] .space-y-5 > li:hover {
     background: var(--color-background-offset);
+    border-color: color-mix(in oklab, var(--color-text) 12%, transparent);
 }
 
 [data-theme-family="openai"] #portfolio .group.h-full > a,
 [data-theme-family="openai"] .space-y-6 > a > .group,
 [data-theme-family="openai"] .space-y-5 > li {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
 }
 
 [data-theme-family="openai"] #portfolio h3,
@@ -295,18 +332,25 @@ a {
     opacity: 0.45;
 }
 
+[data-theme-family="openai"] .space-y-6 > a > .group > div:last-child {
+    margin-top: 1rem;
+    border-radius: 1rem;
+    border-color: color-mix(in oklab, var(--color-text) 8%, transparent);
+    background: var(--color-background-offset);
+}
+
 [data-theme-family="openai"] section.h-full.rounded-\[2rem\],
 [data-theme-family="openai"] article.rounded-\[24px\],
 [data-theme-family="openai"] article.sm\:rounded-\[32px\] {
-    border-radius: 0;
-    background: transparent;
+    border-radius: 1.5rem;
+    background: var(--color-background);
     box-shadow: none;
 }
 
 [data-theme-family="openai"] section.h-full.rounded-\[2rem\] {
-    border-width: 1px 0 0;
-    padding-left: 0;
-    padding-right: 0;
+    border-width: 1px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
 }
 
 [data-theme-family="openai"] article > header,
@@ -316,7 +360,7 @@ a {
 }
 
 [data-theme-family="openai"] article {
-    border-width: 0;
+    border-width: 1px;
 }
 
 [data-theme-family="openai"] article > header {
@@ -331,4 +375,22 @@ a {
 [data-theme-family="openai"] .prose blockquote {
     border-color: var(--color-border);
     background: var(--color-background-offset);
+}
+
+@media (min-width: 1024px) {
+    [data-theme-family="openai"] #hero > div > div {
+        grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.7fr);
+        justify-items: stretch;
+        text-align: left;
+    }
+
+    [data-theme-family="openai"] #hero .max-w-3xl,
+    [data-theme-family="openai"] #hero p.text-lg {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    [data-theme-family="openai"] #hero .mt-8 {
+        justify-content: flex-start;
+    }
 }
