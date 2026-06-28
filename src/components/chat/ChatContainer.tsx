@@ -10,6 +10,7 @@ import {
   setStoredThemeFamily,
 } from '../../scripts/theme';
 import type { ChatMessage, ChatInterfaceTheme } from './types';
+import type { ChatModelSelection } from '@/components/ui/claude-style-ai-input';
 
 type ChatSiteTheme = 'light' | 'dark';
 
@@ -172,16 +173,16 @@ export default function ChatContainer() {
     setStoredThemeFamily(nextTheme);
   }
 
-  function handleSend(message: string) {
+  function handleSend(message: string, selection: ChatModelSelection) {
     shouldStickToBottomRef.current = true;
     setMessages(msgs => [
       ...msgs,
       { id: `user-${Date.now()}`, sender: 'user', content: message },
     ]);
-    triggerAssistantResponse(message);
+    triggerAssistantResponse(message, selection);
   }
   // Send AI response via API
-  async function triggerAssistantResponse(userMessage: string) {
+  async function triggerAssistantResponse(userMessage: string, selection: ChatModelSelection) {
     setLoading(true);
     try {
       const response = await fetch('https://ravitejarapolu6--ravigpt-modal-ravi-gpt.modal.run', {
@@ -189,7 +190,13 @@ export default function ChatContainer() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: userMessage }),
+        body: JSON.stringify({
+          prompt: userMessage,
+          interface_theme: selection.interfaceTheme,
+          selected_model_id: selection.modelId,
+          selected_model_name: selection.modelName,
+          selected_effort: selection.effort,
+        }),
       });
       const data = await response.json();
       setMessages(msgs => [
