@@ -1,13 +1,11 @@
 import { ClaudeChatInput } from '@/components/ui/claude-style-ai-input';
-import type { ChatInputSuggestion, ModelOption } from '@/components/ui/claude-style-ai-input';
+import type { ModelOption } from '@/components/ui/claude-style-ai-input';
 import type { ChatInterfaceTheme } from './types';
 
 interface Props {
   onSend: (message: string) => void;
-  suggestions?: ChatInputSuggestion[];
   interfaceTheme?: ChatInterfaceTheme;
   onInterfaceThemeChange?: (theme: ChatInterfaceTheme) => void;
-  hasMessageHistory?: boolean;
   siteTheme?: 'dark' | 'light';
 }
 
@@ -59,10 +57,8 @@ const openAIModels: ModelOption[] = [
 
 export default function ChatInput({
   onSend,
-  suggestions = [],
   interfaceTheme = 'anthropic',
   onInterfaceThemeChange,
-  hasMessageHistory = false,
   siteTheme = 'dark',
 }: Props) {
   const models = interfaceTheme === 'openai' ? openAIModels : anthropicModels;
@@ -76,9 +72,7 @@ export default function ChatInput({
       maxFileSize={10 * 1024 * 1024}
       models={models}
       defaultModel={defaultModel}
-      suggestions={suggestions}
       siteTheme={siteTheme}
-      hasMessageHistory={hasMessageHistory}
       variant={interfaceTheme}
       onVariantChange={onInterfaceThemeChange}
     />

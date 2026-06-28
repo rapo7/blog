@@ -3,52 +3,13 @@ import ChatInput from './ChatInput';
 import ChatBubble from './ChatBubble';
 import LoadingBubble from './LoadingBubble';
 import { THEME_CHANGE_EVENT, getStoredThemeMode } from '../../scripts/theme';
-import type { ChatCategory, ChatPrompt, ChatMessage, ChatInterfaceTheme } from './types';
+import type { ChatMessage, ChatInterfaceTheme } from './types';
 
 type ChatSiteTheme = 'light' | 'dark';
-
-const promptData: Record<ChatCategory, ChatPrompt[]> = {
-  "Basic": [
-    { id: "basic-1", text: "What is your educational background?" },
-    { id: "basic-2", text: "How did you get started in software engineering?" },
-    { id: "basic-3", text: "What programming languages do you know?" },
-    { id: "basic-4", text: "What are your strongest technical skills?" },
-    { id: "basic-5", text: "How to contact you?" },
-  ],
-  "Work": [
-    { id: "work-1", text: "Where are you currently working?" },
-    { id: "work-2", text: "What companies have you worked for?" },
-    { id: "work-3", text: "What was your most challenging project?" },
-    { id: "work-4", text: "What was your Current project?" },
-    { id: "work-5", text: "What is your leadership experience?" },
-  ],
-  "Skills": [
-    { id: "skills-1", text: "Tell me about your software engineering experience." },
-    { id: "skills-2", text: "What industries have you worked in?" },
-    { id: "skills-3", text: "What are your most impressive projects?" },
-    { id: "skills-4", text: "Do you have any open source contributions?" },
-    { id: "skills-5", text: "What technologies do you use in your projects?" },
-  ],
-  "Hobbies": [
-    { id: "hobbies-1", text: "What are your hobbies?" },
-    { id: "hobbies-2", text: "What do you like to do outside of work?" },
-    { id: "hobbies-3", text: "What project are you most proud of?" },
-    { id: "hobbies-4", text: "What are you learning right now?" },
-    { id: "hobbies-5", text: "Can you share your GitHub?" },
-  ],
-};
-
-const allPrompts = Object.entries(promptData).flatMap(([category, prompts]) =>
-  prompts.map((prompt) => ({
-    ...prompt,
-    category: category as ChatCategory,
-  })),
-);
 
 const emptyStatePhrases = [
   'What should we ask Ravi?',
   'Want the quick read on Ravi?',
-  'What part of Ravi should we unpack?',
   "Need Ravi's work story?",
   'Curious what Ravi has built?',
   "Looking for Ravi's technical side?",
@@ -59,11 +20,25 @@ const emptyStatePhrases = [
 ];
 
 const CHAT_INTERFACE_KEY = 'raviChatInterfaceTheme';
+const EMPTY_STATE_PHRASE_SESSION_KEY = 'raviChatEmptyStatePhrase';
+
+function getSessionEmptyStatePhrase() {
+  const storedPhrase = window.sessionStorage.getItem(EMPTY_STATE_PHRASE_SESSION_KEY);
+  if (storedPhrase && emptyStatePhrases.includes(storedPhrase)) {
+    return storedPhrase;
+  }
+
+  const phrase =
+    emptyStatePhrases[Math.floor(Math.random() * emptyStatePhrases.length)] ||
+    emptyStatePhrases[0];
+  window.sessionStorage.setItem(EMPTY_STATE_PHRASE_SESSION_KEY, phrase);
+  return phrase;
+}
 
 export default function ChatContainer() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
-  const [emptyPhraseIndex, setEmptyPhraseIndex] = useState(0);
+  const [emptyStatePhrase, setEmptyStatePhrase] = useState(emptyStatePhrases[0]);
   const [interfaceTheme, setInterfaceTheme] = useState<ChatInterfaceTheme>('anthropic');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatAreaRef = useRef<HTMLDivElement>(null);
@@ -178,11 +153,7 @@ export default function ChatContainer() {
   }, [interfaceTheme]);
 
   useEffect(() => {
-    const interval = window.setInterval(() => {
-      setEmptyPhraseIndex((current) => (current + 1) % emptyStatePhrases.length);
-    }, 10000);
-
-    return () => window.clearInterval(interval);
+    setEmptyStatePhrase(getSessionEmptyStatePhrase());
   }, []);
 
   const handleScrollToBottom = () => {
@@ -273,7 +244,7 @@ export default function ChatContainer() {
                       <p className={
                         'mx-auto max-w-[22rem] px-4 text-xl font-semibold leading-tight text-[var(--color-text)] sm:max-w-2xl sm:text-3xl'
                       }>
-                      {emptyStatePhrases[emptyPhraseIndex]}
+                      {emptyStatePhrase}
                     </p>
                   </div>
                 </div>
@@ -301,13 +272,7 @@ export default function ChatContainer() {
               onSend={handleSend}
               interfaceTheme={interfaceTheme}
               siteTheme={siteTheme}
-              hasMessageHistory={messages.length > 0}
               onInterfaceThemeChange={setInterfaceTheme}
-              suggestions={allPrompts.map((prompt) => ({
-                id: prompt.id,
-                text: prompt.text,
-                category: prompt.category,
-              }))}
             />
           </div>
         </section>

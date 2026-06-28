@@ -17,12 +17,6 @@ import {
   Check,
   Loader2,
   AlertCircle,
-  Copy,
-  BookOpen,
-  BriefcaseBusiness,
-  HeartPulse,
-  Lightbulb,
-  Mail,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -52,12 +46,6 @@ export interface ModelOption {
   badge?: string;
 }
 
-export interface ChatInputSuggestion {
-  id: string;
-  text: string;
-  category?: string;
-}
-
 interface ChatInputProps {
   onSendMessage?: (
     message: string,
@@ -72,10 +60,8 @@ interface ChatInputProps {
   models?: ModelOption[];
   defaultModel?: string;
   onModelChange?: (modelId: string) => void;
-  suggestions?: ChatInputSuggestion[];
   variant?: 'anthropic' | 'openai';
   onVariantChange?: (variant: 'anthropic' | 'openai') => void;
-  hasMessageHistory?: boolean;
   siteTheme?: 'dark' | 'light';
 }
 
@@ -279,44 +265,12 @@ const getFileExtension = (filename: string): string => {
   return extension.length > 8 ? `${extension.substring(0, 8)}...` : extension;
 };
 
-function renderHighlightedSuggestion(
-  text: string,
-  highlight: string,
-  isOpenAI: boolean,
-  isSiteDark: boolean,
-) {
-  const trimmedHighlight = highlight.trim();
-  const mutedClassName = isOpenAI
-    ? (isSiteDark ? 'text-[#b7b7b7]' : 'text-[#64748b]')
-    : (isSiteDark ? 'text-[#cfc8bd]' : 'text-[#64748b]');
-  const highlightClassName = isOpenAI
-    ? (isSiteDark ? 'font-medium text-[#f4f4f4]' : 'font-medium text-[var(--color-text)]')
-    : (isSiteDark ? 'font-medium text-[#f4efe7]' : 'font-medium text-[var(--color-text)]');
-
-  if (!trimmedHighlight) {
-    return <span className={mutedClassName}>{text}</span>;
-  }
-
-  const textLower = text.toLowerCase();
-  const highlightLower = trimmedHighlight.toLowerCase();
-  const index = textLower.indexOf(highlightLower);
-
-  if (index === -1) {
-    return <span className={mutedClassName}>{text}</span>;
-  }
-
-  const before = text.slice(0, index);
-  const match = text.slice(index, index + trimmedHighlight.length);
-  const after = text.slice(index + trimmedHighlight.length);
-
-  return (
-    <>
-      {before && <span className={mutedClassName}>{before}</span>}
-      <span className={highlightClassName}>{match}</span>
-      {after && <span className={mutedClassName}>{after}</span>}
-    </>
-  );
-}
+const previewCardShellClassName =
+  'group relative size-[125px] shrink-0 overflow-hidden rounded-lg border shadow-md';
+const previewBadgeClassName =
+  'absolute bottom-2 left-2 max-w-[calc(100%-1rem)] truncate rounded-md px-2 py-1 text-xs font-medium';
+const previewRemoveButtonClassName =
+  'absolute right-1.5 top-1.5 size-6 rounded-full border border-black/10 bg-white p-0 text-black opacity-0 shadow-sm transition-opacity hover:bg-white hover:text-black group-hover:opacity-100';
 
 const FilePreviewCard: React.FC<{
   file: FileWithPreview;
@@ -334,69 +288,74 @@ const FilePreviewCard: React.FC<{
     <div
       className={cn(
         isSiteDark
-          ? 'relative group bg-zinc-700 border w-fit border-zinc-600 rounded-lg shadow-md flex-shrink-0 overflow-hidden'
-          : 'relative group bg-[var(--color-surface)] border w-fit border-[var(--color-border)] rounded-lg shadow-sm flex-shrink-0 overflow-hidden',
-        isImage ? 'p-0' : 'p-3',
+          ? 'bg-zinc-700 border-zinc-600'
+          : 'bg-[var(--color-surface)] border-[var(--color-border)] shadow-sm',
+        previewCardShellClassName,
       )}
     >
-      <div className="flex items-start gap-3 size-[125px] overflow-hidden">
-        {isImage && file.preview ? (
-          <div className={cn('relative size-full rounded-md overflow-hidden', isSiteDark ? 'bg-zinc-600' : 'bg-[var(--color-background-offset)]')}>
+      {isImage && file.preview ? (
+        <>
+          <div className={cn('flex h-full w-full items-center justify-center', isSiteDark ? 'bg-zinc-800' : 'bg-[var(--color-background-offset)]')}>
             <img
               src={file.preview || '/placeholder.svg'}
               alt={file.file.name}
-              className="w-full h-full object-cover"
+              className="max-h-full max-w-full object-contain"
             />
           </div>
-        ) : null}
-        {!isImage && (
-          <div className="flex-1 min-w-0 overflow-hidden">
-            <div className="flex items-center gap-1.5 mb-1">
-              <div className={cn(
-                'group absolute flex justify-start items-end p-2 inset-0 bg-gradient-to-b overflow-hidden',
-                isSiteDark
-                  ? 'to-[#30302E]'
-                  : 'to-[var(--color-surface)] from-[var(--color-background)]',
-              )}
-              >
-                <p className={cn(
-                  'absolute bottom-2 left-2 capitalize text-xs px-2 py-1 rounded-md',
-                  isSiteDark
-                    ? 'text-white bg-zinc-800 border border-zinc-700'
-                    : 'text-[var(--color-text)] bg-[var(--color-surface)] border border-[var(--color-border)]',
-                )}
-                >
-                  {getFileTypeLabel(file.type)}
-                </p>
-              </div>
-              {getFileIcon(file.type, isSiteDark)}
-              {file.uploadStatus === 'uploading' && (
-                <Loader2 className={cn('h-3.5 w-3.5 animate-spin', isSiteDark ? 'text-blue-400' : 'text-blue-600')} />
-              )}
-              {file.uploadStatus === 'error' && (
-                <AlertCircle className="h-3.5 w-3.5 text-red-400" />
-              )}
-            </div>
-
-            <p
-              className={cn('max-w-[90%] text-xs font-medium truncate', isSiteDark ? 'text-zinc-100' : 'text-[var(--color-text)]')}
-              title={file.file.name}
-            >
-              {file.file.name}
-            </p>
-            <p className={cn('text-[10px] mt-1', isSiteDark ? 'text-zinc-500' : 'text-[var(--color-text-offset)]')}>
-              {formatFileSize(file.file.size)}
-            </p>
+          <div className={cn(
+            'pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t',
+            isSiteDark ? 'from-[#30302E]/90 to-transparent' : 'from-[var(--color-surface)]/90 to-transparent',
+          )}
+          />
+          <p className={cn(
+            previewBadgeClassName,
+            isSiteDark
+              ? 'text-white bg-zinc-800/95 border border-zinc-700'
+              : 'text-[var(--color-text)] bg-[var(--color-surface)] border border-[var(--color-border)]',
+          )}
+          >
+            IMG
+          </p>
+        </>
+      ) : (
+        <div className="flex h-full flex-col p-3">
+          <div className="mb-2 flex h-6 items-center">
+            {getFileIcon(file.type, isSiteDark)}
+            {file.uploadStatus === 'uploading' && (
+              <Loader2 className={cn('ml-1.5 h-3.5 w-3.5 animate-spin', isSiteDark ? 'text-blue-400' : 'text-blue-600')} />
+            )}
+            {file.uploadStatus === 'error' && (
+              <AlertCircle className="ml-1.5 h-3.5 w-3.5 text-red-400" />
+            )}
           </div>
-        )}
-      </div>
+          <p
+            className={cn('line-clamp-2 min-h-[2.2rem] text-xs font-semibold leading-snug', isSiteDark ? 'text-zinc-100' : 'text-[var(--color-text)]')}
+            title={file.file.name}
+          >
+            {file.file.name}
+          </p>
+          <p className={cn('mt-1 text-[10px]', isSiteDark ? 'text-zinc-500' : 'text-[var(--color-text-offset)]')}>
+            {formatFileSize(file.file.size)}
+          </p>
+          <p className={cn(
+            previewBadgeClassName,
+            isSiteDark
+              ? 'text-white bg-zinc-800 border border-zinc-700'
+              : 'text-[var(--color-text)] bg-[var(--color-surface)] border border-[var(--color-border)]',
+          )}
+          >
+            {getFileTypeLabel(file.type)}
+          </p>
+        </div>
+      )}
       <Button
         size="icon"
         variant="outline"
-        className="absolute top-1 right-1 h-6 w-6 p-0 opacity-0 group-hover:opacity-100"
+        className={previewRemoveButtonClassName}
         onClick={() => onRemove(file.id)}
+        title="Remove file"
       >
-        <X className="h-4 w-4" />
+        <X className="h-3.5 w-3.5" />
       </Button>
     </div>
   );
@@ -413,10 +372,11 @@ const PastedContentCard: React.FC<{
   return (
     <div className={cn(
       isSiteDark
-        ? 'bg-zinc-700 border border-zinc-600 relative rounded-lg p-3 size-[125px] shadow-md flex-shrink-0 overflow-hidden'
-        : 'bg-[var(--color-surface)] border border-[var(--color-border)] relative rounded-lg p-3 size-[125px] shadow-sm flex-shrink-0 overflow-hidden',
+        ? 'bg-zinc-700 border-zinc-600'
+        : 'bg-[var(--color-surface)] border-[var(--color-border)] shadow-sm',
+      previewCardShellClassName,
     )}>
-      <div className={cn('text-[8px] whitespace-pre-wrap break-words max-h-24 overflow-y-auto custom-scrollbar', isSiteDark ? 'text-zinc-300' : 'text-[var(--color-text-offset)]')}>
+      <div className={cn('h-full overflow-y-auto p-3 text-[8px] whitespace-pre-wrap break-words custom-scrollbar', isSiteDark ? 'text-zinc-300' : 'text-[var(--color-text-offset)]')}>
         {previewText}
         {needsTruncation && '...'}
       </div>
@@ -425,31 +385,22 @@ const PastedContentCard: React.FC<{
         isSiteDark ? 'to-[#30302E]' : 'to-[var(--color-surface)]',
       )}>
         <p className={cn(
-          'capitalize text-xs px-2 py-1 rounded-md',
+          previewBadgeClassName,
           isSiteDark
             ? 'text-white bg-zinc-800 border border-zinc-700'
             : 'text-[var(--color-text)] bg-[var(--color-surface)] border border-[var(--color-border)]',
         )}>
           PASTED
         </p>
-        <div className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 flex items-center gap-0.5 absolute top-2 right-2">
+        <div className="absolute top-2 right-2">
           <Button
             size="icon"
             variant="outline"
-            className="size-6"
-            onClick={() => navigator.clipboard.writeText(content.content)}
-            title="Copy content"
-          >
-            <Copy className="h-3 w-3" />
-          </Button>
-          <Button
-            size="icon"
-            variant="outline"
-            className="size-6"
+            className={previewRemoveButtonClassName}
             onClick={() => onRemove(content.id)}
             title="Remove content"
           >
-            <X className="h-3 w-3" />
+            <X className="h-3.5 w-3.5" />
           </Button>
         </div>
       </div>
@@ -518,23 +469,33 @@ const ModelSelectorDropdown: React.FC<{
     const rect = button.getBoundingClientRect();
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
+    const boundaryRect = button
+      .closest('[data-chat-input-root]')
+      ?.getBoundingClientRect();
+    const boundaryLeft = Math.max(8, Math.round(boundaryRect?.left ?? 8));
+    const boundaryRight = Math.min(
+      viewportWidth - 8,
+      Math.round(boundaryRect?.right ?? viewportWidth - 8),
+    );
+    const boundaryWidth = Math.max(160, boundaryRight - boundaryLeft);
 
     const mainMenuWidth = isOpenAI ? 176 : 318;
-    const mainWidth = Math.min(mainMenuWidth, viewportWidth - 16);
-    const left = Math.min(
-      Math.max(8, rect.right - mainWidth),
-      viewportWidth - mainWidth - 8,
-    );
+    const mainWidth = Math.min(mainMenuWidth, boundaryWidth);
     const hasSidePanel =
       (isOpenAI && isOpenAIModelPanelOpen) ||
       (!isOpenAI && anthropicPanel !== null);
     const panelGap = hasSidePanel ? 8 : 0;
-    const availableSideWidth = viewportWidth - left - mainWidth - panelGap - 8;
     const desiredSideWidth = isOpenAI ? 186 : 320;
+    const maxSideWidth = Math.max(0, viewportWidth - 16 - mainWidth - panelGap);
     const sideWidth = hasSidePanel
-      ? Math.max(0, Math.min(desiredSideWidth, availableSideWidth))
+      ? Math.min(desiredSideWidth, maxSideWidth)
       : 0;
     const menuWidth = mainWidth + panelGap + sideWidth;
+    const desiredLeft = rect.right - mainWidth;
+    const left = Math.min(
+      Math.max(8, desiredLeft),
+      viewportWidth - menuWidth - 8,
+    );
     const menuGap = 8;
     const showAbove = rect.top > viewportHeight - rect.bottom;
     const maxHeight =
@@ -650,7 +611,7 @@ const ModelSelectorDropdown: React.FC<{
                   ? 'rounded-full border-0 bg-[#30302f] text-[#f4f4f4] hover:bg-[#3b3b39] hover:text-white'
                   : 'rounded-full border-0 bg-[#f1f1f1] text-[#0d0d0d] hover:bg-[#e9e9e9]'
                 : isSiteDark
-                  ? 'h-8 rounded-lg border-0 bg-[#10100f] text-[#f3eee5] hover:bg-[#191917] hover:text-white'
+                  ? 'h-8 rounded-lg border-0 bg-[#30302E] text-[#f3eee5] hover:bg-[#3a3936] hover:text-white'
                   : 'h-8 rounded-lg border border-[var(--color-border)] bg-[var(--color-background-offset)] text-[var(--color-text)] hover:bg-[var(--color-surface)]',
             )}
         aria-label={`Current intelligence setting: ${selectedLabel}`}
@@ -696,7 +657,7 @@ const ModelSelectorDropdown: React.FC<{
                     ? 'border-white/[0.12] bg-[#3a3a3a] text-white shadow-black/40'
                     : 'border-[#d9d9e3] bg-white text-[#0d0d0d] shadow-[0_8px_22px_rgb(0_0_0_/_16%)]'
                   : isSiteDark
-                    ? 'border-white/[0.12] bg-[#383834] text-[#f2f0ea] shadow-black/40'
+                    ? 'border-white/[0.12] bg-[#30302E] text-[#f2f0ea] shadow-black/40'
                     : 'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-[0_8px_22px_rgb(31_25_16_/_14%)]',
               )}
               style={{ width: mainPanelWidth }}
@@ -861,7 +822,7 @@ const ModelSelectorDropdown: React.FC<{
                 className={cn(
                   'max-h-full overflow-y-auto rounded-2xl border p-3 shadow-[0_18px_48px_rgb(0_0_0_/_42%)]',
                   isSiteDark
-                    ? 'border-white/[0.12] bg-[#383834] text-[#f2f0ea]'
+                    ? 'border-white/[0.12] bg-[#30302E] text-[#f2f0ea]'
                     : 'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)]',
                 )}
                 style={{ width: sidePanelWidth }}
@@ -953,10 +914,11 @@ const TextualFilePreviewCard: React.FC<{
   return (
     <div className={cn(
       isSiteDark
-        ? 'bg-zinc-700 border border-zinc-600 relative rounded-lg p-3 size-[125px] shadow-md flex-shrink-0 overflow-hidden'
-        : 'bg-[var(--color-surface)] border border-[var(--color-border)] relative rounded-lg p-3 size-[125px] shadow-sm flex-shrink-0 overflow-hidden',
+        ? 'bg-zinc-700 border-zinc-600'
+        : 'bg-[var(--color-surface)] border-[var(--color-border)] shadow-sm',
+      previewCardShellClassName,
     )}>
-      <div className={cn('text-[8px] whitespace-pre-wrap break-words max-h-24 overflow-y-auto custom-scrollbar', isSiteDark ? 'text-zinc-300' : 'text-[var(--color-text-offset)]')}>
+      <div className={cn('h-full overflow-y-auto p-3 text-[8px] whitespace-pre-wrap break-words custom-scrollbar', isSiteDark ? 'text-zinc-300' : 'text-[var(--color-text-offset)]')}>
         {file.textContent ? (
           <>
             {previewText}
@@ -973,7 +935,7 @@ const TextualFilePreviewCard: React.FC<{
         isSiteDark ? 'to-[#30302E]' : 'to-[var(--color-surface)]',
       )}>
         <p className={cn(
-          'capitalize text-xs px-2 py-1 rounded-md',
+          previewBadgeClassName,
           isSiteDark
             ? 'text-white bg-zinc-800 border border-zinc-700'
             : 'text-[var(--color-text)] bg-[var(--color-surface)] border border-[var(--color-border)]',
@@ -991,28 +953,15 @@ const TextualFilePreviewCard: React.FC<{
             <AlertCircle className="h-3.5 w-3.5 text-red-400" />
           </div>
         )}
-        <div className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 flex items-center gap-0.5 absolute top-2 right-2">
-          {file.textContent && (
-            <Button
-              size="icon"
-              variant="outline"
-              className="size-6"
-              onClick={() =>
-                navigator.clipboard.writeText(file.textContent || '')
-              }
-              title="Copy content"
-            >
-              <Copy className="h-3 w-3" />
-            </Button>
-          )}
+        <div className="absolute top-2 right-2">
           <Button
             size="icon"
             variant="outline"
-            className="size-6"
+            className={previewRemoveButtonClassName}
             onClick={() => onRemove(file.id)}
             title="Remove file"
           >
-            <X className="h-3 w-3" />
+            <X className="h-3.5 w-3.5" />
           </Button>
         </div>
       </div>
@@ -1030,10 +979,8 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
   models = DEFAULT_MODELS_INTERNAL,
   defaultModel,
   onModelChange,
-  suggestions = [],
   variant = 'anthropic',
   onVariantChange,
-  hasMessageHistory = false,
   siteTheme = 'dark',
 }) => {
   const [message, setMessage] = useState('');
@@ -1408,24 +1355,12 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
     hasContent &&
     !disabled &&
     !files.some((file) => file.uploadStatus === 'uploading');
-  const noMessageHistory = !hasMessageHistory;
   const isOpenAI = variant === 'openai';
   const isSiteDark = siteTheme === 'dark';
-  const suggestionQuery = message.trim().toLowerCase();
-  const suggestionTokens = suggestionQuery.split(/\s+/).filter(Boolean);
-  const visibleSuggestions = (suggestionTokens.length > 0
-    ? suggestions.filter((suggestion) => {
-        const searchableText = `${suggestion.text} ${suggestion.category || ''}`.toLowerCase();
-        return suggestionTokens.every((token) => searchableText.includes(token));
-      })
-    : suggestions
-  ).slice(0, 3);
-  const shouldShowSuggestions =
-    noMessageHistory &&
-    visibleSuggestions.length > 0;
 
   return (
     <div
+      data-chat-input-root
       className="relative mx-auto w-full max-w-2xl min-w-0"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
@@ -1451,78 +1386,6 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
         </div>
       )}
 
-      {shouldShowSuggestions && (
-        <div
-          className={cn(
-            'absolute bottom-[calc(100%+0.8rem)] left-0 right-0 z-30 mx-auto grid max-w-2xl gap-2',
-            isOpenAI ? 'font-openai' : 'font-anthropic',
-            isSiteDark
-              ? ''
-              : isOpenAI
-                ? ''
-                : 'text-[var(--color-text)]',
-          )}
-        >
-          {visibleSuggestions.map((suggestion) => (
-            <button
-              key={suggestion.id}
-              type="button"
-              className={cn(
-                'group flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
-                  isOpenAI
-                    ? isSiteDark
-                      ? 'hover:bg-white/10 focus-visible:outline-[#4d9cff]'
-                      : 'hover:bg-[#f7f7f8] focus-visible:outline-[#0d0d0d]'
-                    : isSiteDark
-                      ? 'hover:bg-[#d97745]/10 focus-visible:outline-[#d97745]'
-                      : 'hover:bg-[var(--color-background-offset)] focus-visible:outline-[var(--color-text)]',
-              )}
-              onClick={() => {
-                setMessage(suggestion.text);
-                textareaRef.current?.focus();
-              }}
-              title={suggestion.text}
-            >
-              <span
-                className={cn(
-                  'flex h-6 w-6 shrink-0 items-center justify-center',
-                isOpenAI
-                  ? isSiteDark
-                    ? 'text-[#9f9f9f] group-hover:text-[#4d9cff]'
-                    : 'text-black group-hover:text-black'
-                  : isSiteDark
-                    ? 'text-[#d97745]'
-                    : 'text-[#d97745]',
-                )}
-              >
-                <SuggestionIcon
-                  category={suggestion.category}
-                  text={suggestion.text}
-                  className="h-5 w-5 shrink-0"
-                />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span
-                  className={cn(
-                    'block whitespace-pre-wrap break-words',
-                    isOpenAI
-                      ? 'text-sm font-semibold leading-snug tracking-normal'
-                      : 'text-sm font-semibold leading-snug',
-                  )}
-                >
-                  {renderHighlightedSuggestion(
-                    suggestion.text,
-                    message,
-                    isOpenAI,
-                    isSiteDark,
-                  )}
-                </span>
-              </span>
-            </button>
-          ))}
-        </div>
-      )}
-
       <div
         onClick={handleComposerClick}
         className={cn(
@@ -1536,6 +1399,41 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
               : 'border-[var(--color-border)] bg-[var(--color-surface)]',
         )}
       >
+        {(files.length > 0 || pastedContent.length > 0) && (
+          <div
+            className={cn(
+              'overflow-x-auto border-b-[1px] p-3 w-full hide-scroll-bar',
+              isOpenAI
+                ? isSiteDark
+                  ? 'border-white/10 bg-[#111111]'
+                  : 'border-[#ececf1] bg-[#f7f7f8]'
+                : isSiteDark
+                  ? 'border-zinc-700 bg-[#262624]'
+                  : 'border-[var(--color-border)] bg-[var(--color-surface)]',
+            )}
+          >
+            <div className="flex gap-3">
+              {pastedContent.map((content) => (
+                <PastedContentCard
+                  key={content.id}
+                  content={content}
+                  isSiteDark={isSiteDark}
+                  onRemove={(id) =>
+                    setPastedContent((prev) => prev.filter((item) => item.id !== id))
+                  }
+                />
+              ))}
+              {files.map((file) => (
+                <FilePreviewCard
+                  key={file.id}
+                  file={file}
+                  onRemove={removeFile}
+                  isSiteDark={isSiteDark}
+                />
+              ))}
+            </div>
+          </div>
+        )}
         <textarea
           ref={textareaRef}
           value={message}
@@ -1600,7 +1498,7 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
                           ? 'border-white/[0.12] bg-[#2f2f2f] text-white'
                           : 'border-[#d9d9e3] bg-white text-[#0d0d0d] shadow-[0_8px_22px_rgb(0_0_0_/_14%)]'
                         : isSiteDark
-                          ? 'border-white/[0.12] bg-[#383834] text-[#f2f0ea]'
+                          ? 'border-white/[0.12] bg-[#30302E] text-[#f2f0ea]'
                           : 'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-[0_8px_22px_rgb(31_25_16_/_14%)]',
                     )}
                     role="menu"
@@ -1702,41 +1600,6 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
             </Button>
           </div>
         </div>
-        {(files.length > 0 || pastedContent.length > 0) && (
-          <div
-            className={cn(
-              'overflow-x-auto border-t-[1px] p-3 w-full hide-scroll-bar',
-              isOpenAI
-                ? isSiteDark
-                  ? 'border-white/10 bg-[#111111]'
-                  : 'border-[#ececf1] bg-[#f7f7f8]'
-                : isSiteDark
-                  ? 'border-zinc-700 bg-[#262624]'
-                  : 'border-[var(--color-border)] bg-[var(--color-surface)]',
-            )}
-          >
-            <div className="flex gap-3">
-              {pastedContent.map((content) => (
-                <PastedContentCard
-                  key={content.id}
-                  content={content}
-                  isSiteDark={isSiteDark}
-                  onRemove={(id) =>
-                    setPastedContent((prev) => prev.filter((item) => item.id !== id))
-                  }
-                />
-              ))}
-              {files.map((file) => (
-                <FilePreviewCard
-                  key={file.id}
-                  file={file}
-                  onRemove={removeFile}
-                  isSiteDark={isSiteDark}
-                />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
       <input
@@ -1784,31 +1647,3 @@ export const Component = () => {
     </div>
   );
 };
-
-function SuggestionIcon({
-  category,
-  text,
-  className = 'h-3.5 w-3.5 shrink-0 text-zinc-400',
-}: {
-  category?: string;
-  text: string;
-  className?: string;
-}) {
-  if (text.toLowerCase().includes('contact')) {
-    return <Mail className={className} />;
-  }
-
-  if (category === 'Work') {
-    return <BriefcaseBusiness className={className} />;
-  }
-
-  if (category === 'Skills') {
-    return <Lightbulb className={className} />;
-  }
-
-  if (category === 'Hobbies') {
-    return <HeartPulse className={className} />;
-  }
-
-  return <BookOpen className={className} />;
-}
