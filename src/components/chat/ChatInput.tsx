@@ -1,9 +1,9 @@
 import { ClaudeChatInput } from '@/components/ui/claude-style-ai-input';
-import type { ModelOption } from '@/components/ui/claude-style-ai-input';
+import type { ChatModelSelection, ModelOption } from '@/components/ui/claude-style-ai-input';
 import type { ChatInterfaceTheme } from './types';
 
 interface Props {
-  onSend: (message: string) => void;
+  onSend: (message: string, selection: ChatModelSelection) => void;
   interfaceTheme?: ChatInterfaceTheme;
   onInterfaceThemeChange?: (theme: ChatInterfaceTheme) => void;
   siteTheme?: 'dark' | 'light';
@@ -66,7 +66,7 @@ export default function ChatInput({
 
   return (
     <ClaudeChatInput
-      onSendMessage={(message) => onSend(message)}
+      onSendMessage={(message, _files, _pastedContent, selection) => onSend(message, selection)}
       placeholder={interfaceTheme === 'openai' ? 'Message Ravi GPT' : 'Ask Ravi anything'}
       maxFiles={10}
       maxFileSize={10 * 1024 * 1024}

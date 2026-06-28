@@ -46,11 +46,19 @@ export interface ModelOption {
   badge?: string;
 }
 
+export interface ChatModelSelection {
+  interfaceTheme: 'anthropic' | 'openai';
+  modelId: string;
+  modelName: string;
+  effort: string;
+}
+
 interface ChatInputProps {
   onSendMessage?: (
     message: string,
     files: FileWithPreview[],
     pastedContent: PastedContent[],
+    selection: ChatModelSelection,
   ) => void;
   disabled?: boolean;
   placeholder?: string;
@@ -60,6 +68,7 @@ interface ChatInputProps {
   models?: ModelOption[];
   defaultModel?: string;
   onModelChange?: (modelId: string) => void;
+  onSelectionChange?: (selection: ChatModelSelection) => void;
   variant?: 'anthropic' | 'openai';
   onVariantChange?: (variant: 'anthropic' | 'openai') => void;
   siteTheme?: 'dark' | 'light';
@@ -419,6 +428,7 @@ const ModelSelectorDropdown: React.FC<{
   models: ModelOption[];
   selectedModel: string;
   onModelChange: (modelId: string) => void;
+  onSelectionChange?: (selection: ChatModelSelection) => void;
   variant?: 'anthropic' | 'openai';
   siteTheme?: 'dark' | 'light';
   onOpenChange?: (isOpen: boolean) => void;
@@ -431,6 +441,7 @@ const ModelSelectorDropdown: React.FC<{
   siteTheme = 'dark',
   onOpenChange,
   onInteractionChange,
+  onSelectionChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [menuStyle, setMenuStyle] = useState<React.CSSProperties | null>(null);
@@ -545,6 +556,24 @@ const ModelSelectorDropdown: React.FC<{
   const openAIEfforts =
     OPENAI_EFFORTS_BY_MODEL[selectedModel] || OPENAI_EFFORTS_BY_MODEL['5.5'];
   const openAIDefaultEffort = openAIEfforts[0] || 'Instant';
+
+  useEffect(() => {
+    if (!selectedModelData) return;
+
+    onSelectionChange?.({
+      interfaceTheme: variant,
+      modelId: selectedModelData.id,
+      modelName: selectedModelData.name,
+      effort: isOpenAI ? openAIEffort : anthropicEffort,
+    });
+  }, [
+    anthropicEffort,
+    isOpenAI,
+    onSelectionChange,
+    openAIEffort,
+    selectedModelData,
+    variant,
+  ]);
 
   useEffect(() => {
     if (!isOpenAI || openAIEfforts.includes(openAIEffort)) return;
@@ -979,6 +1008,7 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
   models = DEFAULT_MODELS_INTERNAL,
   defaultModel,
   onModelChange,
+  onSelectionChange,
   variant = 'anthropic',
   onVariantChange,
   siteTheme = 'dark',
@@ -992,6 +1022,14 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
   const [selectedModel, setSelectedModel] = useState(
     defaultModel || models[0]?.id || '',
   );
+  const selectedModelData =
+    models.find((model) => model.id === selectedModel) || models[0];
+  const [currentSelection, setCurrentSelection] = useState<ChatModelSelection>({
+    interfaceTheme: variant,
+    modelId: selectedModelData?.id || '',
+    modelName: selectedModelData?.name || '',
+    effort: variant === 'openai' ? 'Instant' : 'Low',
+  });
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -1006,6 +1044,27 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
 
     setSelectedModel(nextModel);
   }, [defaultModel, models]);
+
+  useEffect(() => {
+    const nextModelData =
+      models.find((model) => model.id === selectedModel) || models[0];
+    if (!nextModelData) return;
+
+    setCurrentSelection((selection) => ({
+      ...selection,
+      interfaceTheme: variant,
+      modelId: nextModelData.id,
+      modelName: nextModelData.name,
+    }));
+  }, [models, selectedModel, variant]);
+
+  const handleSelectionChange = useCallback(
+    (selection: ChatModelSelection) => {
+      setCurrentSelection(selection);
+      onSelectionChange?.(selection);
+    },
+    [onSelectionChange],
+  );
 
   const updateAddMenuPosition = useCallback(() => {
     const button = addButtonRef.current;
@@ -1300,7 +1359,7 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
       return;
     }
 
-    onSendMessage?.(message, files, pastedContent);
+    onSendMessage?.(message, files, pastedContent, currentSelection);
 
     setMessage('');
     files.forEach((file) => {
@@ -1309,7 +1368,7 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
     setFiles([]);
     setPastedContent([]);
     if (textareaRef.current) textareaRef.current.style.height = 'auto';
-  }, [message, files, pastedContent, disabled, onSendMessage]);
+  }, [message, files, pastedContent, currentSelection, disabled, onSendMessage]);
 
   const handleModelChangeInternal = useCallback(
     (modelId: string) => {
@@ -1571,6 +1630,7 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
                 models={models}
                 selectedModel={selectedModel}
                 onModelChange={handleModelChangeInternal}
+                onSelectionChange={handleSelectionChange}
                 variant={variant}
                 siteTheme={siteTheme}
               />
