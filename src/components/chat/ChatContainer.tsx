@@ -55,7 +55,7 @@ export default function ChatContainer() {
   const [siteTheme, setSiteTheme] = useState<ChatSiteTheme>('dark');
   const syncInterfaceTheme = useCallback(() => {
     const family = getStoredThemeFamily();
-    setInterfaceTheme(family === 'openai' ? 'openai' : 'anthropic');
+    setInterfaceTheme(family === 'openai' ? 'openai' : family === 'wise' ? 'wise' : 'anthropic');
   }, []);
 
   const syncSiteTheme = useCallback(() => {
@@ -222,10 +222,13 @@ export default function ChatContainer() {
   }
 
   const isOpenAI = interfaceTheme === 'openai';
+  const isWise = interfaceTheme === 'wise';
   const rootClassName = isOpenAI
     ? siteTheme === 'dark'
       ? 'font-openai relative flex min-h-dvh w-full max-w-full flex-col overflow-hidden bg-black text-white'
       : 'font-openai relative flex min-h-dvh w-full max-w-full flex-col overflow-hidden bg-white text-[#0d0d0d]'
+    : isWise
+      ? 'font-wise relative flex min-h-dvh w-full max-w-full flex-col overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]'
     : 'font-anthropic relative flex min-h-dvh w-full max-w-full flex-col overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]';
   const mainClassName = 'mx-auto flex min-h-dvh w-full max-w-5xl flex-1 flex-col overflow-hidden px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-[calc(5rem+env(safe-area-inset-top))] sm:px-6';
   const chatAreaClassName = 'relative flex min-h-0 flex-1 overflow-y-auto overflow-x-hidden px-1 py-4 sm:px-5';

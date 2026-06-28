@@ -47,7 +47,7 @@ export interface ModelOption {
 }
 
 export interface ChatModelSelection {
-  interfaceTheme: 'anthropic' | 'openai';
+  interfaceTheme: 'anthropic' | 'openai' | 'wise';
   modelId: string;
   modelName: string;
   effort: string;
@@ -69,8 +69,8 @@ interface ChatInputProps {
   defaultModel?: string;
   onModelChange?: (modelId: string) => void;
   onSelectionChange?: (selection: ChatModelSelection) => void;
-  variant?: 'anthropic' | 'openai';
-  onVariantChange?: (variant: 'anthropic' | 'openai') => void;
+  variant?: 'anthropic' | 'openai' | 'wise';
+  onVariantChange?: (variant: 'anthropic' | 'openai' | 'wise') => void;
   siteTheme?: 'dark' | 'light';
 }
 
@@ -429,7 +429,7 @@ const ModelSelectorDropdown: React.FC<{
   selectedModel: string;
   onModelChange: (modelId: string) => void;
   onSelectionChange?: (selection: ChatModelSelection) => void;
-  variant?: 'anthropic' | 'openai';
+  variant?: 'anthropic' | 'openai' | 'wise';
   siteTheme?: 'dark' | 'light';
   onOpenChange?: (isOpen: boolean) => void;
   onInteractionChange?: (isInteracting: boolean) => void;
@@ -452,6 +452,7 @@ const ModelSelectorDropdown: React.FC<{
   const [openAIEffort, setOpenAIEffort] = useState('Instant');
   const [isOpenAIModelPanelOpen, setIsOpenAIModelPanelOpen] = useState(false);
   const isOpenAI = variant === 'openai';
+  const isWise = variant === 'wise';
   const isSiteDark = siteTheme === 'dark';
   const selectedModelData =
     models.find((model) => model.id === selectedModel) || models[0];
@@ -675,7 +676,7 @@ const ModelSelectorDropdown: React.FC<{
             className={cn(
               'fixed z-[220] flex gap-2',
               menuPlacement === 'above' ? 'items-end' : 'items-start',
-              isOpenAI ? 'font-openai' : 'font-anthropic',
+              isOpenAI ? 'font-openai' : isWise ? 'font-wise' : 'font-anthropic',
             )}
           >
             <div
@@ -1608,7 +1609,7 @@ export const ClaudeChatInput: React.FC<ChatInputProps> = ({
                       }}
                     >
                       {isOpenAI ? (
-                        <AnthropicThemeIcon className="h-4 w-4 shrink-0 text-[#d97745]" />
+                        <AnthropicThemeIcon className="h-4 w-4 shrink-0 text-[hsl(var(--accent-brand)_/_1)]" />
                       ) : (
                         <OpenAIThemeIcon className={cn('h-4 w-4 shrink-0', isSiteDark ? 'text-white' : 'text-black')} />
                       )}

@@ -32,7 +32,7 @@ export default function ChatCategorySelector({ selected, onSelect }: Props) {
           key={cat}
           className={`flex min-h-10 items-center justify-center gap-2 rounded-[14px] px-2 py-2 text-xs font-semibold transition duration-150 sm:text-sm
             ${cat === selected
-              ? 'bg-[#d97745] text-[#21140d] shadow-sm'
+              ? 'bg-[hsl(var(--accent-brand)_/_1)] text-[#21140d] shadow-sm'
               : 'bg-transparent text-[#bdb7ac] hover:bg-white/[0.04] hover:text-[#f5efe7]'
             }
           `}

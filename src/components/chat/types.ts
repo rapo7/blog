@@ -1,5 +1,5 @@
 export type ChatCategory = 'Basic' | 'Work' | 'Skills' | 'Hobbies';
-export type ChatInterfaceTheme = 'anthropic' | 'openai';
+export type ChatInterfaceTheme = 'anthropic' | 'openai' | 'wise';
 
 export interface ChatPrompt {
   id: string;

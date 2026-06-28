@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export type ChatInterfaceTheme = 'anthropic' | 'openai';
+export type ChatInterfaceTheme = 'anthropic' | 'openai' | 'wise';
 
 interface Props {
   interfaceTheme: ChatInterfaceTheme;
@@ -37,7 +37,7 @@ export default function ChatHeader({ interfaceTheme, onInterfaceThemeChange }: P
           className={
             isOpenAI
               ? 'flex h-9 items-center gap-3 rounded-full text-sm font-semibold text-[#f4f4f4] transition hover:text-white focus:outline-none focus:ring-0'
-              : 'flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-[#d7d2c8] shadow-[0_12px_30px_rgb(0_0_0_/_18%)] backdrop-blur transition hover:border-[#d97745]/50 hover:text-[#f3eee5]'
+              : 'flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-[#d7d2c8] shadow-[0_12px_30px_rgb(0_0_0_/_18%)] backdrop-blur transition hover:border-[hsl(var(--accent-brand)_/_0.5)] hover:text-[#f3eee5]'
           }
           aria-label={isOpenAI ? 'Choose chat model' : 'Back to site'}
           title={isOpenAI ? 'Choose chat model' : 'Back to site'}
@@ -100,7 +100,7 @@ export default function ChatHeader({ interfaceTheme, onInterfaceThemeChange }: P
           className={
             isOpenAI
               ? 'rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#ececec] focus:outline-none focus:ring-0'
-              : 'flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-[#d7d2c8] shadow-[0_12px_30px_rgb(0_0_0_/_18%)] backdrop-blur transition hover:border-[#d97745]/50 hover:text-[#f3eee5]'
+              : 'flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-[#d7d2c8] shadow-[0_12px_30px_rgb(0_0_0_/_18%)] backdrop-blur transition hover:border-[hsl(var(--accent-brand)_/_0.5)] hover:text-[#f3eee5]'
           }
           onClick={() => onInterfaceThemeChange(nextTheme)}
           aria-label={`Switch to ${isOpenAI ? 'Anthropic' : 'OpenAI'} theme`}

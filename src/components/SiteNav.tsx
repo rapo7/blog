@@ -24,15 +24,37 @@ import {
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const navItems = [
-  { href: baseUrl || "/", label: "Home", icon: Home, match: "home" },
-  { href: `${baseUrl}/blogs`, label: "Posts", icon: Newspaper, match: "blogs" },
-  { href: `${baseUrl}/#portfolio`, label: "Work", icon: BriefcaseBusiness, match: "work" },
+  {
+    href: baseUrl || "/",
+    label: "Home",
+    ariaLabel: "Go to home page",
+    testId: "site-nav-home",
+    icon: Home,
+    match: "home",
+  },
+  {
+    href: `${baseUrl}/blogs`,
+    label: "Posts",
+    ariaLabel: "Go to blog posts",
+    testId: "site-nav-posts",
+    icon: Newspaper,
+    match: "blogs",
+  },
+  {
+    href: `${baseUrl}/#portfolio`,
+    label: "Work",
+    ariaLabel: "Go to portfolio work section",
+    testId: "site-nav-work",
+    icon: BriefcaseBusiness,
+    match: "work",
+  },
 ];
 
 const themeOptions: Array<{ value: ThemeFamily; label: string; description: string }> = [
   { value: "neo", label: "Neo", description: "Neo Brutalism" },
   { value: "anthropic", label: "Anthropic", description: "Warm, quiet canvas" },
   { value: "openai", label: "OpenAI", description: "Neutral, minimal surfaces" },
+  { value: "wise", label: "Wise", description: "Lime fintech magazine" },
 ];
 
 const modeOptions: Array<{ value: ThemeMode; label: string }> = [
@@ -45,6 +67,7 @@ const themeLabels: Record<ThemeFamily, string> = {
   neo: "Neo",
   anthropic: "Anthropic",
   openai: "OpenAI",
+  wise: "Wise",
 };
 
 const modeLabels: Record<ThemeMode, string> = {
@@ -160,9 +183,11 @@ export default function SiteNav() {
           href={baseUrl || "/"}
           onClick={() => handleNavigate(baseUrl || "/")}
           className="flex h-10 shrink-0 items-center rounded-full px-3 text-base font-black tracking-tight text-default transition-colors hover:bg-offset focus:outline-none focus:ring-2 focus:ring-secondary/70"
-          aria-label="Ravi home"
+          aria-label="Ravi brand link"
+          data-nav-item="brand"
         >
-          Ravi<span className="text-secondary">.</span>
+          <span aria-hidden="true">Ravi</span>
+          <span className="text-secondary" aria-hidden="true">.</span>
         </a>
 
         <div className="flex min-w-0 flex-1 items-center justify-center gap-1">
@@ -180,7 +205,9 @@ export default function SiteNav() {
                 key={item.href}
                 href={item.href}
                 onClick={() => handleNavigate(item.href)}
+                aria-label={item.ariaLabel}
                 aria-current={active ? "page" : undefined}
+                data-nav-item={item.testId}
                 className={`flex h-10 min-w-10 items-center justify-center gap-2 rounded-full px-2.5 text-sm font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-secondary/70 sm:px-4 ${
                   active
                     ? "bg-offset text-default"
@@ -188,7 +215,7 @@ export default function SiteNav() {
                 }`}
               >
                 <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
-                <span className="hidden sm:inline">{item.label}</span>
+                <span className="hidden sm:inline" aria-hidden="true">{item.label}</span>
               </a>
             );
           })}
@@ -266,7 +293,9 @@ export default function SiteNav() {
           <a
             href={`${baseUrl}/chat`}
             onClick={() => handleNavigate(`${baseUrl}/chat`)}
+            aria-label="Open Ravi GPT chat"
             aria-current={isChatActive ? "page" : undefined}
+            data-nav-item="site-nav-chat"
             className={`flex h-10 items-center justify-center gap-2 rounded-full px-4 text-sm font-black transition-colors focus:outline-none focus:ring-2 focus:ring-secondary/70 ${
               isChatActive
                 ? "bg-tertiary text-default"
@@ -274,7 +303,7 @@ export default function SiteNav() {
             }`}
           >
             <MessageCircle className="h-[18px] w-[18px]" aria-hidden="true" />
-            <span>Chat</span>
+            <span aria-hidden="true">Chat</span>
           </a>
         </div>
       </nav>
@@ -293,14 +322,46 @@ function ThemeFamilyIcon({ family }: { family: ThemeFamily }) {
     return <OpenAIThemeLogo className="h-[18px] w-[18px]" color={color} />;
   }
 
+  if (family === "wise") {
+    return <WiseThemeLogo className="h-[18px] w-[18px]" color={color} />;
+  }
+
   return <NeoThemeLogo className="h-[18px] w-[18px]" color={color} />;
 }
 
 const themeLogoColors: Record<ThemeFamily, string> = {
   neo: "#9bdc28",
-  anthropic: "#d97852",
+  anthropic: "hsl(var(--accent-brand) / 1)",
   openai: "#10a37f",
+  wise: "#9fe870",
 };
+
+function WiseThemeLogo({ className, color }: { className: string; color: string }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className} style={{ color }} fill="none" aria-hidden="true">
+      <path
+        d="M10 34h28"
+        stroke="currentColor"
+        strokeWidth="7"
+        strokeLinecap="round"
+      />
+      <path
+        d="m30 20 14 14-14 14"
+        stroke="currentColor"
+        strokeWidth="7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M54 30V18H42"
+        stroke="currentColor"
+        strokeWidth="7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 function AnthropicThemeLogo({ className, color }: { className: string; color: string }) {
   return (
