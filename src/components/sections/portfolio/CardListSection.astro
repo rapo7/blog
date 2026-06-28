@@ -8,7 +8,7 @@ interface Item {
   details?: string;
 }
 
-const { title, items } = Astro.props;
+const { title, items, iconName = "mdi:briefcase-outline" } = Astro.props;
 ---
 
 <section class="h-full rounded-[2rem] border border-default bg-surface p-5 shadow-sm">
@@ -24,6 +24,7 @@ const { title, items } = Astro.props;
           sub_title={item.sub_title}
           years={item.years}
           details={item?.details}
+          iconName={iconName}
         />
       ))}
     </ul>

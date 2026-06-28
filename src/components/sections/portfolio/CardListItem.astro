@@ -1,13 +1,20 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const { title, sub_title, years, details } = Astro.props as {
   title: string;
   sub_title: string;
   years: string;
   details: string[];
+  iconName?: string;
 };
+const { iconName = "mdi:briefcase-outline" } = Astro.props;
 ---
 
 <li class="rounded-[1.35rem] border border-default bg-background p-5 transition-colors hover:bg-surface hover:shadow-[var(--shadow-card)]">
+  <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-default bg-offset text-default">
+    <Icon name={iconName} class="h-5 w-5" />
+  </div>
   <div class="flex flex-col sm:flex-row justify-between items-start">
     <div class="mb-4 sm:mb-0">
       <h3 class="text-2xl font-black leading-tight">{title}</h3>
