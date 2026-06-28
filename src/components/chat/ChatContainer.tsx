@@ -2,7 +2,13 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import ChatInput from './ChatInput';
 import ChatBubble from './ChatBubble';
 import LoadingBubble from './LoadingBubble';
-import { THEME_CHANGE_EVENT, getStoredThemeMode } from '../../scripts/theme';
+import {
+  THEME_CHANGE_EVENT,
+  THEME_FAMILY_CHANGE_EVENT,
+  getStoredThemeFamily,
+  getStoredThemeMode,
+  setStoredThemeFamily,
+} from '../../scripts/theme';
 import type { ChatMessage, ChatInterfaceTheme } from './types';
 
 type ChatSiteTheme = 'light' | 'dark';
@@ -19,7 +25,6 @@ const emptyStatePhrases = [
   'Want a sharper intro to Ravi?',
 ];
 
-const CHAT_INTERFACE_KEY = 'raviChatInterfaceTheme';
 const EMPTY_STATE_PHRASE_SESSION_KEY = 'raviChatEmptyStatePhrase';
 
 function getSessionEmptyStatePhrase() {
@@ -47,6 +52,10 @@ export default function ChatContainer() {
   const scrollFrameRef = useRef<number | null>(null);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const [siteTheme, setSiteTheme] = useState<ChatSiteTheme>('dark');
+  const syncInterfaceTheme = useCallback(() => {
+    const family = getStoredThemeFamily();
+    setInterfaceTheme(family === 'openai' ? 'openai' : 'anthropic');
+  }, []);
 
   const syncSiteTheme = useCallback(() => {
     const resolvedMode = getStoredThemeMode();
@@ -73,15 +82,20 @@ export default function ChatContainer() {
     const handleAppThemeChange = () => {
       handleThemeChange();
     };
+    const handleThemeFamilyChange = () => {
+      syncInterfaceTheme();
+    };
 
     media.addEventListener('change', handleThemeChange);
     window.addEventListener(THEME_CHANGE_EVENT, handleAppThemeChange);
+    window.addEventListener(THEME_FAMILY_CHANGE_EVENT, handleThemeFamilyChange);
 
     return () => {
       media.removeEventListener('change', handleThemeChange);
       window.removeEventListener(THEME_CHANGE_EVENT, handleAppThemeChange);
+      window.removeEventListener(THEME_FAMILY_CHANGE_EVENT, handleThemeFamilyChange);
     };
-  }, [syncSiteTheme]);
+  }, [syncInterfaceTheme, syncSiteTheme]);
 
   const scrollToBottom = useCallback((behavior: ScrollBehavior = 'smooth') => {
     const chatArea = chatAreaRef.current;
@@ -142,15 +156,8 @@ export default function ChatContainer() {
   }, []);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(CHAT_INTERFACE_KEY);
-    if (stored === 'anthropic' || stored === 'openai') {
-      setInterfaceTheme(stored);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem(CHAT_INTERFACE_KEY, interfaceTheme);
-  }, [interfaceTheme]);
+    syncInterfaceTheme();
+  }, [syncInterfaceTheme]);
 
   useEffect(() => {
     setEmptyStatePhrase(getSessionEmptyStatePhrase());
@@ -160,6 +167,10 @@ export default function ChatContainer() {
     shouldStickToBottomRef.current = true;
     scrollToBottom('smooth');
   };
+
+  function handleInterfaceThemeChange(nextTheme: ChatInterfaceTheme) {
+    setStoredThemeFamily(nextTheme);
+  }
 
   function handleSend(message: string) {
     shouldStickToBottomRef.current = true;
@@ -272,7 +283,7 @@ export default function ChatContainer() {
               onSend={handleSend}
               interfaceTheme={interfaceTheme}
               siteTheme={siteTheme}
-              onInterfaceThemeChange={setInterfaceTheme}
+              onInterfaceThemeChange={handleInterfaceThemeChange}
             />
           </div>
         </section>
