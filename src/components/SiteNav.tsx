@@ -30,7 +30,7 @@ const navItems = [
 ];
 
 const themeOptions: Array<{ value: ThemeFamily; label: string; description: string }> = [
-  { value: "neo", label: "Neo", description: "Current portfolio style" },
+  { value: "neo", label: "Neo", description: "Neo Brutalism" },
   { value: "anthropic", label: "Anthropic", description: "Warm, quiet canvas" },
   { value: "openai", label: "OpenAI", description: "Neutral, minimal surfaces" },
 ];

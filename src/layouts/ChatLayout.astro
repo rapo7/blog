@@ -18,7 +18,7 @@ const { title } = Astro.props;
     <script is:inline>
       (() => {
         const modeKey = "themeMode";
-        const familyKey = "themeFamily";
+        const familySessionKey = "themeFamilySession";
         const stored = localStorage.getItem(modeKey);
         const legacy = localStorage.getItem("theme");
         const mode =
@@ -27,11 +27,23 @@ const { title } = Astro.props;
             : legacy === "light" || legacy === "dark"
               ? legacy
               : "system";
-        const storedFamily = localStorage.getItem(familyKey);
-        const family =
-          storedFamily === "anthropic" || storedFamily === "openai" || storedFamily === "neo"
-            ? storedFamily
-            : "neo";
+        const sessionFamily = sessionStorage.getItem(familySessionKey);
+        let family =
+          sessionFamily === "anthropic" || sessionFamily === "openai" || sessionFamily === "neo"
+            ? sessionFamily
+            : null;
+        if (!family) {
+          const families = ["neo", "anthropic", "openai"];
+          const index = typeof crypto !== "undefined" && "getRandomValues" in crypto
+            ? (() => {
+                const values = new Uint32Array(1);
+                crypto.getRandomValues(values);
+                return values[0] % families.length;
+              })()
+            : Math.floor(Math.random() * families.length);
+          family = families[index] || "neo";
+          sessionStorage.setItem(familySessionKey, family);
+        }
         const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light";

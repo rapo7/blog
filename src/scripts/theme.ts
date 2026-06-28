@@ -3,6 +3,7 @@ export type ThemeFamily = "neo" | "anthropic" | "openai";
 
 export const THEME_MODE_KEY = "themeMode";
 export const THEME_FAMILY_KEY = "themeFamily";
+export const THEME_FAMILY_SESSION_KEY = "themeFamilySession";
 export const THEME_CHANGE_EVENT = "theme-mode-change";
 export const THEME_FAMILY_CHANGE_EVENT = "theme-family-change";
 
@@ -12,6 +13,18 @@ export function isThemeMode(value: string | null): value is ThemeMode {
 
 export function isThemeFamily(value: string | null): value is ThemeFamily {
   return value === "neo" || value === "anthropic" || value === "openai";
+}
+
+export function pickRandomThemeFamily(): ThemeFamily {
+  const families: ThemeFamily[] = ["neo", "anthropic", "openai"];
+
+  if (typeof crypto !== "undefined" && "getRandomValues" in crypto) {
+    const values = new Uint32Array(1);
+    crypto.getRandomValues(values);
+    return families[values[0] % families.length] ?? "neo";
+  }
+
+  return families[Math.floor(Math.random() * families.length)] ?? "neo";
 }
 
 export function getStoredThemeMode(): ThemeMode {
@@ -35,8 +48,14 @@ export function getStoredThemeFamily(): ThemeFamily {
     return "neo";
   }
 
-  const storedFamily = window.localStorage.getItem(THEME_FAMILY_KEY);
-  return isThemeFamily(storedFamily) ? storedFamily : "neo";
+  const sessionFamily = window.sessionStorage.getItem(THEME_FAMILY_SESSION_KEY);
+  if (isThemeFamily(sessionFamily)) {
+    return sessionFamily;
+  }
+
+  const nextFamily = pickRandomThemeFamily();
+  window.sessionStorage.setItem(THEME_FAMILY_SESSION_KEY, nextFamily);
+  return nextFamily;
 }
 
 export function resolveThemeMode(mode: ThemeMode): "light" | "dark" {
@@ -77,6 +96,7 @@ export function setStoredThemeFamily(family: ThemeFamily) {
   }
 
   window.localStorage.setItem(THEME_FAMILY_KEY, family);
+  window.sessionStorage.setItem(THEME_FAMILY_SESSION_KEY, family);
   applyThemeMode(getStoredThemeMode(), family);
   window.dispatchEvent(new CustomEvent(THEME_FAMILY_CHANGE_EVENT, { detail: family }));
 }
