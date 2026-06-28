@@ -2,6 +2,22 @@
 @import "tailwindcss";
 @import "theme.css";
 
+@font-face {
+    font-family: "Geist";
+    src: url("../assets/fonts/geist-latin.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400 800;
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("../assets/fonts/montserrat-latin.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400 800;
+}
+
 * {
     box-sizing: border-box;
 }
