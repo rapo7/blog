@@ -34,3 +34,77 @@ a {
     background: var(--color-primary);
     color: var(--color-text);
 }
+
+[data-theme-family="anthropic"] .font-black {
+    font-weight: 650;
+}
+
+[data-theme-family="anthropic"] .font-bold {
+    font-weight: 550;
+}
+
+[data-theme-family="anthropic"] .uppercase {
+    text-transform: none;
+}
+
+[data-theme-family="anthropic"] .tracking-tight,
+[data-theme-family="anthropic"] .tracking-wide,
+[data-theme-family="anthropic"] .tracking-\[0\.16em\] {
+    letter-spacing: 0;
+}
+
+[data-theme-family="anthropic"] .border-2 {
+    border-width: 1px;
+}
+
+[data-theme-family="anthropic"] .rounded-\[2rem\],
+[data-theme-family="anthropic"] .rounded-\[24px\],
+[data-theme-family="anthropic"] .sm\:rounded-\[32px\] {
+    border-radius: 16px;
+}
+
+[data-theme-family="anthropic"] .shadow-\[var\(--shadow-lift\)\],
+[data-theme-family="anthropic"] .shadow-\[var\(--shadow-card\)\] {
+    box-shadow: var(--shadow-card);
+}
+
+[data-theme-family="anthropic"] #hero .absolute.rounded-full.bg-secondary,
+[data-theme-family="anthropic"] #hero .absolute.rounded-full.bg-tertiary {
+    display: none;
+}
+
+[data-theme-family="anthropic"] #hero h1,
+[data-theme-family="anthropic"] .prose h1,
+[data-theme-family="anthropic"] .prose h2,
+[data-theme-family="anthropic"] .prose h3 {
+    font-family: Cormorant Garamond, EB Garamond, Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+}
+
+[data-theme-family="anthropic"] a.bg-primary,
+[data-theme-family="anthropic"] button.bg-primary {
+    color: #ffffff;
+}
+
+[data-theme-family="neo"] a.bg-primary,
+[data-theme-family="neo"] button.bg-primary,
+[data-theme-family="neo"] a.bg-tertiary,
+[data-theme-family="neo"] button.bg-tertiary {
+    color: #010920;
+}
+
+[data-theme-family="openai"][data-theme="dark"] a.bg-primary,
+[data-theme-family="openai"][data-theme="dark"] button.bg-primary {
+    color: #000000;
+}
+
+[data-theme-family="openai"][data-theme="light"] a.bg-primary,
+[data-theme-family="openai"][data-theme="light"] button.bg-primary {
+    color: #ffffff;
+}
+
+[data-theme-family="openai"][data-theme="dark"] a.bg-tertiary,
+[data-theme-family="openai"][data-theme="dark"] button.bg-tertiary {
+    color: #f4f4f4;
+}
