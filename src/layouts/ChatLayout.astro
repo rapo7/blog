@@ -18,6 +18,7 @@ const { title } = Astro.props;
     <script is:inline>
       (() => {
         const modeKey = "themeMode";
+        const familyKey = "themeFamily";
         const familySessionKey = "themeFamilySession";
         const stored = localStorage.getItem(modeKey);
         const legacy = localStorage.getItem("theme");
@@ -27,21 +28,26 @@ const { title } = Astro.props;
             : legacy === "light" || legacy === "dark"
               ? legacy
               : "system";
-        const families = ["neo", "anthropic", "openai", "wise"];
+        const families = ["neo", "anthropic", "openai", "wise", "jake"];
+        const storedFamily = localStorage.getItem(familyKey);
         const sessionFamily = sessionStorage.getItem(familySessionKey);
         const shouldRandomize =
-          !families.includes(sessionFamily) ||
-          performance.getEntriesByType("navigation")[0]?.type === "reload";
-        const index = shouldRandomize
-          ? typeof crypto !== "undefined" && "getRandomValues" in crypto
-            ? (() => {
-                const values = new Uint32Array(1);
-                crypto.getRandomValues(values);
-                return values[0] % families.length;
-              })()
-            : Math.floor(Math.random() * families.length)
-          : -1;
-        const family = shouldRandomize ? families[index] || "neo" : sessionFamily;
+          !families.includes(storedFamily) &&
+          (!families.includes(sessionFamily) ||
+            performance.getEntriesByType("navigation")[0]?.type === "reload");
+        const randomIndex = shouldRandomize && typeof crypto !== "undefined" && "getRandomValues" in crypto
+          ? (() => {
+              const values = new Uint32Array(1);
+              crypto.getRandomValues(values);
+              return values[0] % families.length;
+            })()
+          : Math.floor(Math.random() * families.length);
+        const family =
+          families.includes(storedFamily)
+            ? storedFamily
+            : shouldRandomize
+              ? families[randomIndex] || "neo"
+              : sessionFamily;
         sessionStorage.setItem(familySessionKey, family);
         const getSystemTheme = () =>
           window.matchMedia("(prefers-color-scheme: dark)").matches

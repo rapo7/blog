@@ -1,12 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BentoHome from '../components/sections/BentoHome.astro';
 import Hero from '../components/sections/Hero.astro';
 import Resume from '../components/sections/Resume.astro';
 import Portfolio from '../components/sections/portfolio/Portfolio.astro';
 ---
 
 <Layout title="Ravi teja Rapolu"  ;>
-	<Hero />
-	<Resume />
-	<Portfolio />
+	<BentoHome />
+	<div class="standard-home">
+		<Hero />
+		<Resume />
+		<Portfolio />
+	</div>
 </Layout>

@@ -55,6 +55,7 @@ const themeOptions: Array<{ value: ThemeFamily; label: string; description: stri
   { value: "anthropic", label: "Anthropic", description: "Warm, quiet canvas" },
   { value: "openai", label: "OpenAI", description: "Neutral, minimal surfaces" },
   { value: "wise", label: "Wise", description: "Lime fintech magazine" },
+  { value: "jake", label: "Bento", description: "Dark compact portfolio" },
 ];
 
 const modeOptions: Array<{ value: ThemeMode; label: string }> = [
@@ -68,6 +69,7 @@ const themeLabels: Record<ThemeFamily, string> = {
   anthropic: "Anthropic",
   openai: "OpenAI",
   wise: "Wise",
+  jake: "Bento",
 };
 
 const modeLabels: Record<ThemeMode, string> = {
@@ -326,6 +328,10 @@ function ThemeFamilyIcon({ family }: { family: ThemeFamily }) {
     return <WiseThemeLogo className="h-[18px] w-[18px]" color={color} />;
   }
 
+  if (family === "jake") {
+    return <BentoThemeLogo className="h-[18px] w-[18px]" color={color} />;
+  }
+
   return <NeoThemeLogo className="h-[18px] w-[18px]" color={color} />;
 }
 
@@ -334,6 +340,7 @@ const themeLogoColors: Record<ThemeFamily, string> = {
   anthropic: "hsl(var(--accent-brand) / 1)",
   openai: "#10a37f",
   wise: "#9fe870",
+  jake: "#f5e663",
 };
 
 function WiseThemeLogo({ className, color }: { className: string; color: string }) {
@@ -416,6 +423,17 @@ function NeoThemeLogo({ className, color }: { className: string; color: string }
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+function BentoThemeLogo({ className, color }: { className: string; color: string }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className} style={{ color }} fill="none" aria-hidden="true">
+      <rect x="10" y="10" width="25" height="18" rx="6" stroke="currentColor" strokeWidth="5" />
+      <rect x="41" y="10" width="13" height="18" rx="5" fill="currentColor" />
+      <rect x="10" y="36" width="15" height="18" rx="5" fill="currentColor" />
+      <rect x="31" y="36" width="23" height="18" rx="6" stroke="currentColor" strokeWidth="5" />
     </svg>
   );
 }

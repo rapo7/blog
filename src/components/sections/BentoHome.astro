@@ -1,0 +1,329 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import heroImage from "../../assets/ravi.png";
+import { projects, socialLinks } from "../../config/cv.json";
+
+const github = socialLinks.find((link) => link.label === "GitHub");
+const linkedin = socialLinks.find((link) => link.label === "Linkedin");
+const mail = socialLinks.find((link) => link.label === "Mail");
+const services = ["Branding", "Automation", "Cloud", "Backend", "Frontend", "RAG", "DevOps"];
+const tools = [
+  { label: "Py", color: "#3776ab" },
+  { label: "JS", color: "#f7df1e" },
+  { label: "AWS", color: "#ff9900" },
+  { label: "GCP", color: "#4285f4" },
+  { label: "AI", color: "#f5e663" },
+];
+const projectTones = [
+  { base: "#f5e663", glow: "#b9ff58", dark: "#171714" },
+  { base: "#64d2ff", glow: "#3156ff", dark: "#111927" },
+  { base: "#ff8f70", glow: "#ffcc66", dark: "#251514" },
+  { base: "#c3a5ff", glow: "#f062ff", dark: "#1d1628" },
+  { base: "#84ffa6", glow: "#2dd4bf", dark: "#102018" },
+];
+const knownCodeLinks: Record<string, string> = {
+  Blog: "https://github.com/rapo7/blog",
+  GWQR: "https://github.com/rapo7/GWQR",
+};
+const works = projects.map((project, index) => {
+  const tone = projectTones[index % projectTones.length] ?? projectTones[0];
+  const isGithubLink = project.link.includes("github.com");
+  const codeLink = knownCodeLinks[project.title] ?? (isGithubLink ? project.link : undefined);
+
+  return {
+    ...project,
+    codeLink,
+    openLink: project.link,
+    tone,
+    index,
+  };
+});
+const featuredWorks = works.slice(0, 3);
+---
+
+<section class="jake-bento-home" aria-label="Ravi bento portfolio" data-project-state="home">
+  <main class="jake-bento-grid" data-bento-grid>
+    <article class="jake-card jake-intro jake-pop" style="--i: 0;">
+      <div>
+        <h1>Hey, I&apos;m Ravi Teja</h1>
+        <p>Software Engineer</p>
+      </div>
+    </article>
+
+    <button
+      class="jake-card jake-avatar-card jake-pop"
+      type="button"
+      aria-label="Show Ravi avatar alternate"
+      data-avatar-toggle
+      style="--i: 1;"
+    >
+      <span class="jake-avatar-flipper" aria-hidden="true">
+        <span class="jake-avatar-face jake-avatar-front">
+          <Image
+            src={heroImage}
+            alt=""
+            class="jake-avatar"
+            loading="eager"
+          />
+        </span>
+        <span class="jake-avatar-face jake-avatar-back">
+          <Image
+            src={heroImage}
+            alt=""
+            class="jake-avatar"
+            loading="eager"
+          />
+          <span class="jake-avatar-phone">
+            <Icon name="mdi:phone-outline" />
+          </span>
+        </span>
+      </span>
+    </button>
+
+    <a class="jake-card jake-icon-card jake-github-tile jake-pop" style="--i: 2;" href={github?.link ?? "#"} target="_blank" rel="noreferrer" aria-label="Visit Ravi on GitHub">
+      <Icon name="logos:github-octocat" class="jake-brand-icon jake-github" />
+    </a>
+
+    <a class="jake-card jake-icon-card jake-linkedin-tile jake-pop" style="--i: 3;" href={linkedin?.link ?? "#"} target="_blank" rel="noreferrer" aria-label="Visit Ravi on LinkedIn">
+      <Icon name="logos:linkedin-icon" class="jake-brand-icon" />
+    </a>
+
+    <a class="jake-card jake-icon-card jake-location-tile jake-pop" style="--i: 4;" href="https://www.google.com/maps/place/Washington,+DC" target="_blank" rel="noreferrer" aria-label="View Ravi's location">
+      <Icon name="mdi:map-marker-outline" class="jake-line-icon" />
+    </a>
+
+    <a class="jake-card jake-icon-card jake-mail-tile jake-pop" style="--i: 5;" href={mail?.link ?? "mailto:ravi.t.rapolu@gmail.com"} aria-label="Email Ravi">
+      <Icon name="mdi:email-outline" class="jake-line-icon" />
+    </a>
+
+    <a class="jake-card jake-icon-card jake-chat-tile jake-pop" style="--i: 6;" href={`${import.meta.env.BASE_URL}/chat`} aria-label="Ask Ravi">
+      <Icon name="mdi:message-text-outline" class="jake-line-icon" />
+    </a>
+
+    <article class="jake-card jake-projects jake-pop" style="--i: 7;">
+      <div class="jake-card-title">
+        <span>Projects</span>
+        <button
+          class="jake-arrow"
+          type="button"
+          aria-label="View all projects"
+          aria-controls="jake-project-view"
+          aria-expanded="false"
+          data-projects-open
+        >
+          <Icon name="mdi:arrow-top-right" />
+        </button>
+      </div>
+      <div class="jake-thumb-stage" aria-hidden="true">
+        {
+          featuredWorks.map((project, index) => (
+            <div
+              class={`jake-thumb jake-thumb-${index + 1}`}
+              style={`--tone:${project.tone.base}; --glow:${project.tone.glow}; --dark:${project.tone.dark};`}
+            >
+              <span>{project.title}</span>
+            </div>
+          ))
+        }
+      </div>
+    </article>
+
+    <article class="jake-card jake-services jake-pop" style="--i: 8;">
+      <span>Services</span>
+      <div class="jake-service-cloud" aria-label="Services">
+        {
+          services.map((service) => (
+            <p>{service}</p>
+          ))
+        }
+      </div>
+    </article>
+
+    <article class="jake-card jake-tools jake-pop" style="--i: 9;">
+      <span>Tools I use</span>
+      <div class="jake-tool-grid" aria-label="Tools Ravi uses">
+        {
+          tools.map((tool) => (
+            <div class="jake-tool" style={`--tool:${tool.color};`}>
+              {tool.label}
+            </div>
+          ))
+        }
+      </div>
+    </article>
+
+    <article class="jake-card jake-contact jake-pop" style="--i: 10;">
+      <div>
+        <h2>Let&apos;s collab!</h2>
+        <p>Let&apos;s turn your idea into reality with Ravi&apos;s engineering experience!</p>
+      </div>
+      <a href={mail?.link ?? "mailto:ravi.t.rapolu@gmail.com"} class="jake-button">Contact me</a>
+    </article>
+  </main>
+
+  <section class="jake-project-view-shell" id="jake-project-view" aria-label="Recent works" hidden data-project-view>
+    <div class="jake-project-view-head">
+      <h2>Recent Works</h2>
+      <button class="jake-close-projects" type="button" aria-label="Close project view" data-projects-close>
+        <Icon name="mdi:close" />
+      </button>
+    </div>
+
+    <div class="jake-work-grid">
+      {
+        works.map((project, index) => (
+          <article
+            class={`jake-work-card jake-work-${index + 1}`}
+            style={`--tone:${project.tone.base}; --glow:${project.tone.glow}; --dark:${project.tone.dark}; --i:${index};`}
+            role="button"
+            tabindex="0"
+            aria-pressed={index === 0 ? "true" : "false"}
+            data-project-card
+            data-selected={index === 0 ? "true" : "false"}
+          >
+            <div class="jake-work-art" aria-hidden="true">
+              <span class="jake-work-browser">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="jake-work-title">{project.title}</span>
+              <span class="jake-work-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="jake-work-bars">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+            <div class="jake-work-meta">
+              <span>{project.type}</span>
+              <strong>{project.title}</strong>
+              <small>{project.techStack.slice(0, 3).join(" / ")}</small>
+            </div>
+            <div class="jake-work-actions" aria-label={`${project.title} links`}>
+              {
+                project.openLink !== project.codeLink && (
+                  <a href={project.openLink} target="_blank" rel="noreferrer" aria-label={`Open ${project.title}`}>
+                    Open
+                  </a>
+                )
+              }
+              {
+                project.codeLink && (
+                  <a href={project.codeLink} target="_blank" rel="noreferrer" aria-label={`View ${project.title} code`}>
+                    Code
+                  </a>
+                )
+              }
+              {
+                !project.codeLink && project.openLink === project.codeLink && (
+                  <a href={project.openLink} target="_blank" rel="noreferrer" aria-label={`Open ${project.title}`}>
+                    Open
+                  </a>
+                )
+              }
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</section>
+
+<script>
+  function initBentoHome(root: HTMLElement) {
+    if (root.dataset.bentoReady === "true") {
+      return;
+    }
+
+    root.dataset.bentoReady = "true";
+
+    const avatarToggle = root.querySelector<HTMLButtonElement>("[data-avatar-toggle]");
+    const projectOpen = root.querySelector<HTMLButtonElement>("[data-projects-open]");
+    const projectClose = root.querySelector<HTMLButtonElement>("[data-projects-close]");
+    const projectView = root.querySelector<HTMLElement>("[data-project-view]");
+    const projectCards = Array.from(root.querySelectorAll<HTMLElement>("[data-project-card]"));
+    let closeTimer: number | undefined;
+
+    avatarToggle?.addEventListener("click", () => {
+      const isAlt = root.classList.toggle("is-avatar-alt");
+      avatarToggle.setAttribute(
+        "aria-label",
+        isAlt ? "Show Ravi avatar default" : "Show Ravi avatar alternate",
+      );
+    });
+
+    function selectProject(card: HTMLElement) {
+      projectCards.forEach((item) => {
+        const selected = item === card;
+        item.dataset.selected = selected ? "true" : "false";
+        item.setAttribute("aria-pressed", String(selected));
+      });
+    }
+
+    projectCards.forEach((card) => {
+      card.addEventListener("click", (event) => {
+        if ((event.target as HTMLElement).closest("a")) {
+          return;
+        }
+
+        selectProject(card);
+      });
+
+      card.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") {
+          return;
+        }
+
+        event.preventDefault();
+        selectProject(card);
+      });
+    });
+
+    function setProjectView(open: boolean) {
+      if (!projectView || !projectOpen || !projectClose) {
+        return;
+      }
+
+      window.clearTimeout(closeTimer);
+      projectOpen.setAttribute("aria-expanded", String(open));
+      root.dataset.projectState = open ? "projects" : "home";
+
+      if (open) {
+        projectView.hidden = false;
+        requestAnimationFrame(() => {
+          root.classList.add("is-project-view-open");
+          projectClose.focus();
+        });
+        return;
+      }
+
+      root.classList.remove("is-project-view-open");
+      closeTimer = window.setTimeout(() => {
+        projectView.hidden = true;
+        projectOpen.focus();
+      }, 240);
+    }
+
+    projectOpen?.addEventListener("click", () => setProjectView(true));
+    projectClose?.addEventListener("click", () => setProjectView(false));
+
+    root.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && root.classList.contains("is-project-view-open")) {
+        setProjectView(false);
+      }
+    });
+  }
+
+  function initAllBentoHomes() {
+    document.querySelectorAll<HTMLElement>(".jake-bento-home").forEach(initBentoHome);
+  }
+
+  initAllBentoHomes();
+  document.addEventListener("astro:page-load", initAllBentoHomes);
+</script>
