@@ -157,3 +157,20 @@
     --shadow-lift: 0 20px 44px rgb(0 0 0 / 34%);
     --shadow-card: 0 12px 28px rgb(0 0 0 / 30%);
 }
+[data-theme-family="jake"][data-theme="light"],
+[data-theme-family="jake"][data-theme="dark"] {
+    --color-primary: #f5e663;
+    --color-secondary: #d8d8d8;
+    --color-tertiary: #8fd29b;
+    --color-text: #ffffff;
+    --color-text-offset: #a7a7a7;
+    --color-background: #181818;
+    --color-background-offset: #1e1e1e;
+    --color-surface: #202020;
+    --color-border: #353535;
+    --font-body: Inter, Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --shadow-nav: 0 22px 70px rgb(0 0 0 / 38%);
+    --shadow-menu: 0 28px 90px rgb(0 0 0 / 46%);
+    --shadow-lift: 0 22px 70px rgb(0 0 0 / 34%);
+    --shadow-card: 0 18px 48px rgb(0 0 0 / 28%);
+}
